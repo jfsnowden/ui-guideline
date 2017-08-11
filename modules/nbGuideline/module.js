@@ -59,6 +59,13 @@
                 controllerAs: 'ctrl'
             })
 
+            .state('home.icons', {
+                url: '/components/icons',
+                templateUrl: 'modules/nbGuideline/views/components/icons.html',
+                controller: 'nb.guideline.iconCtrl',
+                controllerAs: 'ctrl'
+            })
+
     });
 
     GuidelineApp.run(function(){

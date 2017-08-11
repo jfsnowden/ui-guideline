@@ -6,6 +6,7 @@ document.write('<script src="modules/nbGuideline/controllers/changeCtrl.js"></sc
 document.write('<script src="modules/nbGuideline/controllers/practiceCtrl.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/colorCtrl.js"></script>');
 
+document.write('<script src="modules/nbGuideline/controllers/components/iconCtrl.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/components/buttonCtrl.js"></script>');
 
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/global.less">');
