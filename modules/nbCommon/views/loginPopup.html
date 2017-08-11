@@ -1,0 +1,23 @@
+﻿<div class="login-form-main">
+    <div class="modal-header" modal-title="Notification" modal-close="onCancel">
+
+        <div class="icon-container" ng-click="modalClose()">
+            <span class="icon close" style="top:0; left:0px;"></span>
+        </div>
+
+        <h3 class="modal-title ng-binding">Re-login: {{::userName}}</h3>
+    </div>
+
+    <div class="login-header-main login-error" ng-if="!form.$error.serverMessage">{{::title}}</div>
+    <span class="login-normal ng-cloak login-header-main" ng-if="form.$error.serverMessage" ng-class="{'login-error':form.$error.serverMessage}" ng-cloak ng-show="form.$error.serverMessage">{{form.$error.serverMessage}}</span>
+
+    <div class="modal-body">
+        <div class="login-group-main">
+            <input class="login-control" placeholder="Password" type="password" ng-keypress="enterToSubmit($event)" ng-model="form.password" required oninvalid="this.setCustomValidity('This is a required field.')" autofocus oninput="this.setCustomValidity('')" />
+            <icon class="icon icon_nb_lock"></icon>
+        </div>
+        <div class="login-group-main">
+            <button type="submit" class="login-btn-main" ng-click="submitForm()">Log In</button>
+        </div>
+    </div>
+</div>

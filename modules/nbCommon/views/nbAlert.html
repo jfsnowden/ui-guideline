@@ -1,0 +1,35 @@
+<div ng-class="iconType" atag="alert:container">
+    <div class="modal-header message-header">
+        <div class="icon-container" ng-click="closeDialog(cancel_button.id)">
+            <span class="close icon"></span>
+        </div>
+        <h3 atag="alert:title" class="modal-title">{{::title}}</h3>
+    </div>
+
+    <div class="message-body nbAlertVerticalScroll">
+        <div atag="alert:icon" ng-switch="iconType" class="pull-left message-icon">
+            <span ng-switch-when="ERROR" class="icon_nb_error_32"></span>
+            <span ng-switch-when="INFO" class="icon_nb_info_32"></span>
+            <span ng-switch-when="WARNING" class="icon_nb_warning_32"></span>
+            <span ng-switch-when="QUESTION" class="icon_nb_question_32"></span>
+        </div>
+        <div class="message-text nbAlertCancelHidingOverflow">
+            <div atag="alert:message" class="message-title" data-ng-bind-html="message" ng-show="!showText"></div>
+            <div atag="alert:message" class="message-title" ng-bind="message" ng-show="showText"></div>
+        </div>
+
+        <div ng-if="check_button" class="check-button" atag="alert:checkBtn">
+            <label ng-init="check_button.result=false"
+                   ng-class="{true:'icon_nb_checkbox_checked', false: 'icon_nb_checkbox'}[check_button.result]"
+                   ng-click="check_button.result = !check_button.result"></label>
+            <span class="check-text">{{ check_button.label }}</span>
+        </div>
+    </div>
+
+    <div class="message-footer">
+        <button ng-if="cancel_button" id="btn_discardDialogBtn" atag="alert:cancelBtn" title="{{cancel_button.label}}" data-ng-click="closeDialog(cancel_button.id);" class="btn btn-link">{{cancel_button.label}}</button>
+        <button ng-if="no_button" id="btn_noDialogBtn" atag="alert:noBtn" title="{{no_button.label}}" data-ng-click="closeDialog(no_button.id);" class="btn btn-primary">{{no_button.label}}</button>
+        <button ng-if="yes_button" id="btn_yesDialogBtn" atag="alert:yesBtn" title="{{yes_button.label}}" data-ng-click="closeDialog(yes_button.id);" class="btn btn-primary">{{yes_button.label}}</button>
+        <button ng-if="ok_button" id="btn_okDialogBtn" atag="alert:okBtn" title="{{ok_button.label}}" data-ng-click="closeDialog(ok_button.id);" class="btn btn-primary">{{ok_button.label}}</button>
+    </div>
+</div>

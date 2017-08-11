@@ -1,0 +1,51 @@
+.nb-timepicker {
+    display: inline-block;
+
+    .dropdown {
+        display: block;
+        float: left;
+
+        .btn.dropdown-toggle {
+            box-shadow: none;
+            padding: .5em;
+            min-width: 0;
+            height: 30px;
+            background: #fff;
+            border: 1px solid #c8c8c8;
+            font-size: 12px;
+            /*color: #999;*/
+            &.opened {
+                border-color: #1b7cb4;
+            }
+
+            &.changed {
+                color: #000;
+            }
+        }
+    }
+
+    .divider {
+        display: block;
+        float: left;
+        width: 12px;
+        height: 30px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+
+        &:before {
+            content: ':';
+        }
+    }
+
+    .caret {
+        margin-left: 6px;
+        color: #000;
+    }
+}
+
+ul.dropdown-menu.nb-timepicker-menu {
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 9999;
+}

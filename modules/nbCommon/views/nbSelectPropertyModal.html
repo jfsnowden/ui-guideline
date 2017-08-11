@@ -1,0 +1,74 @@
+<div class="modal-header">
+    <h2 ng-if="!isDataUnitFromQapp" class="modal-title">Select Built-in Data</h2>
+    <h2 ng-if="isDataUnitFromQapp" class="modal-title">Select Variable from Qapp</h2>
+</div>
+
+<div class="modal-body">
+
+    <h6 ng-if="!isDataUnitFromQapp">Select a {{isDeviceProperty?'device':'interface'}} property</h6>
+    <h6 ng-if="isDataUnitFromQapp">Set variables from Qapp output</h6>
+
+    <div class="top-bar">
+        <nb-select ng-if="!isDataUnitFromQapp"
+                   class="property-filter-selector"
+                   ng-model="displayPropertyCategory"
+                   options="propertyCategories"
+                   label-field="name"
+                   value-field="id"
+                   change="onSelectPropertyCategory">
+        </nb-select>
+
+        <div style="float:right; width:50%"><input ng-class="{'full-width' : isDataUnitFromQapp}"  style="width:100%; padding-right:30px;" ng-model="filterTarget.searchText" placeholder="Search..." ng-keyup="$event.keyCode == 13 ? onFilterFired() : null">
+        <i class="icon_nb_search" style="margin-top:-52px;margin-left:90%"></i>
+        </div>
+    </div>
+
+    <div class="properties-list" ng-if="!isDataUnitFromQapp">
+        <nb-list-menu-directive ng-if="isDataReady && !isTreeViewNeeded()"
+                                class="list-menu" select-mode="'single'" filter-text="filterTarget.filterText" selected-items="lsSelectedProperty">
+            <nb-list-menu-option is-disabled="property.hasChildren" ng-hide="property.isChild && !property.expanded"
+                                 ng-repeat="property in lsProperties" option-item="property"
+                                 is-active="property.isSelected">
+                <div class="icon_nb_note icon-color" ng-if="property.isSchema && !property.isSchemaTable"></div>
+                <div class="table_icon icon-color" ng-if="property.isSchema && property.isSchemaTable"></div>
+                <span ng-if="property.isChild" style="width: 20px; height: 1px; white-space: pre;">     </span>
+                <span ng-if="property.hasChildren" ng-show="!property.expanded" class="icon_nb_tree_expand" style="margin-left: -20px;" ng-click="toggleExpansionByTableType(property.dataType)"></span>
+                <span ng-if="property.hasChildren" ng-show="property.expanded" class="icon_nb_tree_collapse" style="margin-left: -20px;" ng-click="toggleExpansionByTableType(property.dataType)"></span>
+                <span class="table_icon icon-color" ng-if="property.isTable"></span>
+                <span class="config_icon icon-color" ng-if="property.isConfigFile"></span>
+
+
+                <span ng-class="{'has-icon' : property.isTable || property.isConfigFile, 'has-no-icon' : !property.isTable && !property.isConfigFile}"
+                      ng-bind-html="property.displayName | nbHighlight:filterTarget.searchText"></span>
+            </nb-list-menu-option>
+        </nb-list-menu-directive>
+
+        <nb-interface-property-tree-directive
+                class="interface-property-tree"
+                ng-if="isDataReady && isTreeViewNeeded()"
+                intf-type="intfSchemaId"
+                is-multi-select="false"
+                is-only-leaf-selectable="true"
+                is-display-in-dataview="true"
+                selected-nodes="lsSelectedProperty"
+                filter-text="filterTarget.filterText"
+                pre-selected-intf-schema-ids="lsPreSelectIntfSchemaIds">
+        </nb-interface-property-tree-directive>
+    </div>
+
+    <div class="properties-list" ng-if="isDataUnitFromQapp">
+        <nb-list-menu-directive class="list-menu" select-mode="'single'" filter-text="filterTarget.filterText" selected-items="lsSelectedProperty">
+            <nb-list-menu-option ng-repeat="property in lsDataUnitFromQapp" option-item="property" is-active="property.isSelected">
+                <span class="table_icon" ng-if="property.valueType == DataUnitType.uTable || property.valueType == DataUnitType.uList_object_subtype"></span>
+                <span class="icon_nb_parser_variable" style="height: 14px; width:14px;" ng-if="property.valueType != DataUnitType.uTable && property.valueType != DataUnitType.uList_object_subtype" ></span>
+                <span ng-bind-html="(property.displayName != '' ? property.displayName : property.name) | nbHighlight: filterTarget.searchText"></span>
+            </nb-list-menu-option>
+        </nb-list-menu-directive>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="onCancel()">Cancel</button>
+    <button ng-disabled="isSelectionNeeded()" class="btn btn-primary" ng-click="onOK()">OK</button>
+</div>

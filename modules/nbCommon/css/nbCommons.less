@@ -1,0 +1,797 @@
+
+@import '../../../css/less/vars.less';
+
+.nb-search-bar {
+    .paddingRight {
+        padding-right: 20px;
+    }
+}
+
+.ngHeaderCell {
+    background-color: @gray-darker;
+    color: white;
+}
+
+.ngHeaderCell :hover {
+    background-color: @gray-dark;
+}
+
+property-filter-input .ngRow {
+    border-bottom: 1px solid @gray;
+}
+
+.ngViewport {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.ngRow.odd.selected {
+    background-color: @brand-primary;
+    color: white;
+}
+
+.ngRow.even.selected {
+    background-color: @brand-primary;
+    color: white;
+}
+
+.ngRow.even.selected:hover {
+    background-color: @brand-primary;
+    color: white;
+}
+
+.ngRow.odd.selected:hover {
+    background-color: @brand-primary;
+    color: white;
+}
+
+.ngRow.odd {
+    background-color: transparent;
+}
+
+.ngRow.even {
+    background-color: transparent;
+}
+
+.ngRow.even:hover {
+    background-color: @brand-primary-lt8;
+    color: @gray-base;
+}
+
+.ngRow.odd:hover {
+    background-color: @brand-primary-lt8;
+    color: @gray-base;
+}
+
+.ngGridCellStyle {
+    white-space: normal !important;
+    text-overflow: ellipsis;
+}
+
+.ngCell {
+    padding-left: 5px;
+
+    .btn {
+        padding: 2px;
+        margin-top: 5px;
+    }
+}
+
+.grid-align {
+    text-align: left;
+}
+
+.nbTableCellWithMenuCell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 28px;
+    width: ~'calc(100% - 18px)';
+}
+
+.nbTableCellDropdownMenuContainer {
+    position: absolute;
+    right: 5px;
+    top: 4px;
+
+    .nbTableCellDropdownMenu {
+        background: white;
+        border: 1px solid black;
+        margin-left: 2px;
+        position: fixed;
+        z-index: 2000;
+
+        .menuItem {
+            border-color: #999999;
+            color: black;
+            padding: .2em;
+            font-weight: normal;
+            background-color: white;
+            width: 120px;
+            line-height: 28px;
+        }
+
+        .menuItem:hover {
+            background-color: @brand-primary-lt8;
+            border: 1px solid @brand-primary-lt4;
+        }
+    }
+}
+
+
+// Specifically for the instance in Browse -- may need to be replaced with the directive later
+.folderListContainer {
+
+    .nbUiGridCell {
+        position: relative;
+        //left:28px;
+        //top:-20px;
+        left: 28px;
+        top: -20px;
+        width: ~'calc(100% - 22px)';
+
+        .nbUiGridCellWithMenuCell {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 28px;
+        }
+
+        .nbUiGridCellDropdownMenuContainer {
+            position: absolute;
+            right: 4px;
+            top: 2px;
+
+            .nbUiGridCellCellDropdownMenu {
+                background: white;
+                margin-left: 5px;
+                position: fixed;
+                z-index: 2000;
+                margin-top: -24px;
+                border: 1px solid rgba(0, 0, 0, .15);
+                border-radius: 3px;
+                -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                background-clip: padding-box;
+
+
+                .menuItem {
+                    border-color: #999999;
+                    color: black;
+                    padding: .2em;
+                    font-weight: normal;
+                    background-color: white;
+                    width: 120px;
+                    line-height: 28px;
+                }
+
+                .menuItem:hover {
+                    background-color: @brand-primary-lt8;
+                    border: 1px solid @brand-primary-lt4;
+                }
+            }
+        }
+    }
+}
+
+
+
+.nbUiGridCellWithMenuDirective {
+    cursor: pointer;
+
+    .nbUiGridCell {
+        position: relative;
+        left: 6px;
+        top: -1px;
+        width: ~"calc(100% - 22px)";
+
+        .nbUiGridCellWithMenuCell {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 28px;
+            //display: block;
+            display: inline;
+        }
+
+        .nbUiGridCellDropdownMenuContainer {
+            position: absolute;
+            right: -20px;
+            top: 4px;
+
+            .nbUiGridCellCellDropdownMenu {
+                background: white;
+                margin-left: 5px;
+                position: fixed;
+                z-index: 2000;
+                margin-top: -6px;
+                background-color: #ffffff;
+                border: 1px solid rgba(0, 0, 0, .15);
+                border-radius: 3px;
+                -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                background-clip: padding-box;
+
+
+                .menuItem {
+                    list-style-type: none;
+                    border-color: #999999;
+                    color: black;
+                    padding: .2em;
+                    padding-left: 10px;
+                    font-weight: normal;
+                    background-color: white;
+                    width: 120px;
+                    line-height: 28px;
+                }
+
+                .menuItem:hover {
+                    background-color: @brand-primary-lt8;
+                    border: 1px solid @brand-primary-lt4;
+                }
+            }
+        }
+    }
+}
+
+.confirmation-dialog .modal-dialog {
+    width: 500px;
+    height: 300px;
+}
+
+.multiSelectTree_treeItemChildren {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.multiSelectTree_treeItemExpand {
+    padding: 1px 4px;
+    background-repeat: no-repeat;
+}
+
+.multiSelectTree_treeItemSingle {
+    padding: 1px 4px;
+    background-repeat: no-repeat;
+}
+
+.multiSelectTree_treeItemCollapse {
+    padding: 1px 4px;
+    background-repeat: no-repeat;
+}
+
+label.nb-checkbox > span.image > .fa-check,
+label.nb-checkbox > span.image > .fa-square {
+    display: inline;
+}
+
+.dropdown .btn.dropdown-body {
+    text-align: left;
+}
+
+.dropdown-body-custom {
+    width: ~'calc(100% - 24px)';
+    height: 26px;
+}
+
+.dropdown-menu-custom {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown ul.dropdown-menu-zero {
+    display: none;
+}
+
+.qappMiniTaskOptionPopup .open.dropdown > ul.dropdown-menu-zero {
+    display: block;
+}
+
+.cliRunOption .open.dropdown > ul.dropdown-menu-zero {
+    display: block;
+}
+
+.pingMiniTask-option .open.dropdown > ul.dropdown-menu-zero {
+    display: block;
+}
+
+.traceMiniTask-option .open.dropdown > ul.dropdown-menu-zero {
+    display: block;
+}
+
+.dev-group-selector .open.dropdown > ul.dropdown-menu-zero {
+    display: block;
+}
+
+.nbGroupDropDown {
+    /*font-size: 0.75em;*/
+    margin-top: 0;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+
+    li {
+        cursor: pointer;
+        //border: 1px solid transparent;
+        a {
+            //padding: 0 0.5em;
+            text-decoration: none !important;
+        }
+    }
+
+    .headerDropDown-group {
+        cursor: auto; // Avoid hand cursor for grouping menu [ENG-14658]
+        ul {
+            li {
+                cursor: pointer;
+                list-style-type: none;
+                padding: 0 0 0 .5em;
+
+                a {
+                    /*margin: 0 1em;*/
+                    color: #444444;
+                    text-decoration: none !important;
+                }
+            }
+        }
+
+        .noFocusHilight:hover, .noFocusHilight.hover {
+            background-color: #f7f7f7;
+            // border: 1px solid transparent;
+        }
+    }
+
+    .headerDropDown-group:hover, .headerDropDown-group.hover {
+        background-color: #f7f7f7;
+        //border: 1px solid transparent;
+    }
+}
+
+nb-multi-select-tree-dropdown-directive {
+    .whole-body {
+        width: 100%;
+        height: 100%;
+
+        .dropdown-body {
+            width: ~'calc(100% - 26px)';
+            max-width: 250px;
+
+            .dropdown-selection-text {
+                padding: 0;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: block;
+            }
+        }
+
+        .dropdown-toggle {
+            width: 26px;
+        }
+
+        .menu-body {
+            width: 100%;
+            margin-top: 30px;
+            margin-left: 0;
+            float: left;
+            text-align: left;
+            white-space: nowrap;
+            border: 1px solid #c8c8c8;
+            border-radius: 3px;
+            background-color: #f7f7f7;
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            background-clip: padding-box;
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: absolute;
+            left: 0;
+            z-index: 10;
+
+            li {
+                margin-left: 10px;
+                line-height: 26px;
+            }
+        }
+    }
+}
+
+.selectPropertyPopup .modal-dialog {
+    height: 535px;
+    width: 463px;
+
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        .modal-body {
+            position: relative;
+            height: 80%;
+            border-bottom: 1px solid @base-border-color;
+
+            h6 {
+                margin-top: 0;
+                font-family: "Open Sans", sans-serif;
+                font-size: 12px;
+                font-weight: normal;
+            }
+
+            .top-bar {
+                height: 8%;
+                width: 100%;
+                margin-bottom: 6px;
+
+                .property-filter-selector {
+                    float: left;
+                    width: 200px;
+
+                    .btn-default {
+                        max-width: 175px;
+                    }
+
+                    .dropdown-selection {
+                        width: 120%;
+                    }
+
+                    .dropdown .btn.dropdown-body {
+                        padding: 6px 12px 6px 6px;
+                        max-width: 175px;
+                    }
+                }
+
+                .property-filter-input {
+                    float: right;
+                    width: 210px;
+                }
+
+                .full-width {
+                    width: 100%;
+                }
+            }
+
+            .properties-list {
+                position: relative;
+                height: 340px;
+                width: 100%;
+                border: 1px solid @base-border-color;
+
+                .icon-color {
+                    color: #aad7f1;
+                }
+
+                .interface-property-tree {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    overflow: auto;
+                }
+
+                .list-menu {
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+
+                    ul {
+                        margin-bottom: 0;
+                    }
+
+                    img {
+                        margin-top: -2px;
+                    }
+
+                    .toggle-expansion-icon {
+                        margin-left: -15px;
+                    }
+
+                    .file-icon {
+                        height: 15px;
+                        width: 15px;
+                        margin-right: 3px;
+                    }
+
+                    .table-icon {
+                        height: 18px;
+                        width: 18px;
+                    }
+
+                    .has-icon {
+                        margin-left: 3px;
+                    }
+
+                    .has-no-icon {
+                        margin-left: 3px;
+                    }
+                }
+            }
+        }
+        //.bottom-bar {
+        //
+        //    button {
+        //        width: 80px;
+        //        height: 30px;
+        //        float: right;
+        //        margin-top: 15px;
+        //        margin-left: 15px;
+        //    }
+        //}
+        .modal-footer {
+            padding-right: 12px;
+            padding-top: 20px;
+        }
+    }
+}
+
+.addToDeviceGroupPopup .modal-dialog {
+    width: 500px;
+
+    .modal-content {
+        overflow: initial;
+    }
+
+    .modal-body {
+        .addToDeviceGroupContainer {
+            .nsGridStyle {
+                width: 98%;
+                height: 300px;
+
+                .ui-grid-viewport {
+                    overflow: auto !important;
+                }
+            }
+
+            .labelField {
+                width: auto !important;
+            }
+
+            .dev-group-selector {
+                margin-top: 10px;
+
+                .selector {
+                    width: 250px;
+                }
+
+                .add-to-new {
+                    font-size: 12px;
+                    padding: 4px 12px;
+                    font-weight: 400;
+                    line-height: 2;
+                }
+
+                .btn.btn-default.dropdown-body.dropdown-body-custom {
+                    max-width: initial;
+                }
+            }
+        }
+    }
+
+    .modal-footer {
+        button {
+            height: 30px;
+            width: 90px;
+            margin-left: 15px;
+            float: right;
+        }
+    }
+}
+
+
+.nb-rich-editor {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .t-tip {
+        visibility: hidden;
+    }
+
+    &:hover {
+        .rtip {
+            visibility: visible;
+            top: 50px;
+            left: 150px;
+            position: absolute;
+            cursor: pointer;
+            background-color: #f3dece;
+            z-index: 10;
+            padding: 6px;
+        }
+    }
+
+
+    .nb-rich-editor-btn {
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+
+        &.active {
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        }
+    }
+
+    .ta-bind {
+        height: 100%;
+        overflow: auto;
+    }
+
+    .text-bar {
+        position: absolute;
+        height: 26px;
+
+        > div[spectrum-colorpicker] {
+            border: none;
+            background: transparent;
+            padding: 8px 0 0 0;
+        }
+
+        > .select-font-family {
+            width: 130px;
+        }
+
+        > .select-font-size {
+            width: 120px;
+        }
+
+        > * {
+            margin-left: 6px;
+            height: 100%;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .btn-toolbar {
+        margin-bottom: 5px;
+        padding-top: 2px;
+        height: 30px;
+        padding-left: 310px;
+
+        i {
+            color: #000000;
+        }
+    }
+
+    .ta-editor {
+        height: ~'calc(100% - 35px)';
+        overflow: hidden;
+
+        div[contenteditable] {
+            line-height: normal !important;
+            word-wrap: break-word;
+
+            p {
+                margin: 0;
+            }
+
+            ul {
+                padding: 0 40px;
+
+                li {
+                    list-style: inherit;
+                }
+            }
+        }
+    }
+
+    .ql-font-open-sans {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .ql-font-times {
+        font-family: 'Times New Roman', 'Times', serif;
+    }
+
+    .ql-font-arial {
+        font-family: 'Arial', 'Helvetica', sans-serif;
+    }
+
+    .ql-font-comic {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+
+    .ql-font-verdana {
+        font-family: 'Verdana', 'Geneva', sans-serif;
+    }
+
+    .ql-snow .ql-picker.ql-font {
+        .ql-picker-label[data-value=open-sans]::before,
+        .ql-picker-item[data-value=open-sans]::before {
+            content: 'Open Sans';
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .ql-picker-label[data-value=times]::before,
+        .ql-picker-item[data-value=times]::before {
+            content: 'Times';
+            font-family: "Times New Roman", 'Times', serif;
+        }
+
+        .ql-picker-label[data-value=arial]::before,
+        .ql-picker-item[data-value=arial]::before {
+            content: 'Arial';
+            font-family: 'Arial', 'Helvetica', sans-serif;
+        }
+
+        .ql-picker-label[data-value=comic]::before,
+        .ql-picker-item[data-value=comic]::before {
+            content: 'Cursive';
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+
+        .ql-picker-label[data-value=verdana]::before,
+        .ql-picker-item[data-value=verdana]::before {
+            content: 'Verdana';
+            font-family: 'Verdana', 'Geneva', sans-serif;
+        }
+    }
+}
+
+.tooltip.validation-error-tooltip {
+    z-index: 6000 !important; // to make sure the validation tooltips can always be shown on top
+}
+
+.validation-has-error {
+    color: #d14747 !important;
+    font-size: 14px;
+    margin: 6px 0 0 0;
+}
+
+.tooltip.validation-error-tooltip > .tooltip-inner {
+    background-color: #d14747 !important;
+    color: white;
+}
+
+.tooltip.validation-error-tooltip.right > .tooltip-arrow,
+.tooltip.validation-error-tooltip.left > .tooltip-arrow {
+    border-right-color: #d14747 !important;
+    border-left-color: #d14747 !important;
+}
+
+.tooltip.validation-error-tooltip.top > .tooltip-arrow,
+.tooltip.validation-error-tooltip.bottom > .tooltip-arrow {
+    border-top-color: #d14747 !important;
+    border-bottom-color: #d14747 !important;
+}
+
+.validation-error-input:not(:focus) {
+    box-shadow: inset 0 2px 1px #e6e6e6, 0 0 2px #d14747 !important;
+    border-color: rgb(209, 71, 71) !important;
+}
+
+.zeroclipboard-is-hover {
+    background-color: #edf8ff;
+}
+
+.nbSelectQappModal {
+    .modal-body {
+        padding: 0;
+        width: 500px;
+    }
+
+    .tree-container {
+        height: 400px;
+        overflow: auto;
+        border: 1px solid lightgray;
+        margin-top: 12px;
+    }
+}
+
+.nb-rich-editor {
+    .ql-editor {
+        cursor: auto;
+    }
+}
+
+.nb-visibility-hidden {
+    visibility: hidden;
+}
+
+#about-body {
+    font-weight: 400;
+}

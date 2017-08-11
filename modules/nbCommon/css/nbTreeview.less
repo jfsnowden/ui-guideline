@@ -1,0 +1,199 @@
+﻿@row-background-color: #ddedf8;
+@row-background-select: #aad7f1;
+
+div.nb-treeview-directive {
+    position: relative;
+    min-width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+
+    div[ivh-treeview] {
+        width: 100%;
+    }
+
+    ul.ivh-treeview {
+        padding-left: 0;
+        width: 100%;
+
+        ul.ivh-treeview {
+            padding-left: 15.5px;
+        }
+    }
+
+    .ivh-node-row {
+        //padding-top: 3px;
+        //padding-bottom: 3px;
+        font-size: 12px;
+        position: relative;
+        white-space: nowrap;
+
+        .node-arrow {
+            display: inline-block;
+        }
+
+        &.selected {
+            background-color: @row-background-select;
+
+            .node-icon > [class^="icon_nb_"],
+            .node-icon > [class*=" icon_nb_"] {
+                color: #1d7cb4;
+            }
+        }
+
+        &.dropdown-active {
+            background-color: @row-background-color;
+
+            .node-dropdown-arrow {
+                opacity: 1;
+            }
+        }
+
+        &:hover {
+            background-color: @row-background-color;
+
+            .node-dropdown-arrow {
+                opacity: 1;
+            }
+        }
+
+        .node-checkbox,
+        .node-icon,
+        .node-label,
+        .node-label-editable {
+            margin-right: 2px;
+            margin-left: 0;
+        }
+
+        .node-icon > * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .node-arrow,
+        .node-arrow-placeholder {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            min-width: 15px;
+        }
+
+        .node-label-editable {
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 0;
+            color: #000;
+            border: 1px solid #c8c8c8;
+            box-shadow: none;
+            vertical-align: middle;
+            background-color: white;
+
+            &:focus {
+                border-color: @row-background-color;
+                outline: 0;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(237, 248, 255, .6);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(237, 248, 255, .6);
+            }
+        }
+
+        .node-label, .node-label-editable {
+            position: relative;
+            margin-right: 40px;
+            width: 70%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        input[type="checkbox"] {
+            vertical-align: middle;
+            margin: 0;
+            top: 0;
+        }
+
+        .node-dropdown-arrow {
+            position: absolute;
+            right: 0;
+            padding-left: 6px;
+            padding-right: 6px;
+            background-color: @row-background-color;
+            opacity: 0;
+            line-height: 1;
+            margin: 0 6px 0 0;
+
+            i {
+                margin-top: 5px;
+            }
+        }
+    }
+
+    .search-result-area {
+        position: relative;
+        min-width: 100%;
+        display: inline-block;
+        overflow: auto;
+
+        .search-entry {
+            position: relative;
+            width: 100%;
+            padding: 0 6px;
+            white-space: nowrap;
+            cursor: pointer;
+
+            &.selected {
+                background-color: @row-background-select;
+
+                .node-icon > [class^="icon_nb_"],
+                .node-icon > [class*=" icon_nb_"] {
+                    color: #1d7cb4;
+                }
+            }
+
+            &:hover {
+                background-color: @row-background-color;
+
+                .node-dropdown-arrow {
+                    opacity: 1;
+                }
+            }
+
+            span {
+                margin-right: 6px;
+
+                &.filter-highlight {
+                    margin-right: 0;
+                }
+            }
+
+            .node-dropdown-arrow {
+                padding-left: 6px;
+                padding-right: 6px;
+                position: absolute;
+                opacity: 0;
+                right: 0;
+                background-color: @row-background-color;
+                line-height: 1;
+                margin: 0 6px 0 0;
+
+                i {
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+ul.nb-treeview-dropdown {
+    z-index: 1200;
+    box-shadow: none !important;
+}
+
+.nb-treeview-directive.multiple .ivh-node-row.selected {
+    background: transparent;
+}
+
+.device-browser-content div.deviceGroupTree div.nb-treeview-directive ul.ivh-treeview ul.ivh-treeview {
+    padding-left: 1px;
+}

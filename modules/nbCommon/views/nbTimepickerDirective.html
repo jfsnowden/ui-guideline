@@ -1,0 +1,38 @@
+<div class="nb-timepicker">
+    <div class="btn-group hour" uib-dropdown dropdown-append-to-body is-open="openHour">
+        <button type="button" class="btn btn-primary" uib-dropdown-toggle ng-class="{'opened':openHour,'changed':changeHour}">
+            {{hour|nbTimepickerPadding}}<div class="icon-container"><span class="icon_nb_arrow_down"></span></div>
+        </button>
+        <ul class="dropdown-menu nb-timepicker-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="item in hourList" ng-click="setHour(item)"><a>{{item}}</a></li>
+        </ul>
+    </div>
+    <span class="divider"></span>
+    <div class="btn-group minute" uib-dropdown dropdown-append-to-body is-open="openMinute">
+        <button type="button" class="btn btn-primary no-change" uib-dropdown-toggle ng-class="{'opened':openMinute,'changed':changeMinute}">
+            {{minute|nbTimepickerPadding}}<div class="icon-container"><span class="icon_nb_arrow_down"></span></div>
+        </button>
+        <ul class="dropdown-menu nb-timepicker-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="item in minuteList" ng-click="setMinute(item)"><a>{{item}}</a></li>
+        </ul>
+    </div>
+    <span class="divider" ng-if="showSecond"></span>
+    <div class="btn-group second" uib-dropdown dropdown-append-to-body ng-if="showSecond" is-open="openSecond">
+        <button type="button" class="btn btn-primary no-change" uib-dropdown-toggle ng-class="{'opened':openSecond,'changed':changeSecond}">
+            {{second|nbTimepickerPadding}}<div class="icon-container"><span class="icon_nb_arrow_down"></span></div>
+        </button>
+        <ul class="dropdown-menu nb-timepicker-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="item in secondList" ng-click="setSecond(item)"><a>{{item}}</a></li>
+        </ul>
+    </div>
+    <span class="divider"></span>
+    <div class="btn-group meridian" uib-dropdown dropdown-append-to-body ng-if="showMeridian" is-open="openMeridian">
+        <button type="button" class="btn btn-primary no-change" uib-dropdown-toggle ng-class="{'opened':openMeridian,'changed':changeMeridian}">
+            {{meridian}}<div class="icon-container"><span class="icon_nb_arrow_down"></span></div>
+        </button>
+        <ul class="dropdown-menu nb-timepicker-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="item in meridianList" ng-click="setMeridian(item)"><a>{{item}}</a></li>
+        </ul>
+    </div>    
+</div>
+

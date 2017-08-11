@@ -1,0 +1,28 @@
+﻿<div class="nb-grid-header-bar">
+    <div class="default-btns-area" atag="grid:header:leftBtnGroup">
+        <a ng-repeat="item in leftBtnGroup" ng-bind-html="::renderHtml(item.template)" ng-click="callBtnAction(item, $event)" ng-show="checkBtnDisplay(item)" atag="grid:header:leftBtnGroup:item"></a>
+    </div>
+    
+    <div class="default-right-btns-area" atag="grid:header:rightBtnGroup">
+        <a ng-repeat="item in rightBtnGroup" ng-bind-html="::renderHtml(item.template)" ng-click="callBtnAction(item, $event)" ng-show="checkBtnDisplay(item)" atag="grid:header:rightBtnGroup:item"></a>
+    </div>
+
+    <div class="default-search-bar" ng-show="::isSearchBarShow" atag="grid:header:searchBar">
+        <input class="form-control" ng-model="searchStr"  placeholder="{{::searchPlaceHolder}}" ng-focus="showInputIcon=false" ng-blur="showInputIcon=true"/>
+        <span ng-bind-html="::renderHtml(searchIcon)" ng-click="onSearch()" ng-show="showInputIcon && (!closeIcon || !searchStr)" atag="grid:header:searchBar:searchBtn"></span>
+        <span ng-bind-html="::renderHtml(closeIcon)" style="cursor:pointer;" ng-click="stopSearch()" ng-show="closeIcon && searchStr" atag="grid:header:searchBar:stopSearchBtn"></span>
+    </div>
+
+    <div class="default-dropdown" ng-show="::isDropdownShow" atag="grid:header:dropdown">
+        <div uib-dropdown>
+            <button type="button" class="btn btn-sm btn-default" uib-dropdown-toggle>
+                <span style="float:left;" ng-bind-html="renderHtml(selectDropdownOptions.template)"></span> <div class="icon-container"><span class="icon_nb_arrow_down"></span></div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" atag="grid:header:dropdownMenu">
+                <li role="menuitem" ng-repeat="item in dropdownMenu" ng-click="callDropdownAction(item, $event)" atag="grid:header:dropdownMenu:item">
+                    <a ng-bind-html="::renderHtml(item.template)"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

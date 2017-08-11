@@ -1,0 +1,86 @@
+﻿{
+    "start-circle-bg2": [ ".app-start-container.lock .start-circle-bg", ".start-circle:hover .start-circle-bg" ],
+    "start-circle-button-hover": [ ".app-start-container.lock .start-circle-button", ".start-circle:hover .start-circle-button" ],
+    "start-circle-button-pressed": [ ".start-circle-button:active, .start-circle-button:focus", ".start-circle:hover .start-circle-button:active, .start-circle:hover .start-circle-button:focus" ],
+
+
+    "menu-start-hover": [ ".nav-item:not(.active):hover.menu-start" ],
+    "menu-start-active": [ ".nav-item.active.menu-start", ".nav-item:focus.menu-start" ],
+
+    "menu-add-hover": [ ".nav-item:hover:not(.active).menu-add" ],
+    "menu-add-active": [ ".nav-item.active.menu-add", ".nav-item:focus.menu-add" ],
+
+    "menu-myfiles-hover": [ ".nav-item:not(.active):hover.menu-myfiles" ],
+    "menu-myfiles-active": [ ".nav-item.active.menu-myfiles", ".nav-item:focus.menu-myfiles" ],
+
+    "menu-site-hover": [ ".nav-item:not(.active):hover.menu-site" ],
+    "menu-site-active": [ ".nav-item.active.menu-site", ".nav-item:focus.menu-site" ],
+
+    "menu-deviceGroup-hover": [ ".nav-item:not(.active):hover.menu-deviceGroup" ],
+    "menu-deviceGroup-active": [ ".nav-item.active.menu-deviceGroup", ".nav-item:focus.menu-deviceGroup" ],
+
+    "menu-application-flow-hover": [ ".nav-item:not(.active):hover.menu-application-flow" ],
+    "menu-application-flow-active": [ ".nav-item.active.menu-application-flow", ".nav-item:focus.menu-application-flow" ],
+
+    "menu-path-hover": [ ".nav-item:not(.active):hover.menu-path" ],
+    "menu-path-active": [ ".nav-item.active.menu-path", ".nav-item:focus.menu-path" ],
+
+    "menu-runbook-hover": [ ".nav-item:not(.active):hover.menu-runbook" ],
+    "menu-runbook-active": [ ".nav-item.active.menu-runbook", ".nav-item:focus.menu-runbook" ],
+
+    "menu-change-mgnt-hover": [ ".nav-item:not(.active):hover.menu-change-mgnt" ],
+    "menu-change-mgnt-active": [ ".nav-item.active.menu-change-mgnt", ".nav-item:focus.menu-change-mgnt" ],
+
+    "floating-desktop-hover": [ ".nav-item:not(.active):hover.floating-desktop" ],
+    "floating-desktop-active": [ ".nav-item.active.floating-desktop", ".nav-item:focus.floating-desktop" ],
+
+    "floating-map-hover": [ ".nav-item:not(.active):hover.floating-map" ],
+    "floating-map-active": [ ".nav-item.active.floating-map", ".nav-item:focus.floating-map" ],
+
+    "menu-searchResult-hover": [ ".nav-item:not(.active):hover.menu-searchResult" ],
+    "menu-searchResult-active": [ ".nav-item.active.menu-searchResult", ".nav-item:focus.menu-searchResult" ],
+
+    "icon_nb_close": [ ".close" ],
+    "icon_nb_radio_hover": [ ".icon_nb_radio:hover" ],
+    "icon_nb_radio_select": [ ".icon_nb_radio::selection" ],
+    "icon_nb_checkbox_hover": [ ".icon_nb_checkbox:hover" ],
+    "icon_nb_checkbox_checked": [ ".icon_nb_checkbox::selection" ],
+    "icon_nb_close_white": [ ".modal-header .close" ],
+
+    "icon_nb_tree_collapse": [ "div[nb-grid] .ui-grid-icon-minus-squared" ],
+    "icon_nb_tree_expand": [ "div[nb-grid] .ui-grid-icon-plus-squared" ],
+
+    "icon_nb_arrow_up_table": [ ".ui-grid-icon-up-dir" ],
+    "icon_nb_arrow_down_table": [ ".ui-grid-icon-down-dir" ],
+    "icon_nb_app_pin_hover": [ ".app_pin_box:hover .icon_nb_app_pin ", ".hover-icon-box:hover .icon_nb_app_pin" ],
+
+    "expand_attribute_hover": [".expand-bar:hover .expand_attribute"],
+    "collapse_attribute_hover": [".expand-bar:hover .collapse_attribute"],
+
+    "up-arrow-hover": [".up-arrow-normal:hover"],
+
+    "icon_nb_action_menu_hover":[".icon_nb_action_menu:hover"],
+    "icon_nb_action_menu_hover_click":[".icon_nb_action_menu:active"],
+    "icon_nb_action_menu_02_hover":[".icon_nb_action_menu_02:hover"],
+    "icon_nb_action_menu_02_hover_click":[".icon_nb_action_menu_02:active"],
+
+    "up-arrow-click": [".up-arrow-normal:active"],
+    "down-arrow-hover": [".down-arrow-normal:hover"],
+    "down-arrow-click": [".down-arrow-normal:active"],
+    "icon_nb_search_click":[".customClass .icon_nb_search_normal:active"],
+    "icon_nb_search_hover":[".icon_nb_search_normal:hover"],
+    "icon_nb_user_group_click":[".customClass .icon_nb_user_group_normal:active"],
+    "icon_nb_user_group_hover":[".icon_nb_user_group_normal:hover"],
+    "icon_nb_activity_tools_hover":[".icon_nb_activity_tools_normal:hover"],
+    "icon_nb_activity_tools_hover_02":[".icon_nb_activity_tools_hover:hover"],
+    "miniTask-timeline .mapsessiontimeline .list li.active .point b.hover":[".miniTask-timeline .mapsessiontimeline .list li.active .point b:hover"],
+    "miniTask-timeline .mapsessiontimeline .point b.hover":[".miniTask-timeline .mapsessiontimeline .point b:hover"],
+    "icon_nb_activity_tools_click":[".ab_group>.icon_nb_activity_tools_normal:active",".ab_group>.icon_nb_activity_tools_hover:active"],
+
+    "icon_nb_arrow_left_hover":[".icon_nb_arrow_left_normal:hover"],
+    "icon_nb_arrow_left_click":[".icon_nb_arrow_left_normal:active"],
+    "icon_nb_arrow_right_hover":[".icon_nb_arrow_right_normal:hover"],
+    "icon_nb_arrow_right_click":[".icon_nb_arrow_right_normal:active"],
+
+    "nb_icon_swap_hover": [".nb_icon_swap_normal:hover"]
+}

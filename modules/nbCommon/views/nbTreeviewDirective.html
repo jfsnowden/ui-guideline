@@ -1,0 +1,36 @@
+﻿<div class="nb-treeview-directive" ng-class="::{ 'multiple': nbTreeview.treeviewOptions.enableMultipleSelect}">
+    <div class="search-bar" ng-show="::nbTreeview.treeviewOptions.enableSearchBar">
+        <nb-filter-bar
+                ng-model="nbTreeview.query"
+                placeholder="{{::nbTreeview.treeviewOptions.enableSearchBar.placeholder || 'Select...'}}"
+                ng-change="nbTreeview.searchQueryChange()">
+        </nb-filter-bar>
+    </div>
+    
+    <div ivh-treeview="nbTreeview.data" atag="treeViewDirective:tree"
+         ivh-treeview-options="nbTreeview.treeviewOptions"
+         trvw-helper
+         ng-show="nbTreeview.searchResults.length <= 0">
+    </div>
+    <div class="search-result-area" ng-if="nbTreeview.searchResults.length > 0">
+        <div class="search-entry"
+             ng-repeat="item in nbTreeview.searchResults"
+             ng-click="nbTreeview.selectFilteredNode(item, nbTreeview.trvw, $event)"
+             ng-class="{ selected: item.selected }">
+            <span class="node-checkbox" ng-show="::nbTreeview.showCheckBox()">
+                <input
+                        type="checkbox"
+                        ng-checked="item[nbTreeview.treeviewOptions.selectedAttribute]"
+                        ng-click="nbTreeview.checkboxChanged(item, nbTreeview.trvw, $event)">
+            </span>
+            <span ng-bind-html="::nbTreeview.getTemplateIcon(item, nbTreeview.trvw)"></span>
+            <span title="{{::nbTreeview.getLabelTitle(item, nbTreeview.trvw)}}"
+                  ng-bind-html="nbTreeview.trvw.label(item) | nbHighlight:nbTreeview.query"></span>
+            <span class="node-dropdown-arrow"
+                  ng-if="::nbTreeview.isDisplayDropdown(item)"
+                  ng-click="nbTreeview.openDropdown(item, $event, nbTreeview.trvw)">
+                <i class="icon_nb_action_menu"></i>
+            </span>
+        </div>
+    </div>
+</div>

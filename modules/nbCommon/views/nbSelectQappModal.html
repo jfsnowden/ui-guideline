@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <div class="icon-container" ng-click="closeModal();">
+        <span class="icon close"></span>
+    </div>
+    <h3 class="modal-title">{{::options.title}}</h3>
+</div>
+<div class="modal-body">
+     <nb-search-bar placeholder="Search..." class="file-filter-bar"
+                    ng-model="filterOption.filterWord" on-search="filterData({clear:false})" on-clear="filterData({clear:true})"></nb-search-bar>
+     
+    <div class="tree-container">
+        <div class="qapp-tree" ng-if="treeDataLoaded" nb-treeview-directive="treeData" options="treeOption" ng-if="treeData.length > 0"></div>
+    </div>
+</div>
+<div class="modal-footer text-right">
+    <button class="btn btn-link" type="button" ng-click="closeModal()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="setSelectedTree()">OK</button>
+</div>

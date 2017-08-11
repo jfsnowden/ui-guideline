@@ -1,0 +1,30 @@
+<nb-modal-header modal-title="Add to Device Group" modal-close="onCancel"></nb-modal-header>
+
+<div class="modal-body">
+    <div class="addToDeviceGroupContainer">
+        <label class="labelField">Selected Devices:</label>
+
+        <div class="nsGridStyle" ui-grid="gridOptions" ui-grid-selection>
+        </div>
+
+        <div class="dev-group-selector">
+            <label class="labelField">Add to Device Group: </label>
+
+            <nb-select class="selector"
+                       ng-model="selectedDG"
+                       options="lsDGs"
+                       label-field="Name"
+                       value-field="ID">
+                <button class="btn btn-link add-to-new"  ng-click="onAddToNewDeviceGroup()">New Device Group...</button>
+            </nb-select>
+
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="nsBottomStyle">
+        <button class="btn btn-primary" ng-disabled="!selectedDG" ng-click="onOK()">OK</button>
+        <button class="btn btn-link" ng-click="onCancel()">Cancel</button>
+    </div>
+</div>

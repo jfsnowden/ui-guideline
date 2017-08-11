@@ -1,0 +1,126 @@
+.nb-date-picker-wrap {
+    .input-group-btn {
+        &:focus {
+            outline: none;
+        }
+
+        button {
+            padding: 0;
+            border: none;
+            background: none;
+            width: 100%;
+            margin: 0;
+
+            &:active {
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+.nb-date-picker-popup {
+    .btn-default.active,
+    .btn-default:active,
+    .btn-default.active.focus,
+    .btn-default.active:focus,
+    .btn-default.active:hover,
+    .btn-default:active.focus,
+    .btn-default:active:focus,
+    .btn-default:active:hover,
+    .open > .dropdown-toggle.btn-default,
+    .open > .dropdown-toggle.btn-default.focus,
+    .open > .dropdown-toggle.btn-default:focus,
+    .open > .dropdown-toggle.btn-default:hover {
+        color: #000;
+        background-color: #fff;
+        border-color: #d1d1d1;
+        box-shadow: none;
+    }
+
+    .btn-default:hover {
+        background: #edf8ff;
+    }
+
+    .btn-info.active,
+    .btn-info:active,
+    .btn-info.active.focus,
+    .btn-info.active:focus,
+    .btn-info.active:hover,
+    .btn-info:active.focus,
+    .btn-info:active:focus,
+    .btn-info:active:hover,
+    .open > .dropdown-toggle.btn-info,
+    .open > .dropdown-toggle.btn-info.focus,
+    .open > .dropdown-toggle.btn-info:focus,
+    .open > .dropdown-toggle.btn-info:hover {
+        background-color: #ddedf8;
+        color: #000;
+    }
+
+    .text-info {
+        color: #00f;
+    }
+
+    .uib-button-bar {
+        .pull-left {
+            .uib-datepicker-current,
+            .uib-clear {
+                color: #00f;
+                background: none;
+                border: none;
+            }
+        }
+
+        .pull-right.uib-close {
+            background: linear-gradient(to bottom, #fbd797 0, #fbda6f 100%);
+            border-color: #f0b256;
+            color: #000;
+            padding: 5px 20px;
+            margin: 5px 0;
+        }
+    }
+
+    .uib-daypicker,
+    .uib-monthpicker,
+    .uib-yearpicker {
+        table {
+            tbody td {
+                button {
+                    margin: 0;
+                    border-radius: 0;
+                    background-color: #fff;
+                }
+            }
+
+            thead {
+                button {
+                    background-color: #fff;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    .uib-daypicker {
+        table thead tr:last-child th:first-child {
+            color: red;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .uib-datepicker-popup.dropdown-menu {
+        z-index: 1100;
+        padding: 5px;
+    }
+
+    &.dropdown-menu > li:hover {
+        background-color: #fff;
+    }
+
+    .text-muted {
+        color: #777;
+    }
+}

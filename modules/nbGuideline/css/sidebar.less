@@ -1,0 +1,46 @@
+@import '../../../css/less/vars';
+
+.side-bar-menu(){
+  width: 100%;
+  border-bottom: @border;
+  padding: @padding-large-vertical @padding-large-horizontal;
+  font-size: @font-size-h4;
+  cursor: pointer;
+}
+
+.hover-underline(){
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.side-bar{
+  height: 100vh;
+  border-right: @border;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .menu{
+    .side-bar-menu();
+    .hover-underline();
+    font-size: @font-size-h3;
+  }
+
+  .logo{
+    .side-bar-menu();
+    text-align: center;
+    img{
+      margin: 40px;
+    }
+  }
+
+  .sub-menu{
+    .side-bar-menu();
+    background-color: @brand-primary-lt4;
+    color: white;
+    > *{
+      .hover-underline();
+    }
+  }
+}

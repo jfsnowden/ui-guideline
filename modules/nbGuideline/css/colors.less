@@ -1,0 +1,77 @@
+@import '../../../css/less/vars';
+
+.color-list{
+  > li{
+    padding: 2.5rem;
+    border: none;
+    font-size: large;
+  }
+
+  &.brand-primary-colors{
+    > li:first-child{
+      color: white;
+      background-color: @brand-primary;
+    }
+    > li:nth-child(2){
+      color: white;
+      background-color: @brand-primary-lt1;
+    }
+    > li:nth-child(3){
+      color: white;
+      background-color: @brand-primary-lt2;
+    }
+    > li:nth-child(4){
+      background-color: @brand-primary-lt3;
+    }
+    > li:last-child{
+      background-color: @brand-primary-lt4;
+    }
+  }
+
+  &.brand-other-colors{
+    > li:first-child{
+      color: white;
+      background-color: @brand-success;
+    }
+    > li:nth-child(2){
+      color: white;
+      background-color: @brand-info;
+    }
+    > li:nth-child(3){
+      color: white;
+      background-color: @brand-warning;
+    }
+    > li:last-child{
+      color: white;
+      background-color: @brand-danger;
+    }
+  }
+
+  &.grey-colors{
+    > li:first-child{
+      color: white;
+      background-color: @gray-darkest;
+    }
+    > li:nth-child(2){
+      color: white;
+      background-color: @gray-darker;
+    }
+    > li:nth-child(3){
+      color: white;
+      background-color: @gray-dark;
+    }
+    > li:nth-child(4){
+      color: white;
+      background-color: @gray;
+    }
+    > li:nth-child(5){
+      background-color: @gray-light;
+    }
+    > li:nth-child(6){
+      background-color: @gray-lighter;
+    }
+    > li:nth-child(7) {
+      background-color: @gray-lightest;
+    }
+  }
+}

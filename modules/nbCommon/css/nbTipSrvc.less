@@ -1,0 +1,34 @@
+.nb-tip {
+    display: block;
+    position: absolute;
+    max-width: 556px;
+    padding: 12px;
+    border: #b0d1e4 solid 1px;
+    // box-shadow: 5px 5px 10px #b0d1e4;
+    border-radius: 3px;
+    z-index: 1000;
+    font-size: 12px;
+    font-family: "Open Sans", sans-serif;
+    color: #000;
+    line-height: 2.1667;
+    text-align: left;
+
+    &.mapCusTip {
+        background-image: linear-gradient(to top, #ffffff, #d7e8f2);
+    }
+
+    .nb-tip-text {
+        margin: 0;
+    }
+
+    &.has-close-btn {
+        .nb-tip-text {
+            margin: 0 34px 0 0;
+        }
+    }
+
+    .widget-close {
+        float: right;
+        cursor: pointer;
+    }
+}

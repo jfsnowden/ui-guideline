@@ -1,0 +1,35 @@
+<div class="col-xs-2 side-bar" ng-controller="nb.guideline.sidebarCtrl as ctrl">
+
+    <div class="logo">
+        <img src="img/netbrain-logo-transparent.png" />
+        <!--<p>UI Guideline</p>-->
+    </div>
+    <div class="menu" ng-click="ctrl.onTabSelect('overview')">
+        Overview
+    </div>
+    <div class="sub-menu" ng-show="ctrl.selectedTab === 'overview'">
+        <div><a ui-sref="home.introduction">Introduction</a></div>
+        <div><a ui-sref="home.practices">Best Practices</a></div>
+        <div><a ui-sref="home.changes">Change Logs</a></div>
+    </div>
+
+    <div class="menu" ng-click="ctrl.onTabSelect('design')">
+        Design
+    </div>
+    <div class="sub-menu" ng-show="ctrl.selectedTab === 'design'">
+        <div><a ui-sref="home.colors">Color Schema</a></div>
+        <div>Typography</div>
+    </div>
+
+    <div class="menu" ng-click="ctrl.onTabSelect('components')">
+        Components
+    </div>
+    <div class="sub-menu" ng-show="ctrl.selectedTab === 'components'">
+        <div><a ui-sref="home.button">Buttons</a></div>
+        <div>Grid</div>
+        <div>Treeview</div>
+        <div>Tab</div>
+        <div>Modal</div>
+        <div>Dialog</div>
+    </div>
+</div>
