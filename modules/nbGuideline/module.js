@@ -5,6 +5,7 @@
         'nb.common',
         'ui.router',
         'ui.bootstrap',
+        'ngAnimate',
         'hljs'
     ]);
 
