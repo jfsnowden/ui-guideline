@@ -4,7 +4,7 @@
   > li{
     padding: 2.5rem;
     border: none;
-    font-size: large;
+    font-size: @font-size-h4;
   }
 
   &.brand-primary-colors{
@@ -72,6 +72,21 @@
     }
     > li:nth-child(7) {
       background-color: @gray-lightest;
+    }
+  }
+
+  &.other-colors{
+    > li:first-child{
+      color: white;
+      background-color: @alert-info;
+    }
+    > li:nth-child(2){
+      color: white;
+      background-color: @alert-warning;
+    }
+    > li:nth-child(3){
+      color: white;
+      background-color: @alert-error;
     }
   }
 }
