@@ -1,10 +1,15 @@
 @import '../../../css/less/vars';
 
-.font-size-row{
-  .size-symbol{
-    color: @gray-darker;
+.font-symbol(){
+  .font-symbol{
+    color: @gray;
     font-size: @font-size-h4;
+    font-weight: bold;
   }
+}
+
+.font-size-row{
+  .font-symbol();
   div:first-child{
     .dummy-text{ font-size: @font-size-h1; }
   }
@@ -28,5 +33,18 @@
   }
   div:nth-child(8){
     .dummy-text{ font-size: @font-size-small; }
+  }
+}
+
+.font-family-row{
+  .font-symbol();
+  div:first-child{
+    .dummy-text{ font-size: @font-size-large; font-family: @font-family-base; }
+  }
+  div:nth-child(2){
+    .dummy-text{ font-size: @font-size-large; font-family: @font-family-monospace; }
+  }
+  div:nth-child(3){
+    .dummy-text{ font-size: @font-size-large; font-family: @font-family-serif; }
   }
 }

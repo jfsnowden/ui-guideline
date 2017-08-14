@@ -1,47 +1,78 @@
 <div>
     <div class="row"><h1>Typography</h1></div>
 
-    <div class="row"><h3>Font Sizes</h3></div>
+    <div class="row"><h3>Usage</h3></div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="less">
+//less file
+@import '../../../css/less/vars'; // import variable definition with correct path
 
+.dummy-text{
+    font-size: @font-size-h3;
+    font-family: @font-family-base;
+}
+        </div>
+    </div>
+
+    <div class="row"><h3>Font Sizes</h3></div>
     <div class="row font-size-row">
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-h1</p>
+            <p class="font-symbol">@font-size-h1</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-h2</p>
+            <p class="font-symbol">@font-size-h2</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-h3</p>
+            <p class="font-symbol">@font-size-h3</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-h4</p>
+            <p class="font-symbol">@font-size-h4</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-h5</p>
+            <p class="font-symbol">@font-size-h5</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-h6 (same as @font-size-base)</p>
+            <p class="font-symbol">@font-size-h6 (same as @font-size-base)</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-large</p>
+            <p class="font-symbol">@font-size-large</p>
             <hr />
         </div>
         <div class="col-xs-12">
             <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-            <p class="size-symbol">@font-size-small</p>
+            <p class="font-symbol">@font-size-small</p>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row"><h3>Font Family</h3></div>
+    <div class="row font-family-row">
+        <div class="col-xs-12">
+            <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+            <p class="font-symbol">@font-family-base (alias @font-family-sans-serif)</p>
+            <hr />
+        </div>
+        <div class="col-xs-12">
+            <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+            <p class="font-symbol">@font-family-monospace</p>
+            <hr />
+        </div>
+        <div class="col-xs-12">
+            <p class="dummy-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+            <p class="font-symbol">@font-family-serif</p>
             <hr />
         </div>
     </div>
