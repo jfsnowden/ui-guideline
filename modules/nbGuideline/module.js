@@ -21,28 +21,35 @@
             .state('home.introduction', {
                 url: '/introduction',
                 templateUrl: 'modules/nbGuideline/views/introduction.html',
-                controller: 'nb.guideline.introCtrl',
+                controller: function(){},
                 controllerAs: 'ctrl'
             })
 
             .state('home.practices', {
                 url: '/practices',
                 templateUrl: 'modules/nbGuideline/views/practices.html',
-                controller: 'nb.guideline.practiceCtrl',
+                controller: function(){},
                 controllerAs: 'ctrl'
             })
 
             .state('home.changes', {
                 url: '/changes',
                 templateUrl: 'modules/nbGuideline/views/changes.html',
-                controller: 'nb.guideline.changeCtrl',
+                controller: function(){},
                 controllerAs: 'ctrl'
             })
 
             .state('home.colors', {
                 url: '/colors',
                 templateUrl: 'modules/nbGuideline/views/color.html',
-                controller: 'nb.guideline.colorCtrl',
+                controller: function(){},
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.fonts', {
+                url: '/fonts',
+                templateUrl: 'modules/nbGuideline/views/font.html',
+                controller: function(){},
                 controllerAs: 'ctrl'
             })
 
