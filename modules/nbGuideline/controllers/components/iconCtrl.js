@@ -8,7 +8,7 @@
         getSprites();
         function getSprites(){
             $http.get('/ui-guideline/css/less/sprite.less').then(function(res){
-                var regex = /\.([a-zA-Z0-9-]+?)[\s]?[{,]/g
+                var regex = /\.([a-zA-Z0-9-_]+?)[\s]?[{,]/g
                 var data = res.data;
                 var parseSprites = [];
                 while ((m = regex.exec(data)) !== null) {
