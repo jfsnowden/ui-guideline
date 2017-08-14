@@ -8,3 +8,4 @@ document.write('<script src="modules/nbGuideline/controllers/components/buttonCt
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/global.less">');
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/sidebar.less">');
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/colors.less">');
+document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/font.less">');
