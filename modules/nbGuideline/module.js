@@ -4,6 +4,7 @@
     var GuidelineApp = angular.module('nb.guideline', [
         'nb.common',
         'ui.router',
+        'ui.bootstrap',
         'hljs'
     ]);
 
@@ -70,6 +71,13 @@
                 url: '/components/icons',
                 templateUrl: 'modules/nbGuideline/views/components/icons.html',
                 controller: 'nb.guideline.iconCtrl',
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.modal', {
+                url: '/components/modal',
+                templateUrl: 'modules/nbGuideline/views/components/modal.html',
+                controller: 'nb.guideline.modalCtrl',
                 controllerAs: 'ctrl'
             })
 

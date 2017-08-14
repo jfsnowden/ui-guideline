@@ -1,0 +1,151 @@
+<div>
+    <div class="row"><h1>Modal</h1></div>
+
+    <div class="row"><h3>Basic</h3></div>
+    <div class="row">
+        <div class="col-xs-12"><button class="btn btn-primary" ng-click="ctrl.openModal()">Open Modal</button></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+//controller
+self.openModal = function(){
+    $modal.open({
+        backdrop: 'static',
+        keyboard: false,
+        windowClass: 'sample-modal',
+        templateUrl: 'sampleModal.tpl.html',
+        controller: 'sampleModalCtrl',
+        controllerAs: 'ctrl',
+        resolve: {
+            // inject objects into modal instance
+        }
+    })
+}
+        </div>
+        <div class="col-xs-12" hljs hljs-language="html">
+<!--sampleModal.tpl.html-->
+<div class="modal-header">
+    <div class="icon-container" ng-click="ctrl.closeModal()">
+        <span class="icon close"></span>
+    </div>
+    <h3 class="modal-title">Sample Modal</h3>
+</div>
+<div class="modal-body" style="width: 600px;height: 650px;">
+    <!--You need to define width/height for modal instance-->
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="ctrl.closeModal()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ctrl.closeModal()">OK</button>
+</div>
+        </div>
+    </div>
+
+    <div class="row"><h3>Alert Dialog</h3></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" ng-click="ctrl.notification()">Notification</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+//controller
+Controller.$inject = ['nb.common.nbAlertSrvc'];
+function Controller(nbAlert){
+    self.notification = function(){
+       nbAlert.notification('This is a notification').then(function(){
+            //do something after user clicked ok...
+       })
+    }
+}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-danger" ng-click="ctrl.error()">Show Error</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+//controller
+Controller.$inject = ['nb.common.nbAlertSrvc'];
+function Controller(nbAlert){
+    self.notification = function(){
+        nbAlert.error('This is an error').then(function(){
+            //do something after user clicked ok...
+        })
+    }
+}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-warning" ng-click="ctrl.warning()">Show Warning</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+//controller
+Controller.$inject = ['nb.common.nbAlertSrvc'];
+function Controller(nbAlert){
+    self.notification = function(){
+        nbAlert.warning('This is an warning').then(function(){
+        //do something after user clicked ok...
+        })
+    }
+}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-info" ng-click="ctrl.confirm()">Show Confirm</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+//controller
+Controller.$inject = ['nb.common.nbAlertSrvc'];
+function Controller(nbAlert){
+    self.notification = function(){
+        nbAlert.confirm('This is an warning').then(function(){
+            //do something after user clicked YES...
+        }, function(){
+            //do something after user clicked NO...
+        })
+    }
+}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" ng-click="ctrl.customAlert()">Show Customized Alert Dialog</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+//controller
+Controller.$inject = ['nb.common.nbAlertSrvc'];
+function Controller(nbAlert){
+    self.notification = function(){
+        nbAlert.error({
+            title: 'Customized Title',
+            message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit?',
+            buttons: [
+                {
+                    id: NB_CONFIRM_YES,
+                    label:"Agree"
+                },
+                {
+                    id: NB_CONFIRM_NO,
+                    label: "Disagree"
+                },
+                {
+                    id: NB_CONFIRM_CANCEL,
+                    label: "Cancel"
+                }
+            ]
+        })
+    }
+}
+        </div>
+    </div>
+</div>

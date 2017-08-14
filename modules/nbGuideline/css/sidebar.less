@@ -3,7 +3,7 @@
 .side-bar-menu(){
   width: 100%;
   border-bottom: @border;
-  padding: @padding-large-vertical @padding-large-horizontal;
+  padding: @padding-large-vertical*3 @padding-large-horizontal;
   font-size: @font-size-h4;
   cursor: pointer;
 }
@@ -24,7 +24,7 @@
   .menu{
     .side-bar-menu();
     .hover-underline();
-    font-size: @font-size-h4;
+    font-size: @font-size-h3;
   }
 
   .logo{
@@ -38,6 +38,7 @@
 
   .sub-menu{
     .side-bar-menu();
+    padding: @padding-large-vertical @padding-large-horizontal;
     background-color: @brand-primary-lt4;
     color: white;
     > *{
