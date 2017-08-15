@@ -8,7 +8,7 @@
         getSprites();
         function getSprites(){
             $http.get('/ui-guideline/css/less/sprite.less').then(function(res){
-                var regex = /\.([a-zA-Z0-9-_]+?)[\s]?[{,]/g
+                var regex = /\.([a-zA-Z0-9-_.\s]+?)[{,]/g;
                 var data = res.data;
                 var parseSprites = [];
                 while ((m = regex.exec(data)) !== null) {
@@ -18,7 +18,16 @@
                     parseSprites.push(m[1]);
                 }
                 var sprites = parseSprites.map(function(spr){
-                    return '<div class="col-xs-4 icon-block"><p class="'+spr+'"></p><p><strong>.'+spr+'</strong></p></div>'
+                    var p = document.createElement('P');
+                    spr.trim().split(' ').forEach(function(s){
+                        var rs = s.replace(/\./g, ' ');
+                        var $next = $(p);
+                        while($next.children('span').length > 0){
+                            $next = $($next.children('span'))
+                        }
+                        $next.append('<span class="' + rs + '"></span>')
+                    })
+                    return '<div class="col-xs-4 icon-block">'+ p.outerHTML + '<p><strong>.'+spr+'</strong></p></div>'
                 })
                 $('div.icons-wrap').html(sprites);
             })
