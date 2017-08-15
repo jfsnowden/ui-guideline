@@ -1,0 +1,63 @@
+<div>
+    <div class="row"><h1>Treeview</h1></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <p>
+                <code>nb-treeview-directive</code> is a wrapper of <a href="https://github.com/iVantage/angular-ivh-treeview" target="_blank">ivh treeview</a>,
+                for advanced usage, please refer to <a href="https://github.com/iVantage/angular-ivh-treeview" target="_blank">their tutorial</a> and our <a href="http://confluence.netbraintech.com/confluence/pages/viewpage.action?pageId=17957165" target="_blank">JIRA documentation</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-4 col-md-3">
+                <div nb-treeview-directive="ctrl.treeData" options="ctrl.treeviewOptions"></div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="row" hljs hljs-language="html">
+<div nb-treeview-directive="ctrl.treeData" options="ctrl.treeviewOptions"></div>
+            </div>
+
+            <div class="row" hljs hljs-language="javascript">
+self.treeviewOptions = {
+    expandToDepth: 1,
+    labelAttribute: 'label',
+    idAttribute: '_id',
+    childrenAttribute: 'children',
+    expandedAttribute: 'expanded',
+    selectedAttribute: 'selected',
+    editableAttribute: 'editable',
+    enableMultipleSelect: true,
+    iconTemplate: function (node, trvw) {
+        return node.type <= 'department' ?
+        '<div class="icon_nb_folder"></div>' : '<div class="icon_nb_user"></div>';
+    },
+    nodeClickCallback: function (node, trvw) { /* ... */ },
+    enableNodeDropdown: {
+        isDisplay: true,
+        dropdownItems: function (node, trvw) {
+            switch (node.type){
+                case 'employee': return [
+                    { template: "View Profile", action: function (node, trvw, event) { /* ... */ } },
+                    { template: "Edit", action: function (node, trvw, event) { node.editable = true } },
+                ];
+                case 'department': return [
+                    { template: "Edit", action: function (node, trvw, event) { node.editable = true } }
+                ];
+            }
+        }
+    },
+    editableCallback: function (node, trvw, text, event) {
+        node.label = text;
+        node.editable = false;
+        return $q.resolve(true); //should return a promise
+    }
+};
+            </div>
+        </div>
+    </div>
+</div>

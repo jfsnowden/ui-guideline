@@ -1,0 +1,68 @@
+{
+  "_id": 10000,
+  "label": "Departments",
+  "type": "department",
+  "children": [
+    {
+      "_id": 11000,
+      "label": "Finance",
+      "type": "department",
+      "children": [
+        { "_id": 11001, "label": "Johanna Mcgee", "type": "employee" },
+        { "_id": 11002, "label": "Marcie Brooks", "type": "employee" },
+        { "_id": 11003, "label": "Ingram Nieves", "type": "employee" },
+        { "_id": 11004, "label": "Eugenia Parks", "type": "employee" },
+        { "_id": 11005, "label": "Haley Forbes", "type": "employee" },
+        { "_id": 11006, "label": "Krystal Nelson", "type": "employee" }
+      ]
+    },
+    {
+      "_id": 12000,
+      "label": "Sales",
+      "type": "department",
+      "children": [
+        { "_id": 12001, "label": "Johanna Mcgee", "type": "employee" },
+        { "_id": 12002, "label": "Marcie Brooks", "type": "employee" },
+        { "_id": 12003, "label": "Ingram Nieves", "type": "employee" },
+        { "_id": 12004, "label": "Eugenia Parks", "type": "employee" },
+        { "_id": 12005, "label": "Haley Forbes", "type": "employee" },
+        { "_id": 12007, "label": "Molina Bradley", "type": "employee" },
+        { "_id": 12008, "label": "Jenkins Rocha", "type": "employee" },
+        { "_id": 12009, "label": "Judy Carver", "type": "employee" },
+        { "_id": 12010, "label": "Mcintyre Gallagher", "type": "employee" },
+        { "_id": 12011, "label": "Roxanne Pittman", "type": "employee" },
+        { "_id": 12012, "label": "Wilkins Clements", "type": "employee" },
+        { "_id": 12013, "label": "Duran Francis", "type": "employee" }
+      ]
+    },
+    {
+      "_id": 13000,
+      "label": "Engineering",
+      "type": "department",
+      "children": [
+        { "_id": 13001, "label": "Florence Lee", "type": "employee" },
+        { "_id": 13002, "label": "Ethel Parker", "type": "employee" },
+        { "_id": 13003, "label": "Beck Cotton", "type": "employee" },
+        { "_id": 13004, "label": "Eugenia Parks", "type": "employee" },
+        { "_id": 13005, "label": "Ila Fry", "type": "employee" },
+        { "_id": 13007, "label": "Mooney Brennan", "type": "employee" },
+        { "_id": 13008, "label": "Jenkins Rocha", "type": "employee" },
+        { "_id": 13009, "label": "Jeanne Levine", "type": "employee" }
+      ]
+    },
+    {
+      "_id": 14000,
+      "label": "Support",
+      "type": "department",
+      "children": [
+        { "_id": 14001, "label": "Wallace Young", "type": "employee" },
+        { "_id": 14002, "label": "Kristi Day", "type": "employee" },
+        { "_id": 14003, "label": "Melva Gamble", "type": "employee" },
+        { "_id": 14004, "label": "Johnnie Robles", "type": "employee" },
+        { "_id": 14007, "label": "Hubbard Parsons", "type": "employee" },
+        { "_id": 14008, "label": "Mccullough Lindsey", "type": "employee" },
+        { "_id": 14009, "label": "Jeanne Levine", "type": "employee" }
+      ]
+    }
+  ]
+}

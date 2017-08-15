@@ -8,6 +8,7 @@
         'ui.grid',
         'ui.grid.resizeColumns',
         'ui.grid.selection',
+        'ivh.treeview',
         'ngAnimate',
         'hljs'
     ]);
@@ -89,6 +90,13 @@
                 url: '/components/grid',
                 templateUrl: 'modules/nbGuideline/views/components/grid.html',
                 controller: 'nb.guideline.gridCtrl',
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.tree', {
+                url: '/components/tree',
+                templateUrl: 'modules/nbGuideline/views/components/tree.html',
+                controller: 'nb.guideline.treeCtrl',
                 controllerAs: 'ctrl'
             })
 

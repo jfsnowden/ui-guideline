@@ -4,7 +4,7 @@
     SideBarCtrl.$inject = [];
     function SideBarCtrl(){
         var self = this;
-        self.selectedTab = '';
+        self.selectedTab = 'overview';
         self.onTabSelect = function(tab){
             if(self.selectedTab === tab) {
                 self.selectedTab = '';

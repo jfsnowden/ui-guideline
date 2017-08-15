@@ -388,14 +388,14 @@
                                     if (promise && promise.then) {
                                         promise.then(function (result) {
                                             if (!result) {
-                                                divEle.val(scope.node.name);
+                                                divEle.val(scope.node[self.treeviewOptions.labelAttribute]);
                                                 $timeout(function () {
                                                     divEle.select().focus();
                                                     $(document.body).one('click.nbTreeDocClickHandler', docClickHandler);
                                                 });
                                             }
                                         }, function () {
-                                            divEle.val(scope.node.name);
+                                            divEle.val(scope.node[self.treeviewOptions.labelAttribute]);
                                             $timeout(function () {
                                                 divEle.select().focus();
                                                 $(document.body).one('click.nbTreeDocClickHandler', docClickHandler);
