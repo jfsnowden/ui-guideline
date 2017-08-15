@@ -5,6 +5,9 @@
         'nb.common',
         'ui.router',
         'ui.bootstrap',
+        'ui.grid',
+        'ui.grid.resizeColumns',
+        'ui.grid.selection',
         'ngAnimate',
         'hljs'
     ]);
@@ -79,6 +82,13 @@
                 url: '/components/modal',
                 templateUrl: 'modules/nbGuideline/views/components/modal.html',
                 controller: 'nb.guideline.modalCtrl',
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.grid', {
+                url: '/components/grid',
+                templateUrl: 'modules/nbGuideline/views/components/grid.html',
+                controller: 'nb.guideline.gridCtrl',
                 controllerAs: 'ctrl'
             })
 

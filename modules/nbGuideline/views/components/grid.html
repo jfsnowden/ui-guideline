@@ -1,0 +1,103 @@
+<div>
+    <div class="row"><h1>Grid</h1></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <p>
+                <code>nb-grid</code> is a wrapper of <a href="http://ui-grid.info/" target="_blank">angular ui grid</a>,
+                for advanced usage, please refer to <a href="http://ui-grid.info/docs/#/tutorial" target="_blank">their tutorial</a> and our <a href="http://confluence.netbraintech.com/confluence/pages/viewpage.action?pageId=17957163" target="_blank">JIRA documentation</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" style="height: 500px;">
+            <div ui-grid="ctrl.gridOptions"
+                 ui-grid-selection
+                 ui-grid-resize-columns
+                 nb-grid
+                 nb-grid-row-menu
+                 nb-grid-row-context-menu
+                 nb-grid-header-bar></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="html" hljs-no-escape>
+&lt;!-- grid template --&gt;
+&lt;div style=&quot;width: 100%; height: 500px;&quot;&gt;
+    &lt;div ui-grid=&quot;gridOptions&quot;
+            ui-grid-selection
+            ui-grid-resize-columns
+            nb-grid
+            nb-grid-row-menu
+            nb-grid-row-context-menu
+            nb-grid-header-bar&gt;&lt;/div&gt;
+&lt;/div&gt;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="javascript">
+$scope.gridOptions = {
+    data: 'data',
+    columnDefs: [
+        { field: 'name'},
+        { field: 'gender'},
+        { field: 'age'},
+        { field: 'email'},
+        { field: 'phone'},
+        { field: 'company'}
+    ],
+    enableHeaderBar: true,
+    enableHeaderSearchBar: true,
+    headerSearchCloseIcon: '<i class="icon_nb_close" style="margin-right:5px;"></i>',
+    headerBarBtnsOnRight: [
+        {
+            template: '<i class="icon_nb_refresh icon-font-button"></i> Refresh',
+            isDisplay: true,
+            action: function (rows, grid, event) { /* ... */}
+        }
+    ],
+    headerBarBtnsOnLeft: [
+        {
+            template: '<i class="icon_nb_add icon-font-button"></i><label>Add</label>',
+            isDisplay: true,
+            action: function (rows, grid, event) { /* ... */}
+        },
+        {
+            template: '<i class="user-group-icon"></i><label>Group</label>',
+            isDisplay: function(rows, grid, event){ return rows.length > 1 },
+            action: function (rows, grid, event) { /* ... */}
+        },
+        {
+            template: '<i class="open-in-dashboard"></i><label>Open</label>',
+            isDisplay: function(rows, grid, event){ return rows.length === 1 },
+            action: function (rows, grid, event) { /* ... */}
+        },
+        {
+            template: '<i class="icon_nb_edit"></i><label>Edit</label>',
+            isDisplay: function(rows, grid, event){ return rows.length === 1 },
+            action: function (rows, grid, event) { /* ... */}
+        }
+    ],
+    enableRowActionMenu: true,
+    rowActionMenuItems: function (rows, grid, event) {
+        return [
+            { template: 'Open', action: function (rows, grid, event) { /* ... */ } },
+            { template: 'Move', action: function (rows, grid, event) { /* ... */ } },
+            { template: 'Edit', action: function (rows, grid, event) { /* ... */ } },
+            { template: 'Delete', action: function (rows, grid, event) { /* ... */ } },
+        ]
+    },
+    enableRowContextMenu: true,
+    rowContextMenuItems: function (rows, grid, event) {
+        return [
+            { template: 'Group', action: function (rows, grid, event) { /* ... */ } },
+            { template: 'Delete', action: function (rows, grid, event) { /* ... */ } }
+        ]
+    }
+}
+        </div>
+    </div>
+</div>
