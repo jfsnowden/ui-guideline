@@ -4,6 +4,20 @@
     IconCtrl.$inject = ['$http'];
     function IconCtrl($http){
         var self = this;
+        self.searchValue = '';
+
+        self.onSearchIcon = _.debounce(function(event){
+            $('.icons-wrap .icon-block strong').each(function(index, elm){
+                var $elm = $(elm);
+                var $text = $elm.text();
+                if($text.indexOf(self.searchValue) < 0){
+                    $elm.parents('.icon-block').hide();
+                }else{
+                    $elm.html($text.replace(self.searchValue, `<span class="highlight">${self.searchValue}</span>`));
+                    $elm.parents('.icon-block').show();
+                }
+            })
+        }, 500);
 
         getSprites();
         function getSprites(){
