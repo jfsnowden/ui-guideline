@@ -100,6 +100,13 @@
                 controllerAs: 'ctrl'
             })
 
+            .state('home.tab', {
+                url: '/components/tab',
+                templateUrl: 'modules/nbGuideline/views/components/tab.html',
+                controller: 'nb.guideline.tabCtrl',
+                controllerAs: 'ctrl'
+            })
+
     });
 
     GuidelineApp.run(function(){

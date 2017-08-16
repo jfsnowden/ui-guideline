@@ -7,6 +7,7 @@ document.write('<script src="modules/nbGuideline/controllers/components/buttonCt
 document.write('<script src="modules/nbGuideline/controllers/components/modalCtrl.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/components/gridCtrl.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/components/treeCtrl.js"></script>');
+document.write('<script src="modules/nbGuideline/controllers/components/tabCtrl.js"></script>');
 
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/global.less">');
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/sidebar.less">');
