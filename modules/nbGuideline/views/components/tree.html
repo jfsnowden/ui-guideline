@@ -39,7 +39,7 @@ self.treeviewOptions = {
             //Basically, you need to code your own search logic...
             query = query.toLowerCase();
             var results = [];
-                
+
             function loop(root){
                 if(root.children && root.children.length > 0){
                     _.each(root.children, loop)

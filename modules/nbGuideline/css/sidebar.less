@@ -1,9 +1,11 @@
 @import '../../../css/less/vars';
+@sidebar-border-color: #e0e6ed;
+@border-style: 1px solid @sidebar-border-color;
 
 .side-bar-menu(){
   width: 100%;
-  border-bottom: @border;
-  padding: @padding-large-vertical*3 @padding-large-horizontal;
+  border-bottom: @border-style;
+  padding: @padding-large-vertical*1.5 @padding-large-horizontal;
   font-size: @font-size-h4;
   cursor: pointer;
 }
@@ -16,7 +18,7 @@
 
 .side-bar{
   height: 100vh;
-  border-right: @border;
+  border-right: @border-style;
   padding: 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -30,7 +32,7 @@
   .logo{
     .side-bar-menu();
     text-align: center;
-    padding: 35px;
+    padding: @padding-large-vertical*4 @padding-large-horizontal*4;
     img{
       width: 100%;
     }
@@ -44,5 +46,12 @@
     > *{
       .hover-underline();
     }
+  }
+
+  .footer{
+    position: absolute;
+    bottom: 0;
+    padding: @padding-large-vertical @padding-large-horizontal;
+    color: @sidebar-border-color;
   }
 }
