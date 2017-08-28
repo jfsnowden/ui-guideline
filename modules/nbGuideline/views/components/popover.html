@@ -3,7 +3,69 @@
 
     <div class="row">
         <div class="col-xs-12">
-            For more usages, check <a href="" target="_blank">uib bootstrap popover</a>
+            For more usages, check <a href="https://angular-ui.github.io/bootstrap/#popover" target="_blank">uib bootstrap popover</a>
+        </div>
+    </div>
+
+    <div class="row"><h3>Basic</h3></div>
+
+    <div class="row">
+        <div class="col-xs-4 col-xs-2">
+            <button class="btn btn-default" uib-popover="This is a simple popover on top" popover-trigger="'mouseenter'" popover-placement="top">Popover Top</button>
+        </div>
+        <div class="col-xs-4 col-xs-2">
+            <button class="btn btn-default" uib-popover="This is a simple popover on right" popover-trigger="'mouseenter'" popover-placement="right">Popover Right</button>
+        </div>
+        <div class="col-xs-4 col-xs-2">
+            <button class="btn btn-default" uib-popover="This is a simple popover on bottom" popover-trigger="'mouseenter'" popover-placement="bottom">Popover Bottom</button>
+        </div>
+        <div class="col-xs-4 col-xs-2">
+            <button class="btn btn-default" uib-popover="This is a simple popover on left" popover-trigger="'mouseenter'" popover-placement="left">Popover Left</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="html" no-escape>
+&lt;button uib-popover=&quot;This is a simple popover on top&quot; popover-trigger=&quot;'mouseenter'&quot; popover-placement=&quot;top&quot;&gt;
+    Popover Top
+&lt;/button&gt;
+&lt;button uib-popover=&quot;This is a simple popover on right&quot; popover-trigger=&quot;'mouseenter'&quot; popover-placement=&quot;right&quot;&gt;
+    Popover Right
+&lt;/button&gt;
+&lt;button uib-popover=&quot;This is a simple popover on bottom&quot; popover-trigger=&quot;'mouseenter'&quot; popover-placement=&quot;bottom&quot;&gt;
+    Popover Bottom
+&lt;/button&gt;
+&lt;button uib-popover=&quot;This is a simple popover on left&quot; popover-trigger=&quot;'mouseenter'&quot; popover-placement=&quot;left&quot;&gt;
+    Popover Left
+&lt;/button&gt;
+        </div>
+    </div>
+
+    <div class="row"><h3>With HTML Template</h3></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <button uib-popover-html="ctrl.popoverHtml" class="btn btn-default" popover-trigger="'mouseenter'" popover-placement="right">HTML Popover</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="html" no-escape>
+<!--html-->
+&lt;button uib-popover-html=&quot;ctrl.popoverHtml&quot; popover-trigger=&quot;'mouseenter'&quot; popover-placement=&quot;right&quot;&gt;HTML Popover&lt;/button&gt;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs>
+//controller
+angular.module('nb.guideline').controller('nb.guideline.popoverCtrl', PopoverCtrl);
+
+PopoverCtrl.$inject = ['$sce'];
+function PopoverCtrl($sce){
+    var self = this;
+    self.popoverHtml = $sce.trustAsHtml('<b style="color: red">You can</b> have customized <div class="label label-success">HTML</div> content in <code>popover</code>');
+}
         </div>
     </div>
 </div>
