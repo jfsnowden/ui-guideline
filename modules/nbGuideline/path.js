@@ -12,6 +12,7 @@ document.write('<script src="modules/nbGuideline/controllers/components/inputCtr
 document.write('<script src="modules/nbGuideline/controllers/components/dropdownCtrl.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/components/dateTimePicker.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/components/toastrCtrl.js"></script>');
+document.write('<script src="modules/nbGuideline/controllers/components/popoverCtrl.js"></script>');
 
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/global.less">');
 document.write('<link rel="stylesheet/less" href="modules/nbGuideline/css/sidebar.less">');

@@ -86,6 +86,13 @@
                 controllerAs: 'ctrl'
             })
 
+            .state('home.popover', {
+                url: '/components/popover',
+                templateUrl: 'modules/nbGuideline/views/components/popover.html',
+                controller: 'nb.guideline.popoverCtrl',
+                controllerAs: 'ctrl'
+            })
+
             .state('home.toastr', {
                 url: '/components/toastr',
                 templateUrl: 'modules/nbGuideline/views/components/toastr.html',
