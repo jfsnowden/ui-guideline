@@ -15,6 +15,26 @@
             selectedAttribute: 'selected',
             editableAttribute: 'editable',
             enableMultipleSelect: true,
+            enableSearchBar: {
+                placeholder: 'Search...',
+                method: 'submit',
+                action: function(query){
+                    query = query.toLowerCase();
+                    var results = [];
+                    function loop(root){
+                        if(root.children && root.children.length > 0){
+                            _.each(root.children, loop)
+                        }else{
+                            if(root.type === 'employee'
+                                && root.label.toLowerCase().indexOf(query) >= 0)
+                                results.push(root);
+                        }
+                    }
+
+                    loop(self.treeData);
+                    return results;
+                }
+            },
             iconTemplate: function (node, trvw) {
                 return node.type <= 'department' ?
                     '<div class="icon_nb_folder"></div>' : '<div class="icon_nb_user"></div>';
