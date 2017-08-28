@@ -79,6 +79,20 @@
                 controllerAs: 'ctrl'
             })
 
+            .state('home.dateTimePicker', {
+                url: '/components/dateTimePicker',
+                templateUrl: 'modules/nbGuideline/views/components/dateTimePicker.html',
+                controller: 'nb.guideline.dateTimePicker',
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.toastr', {
+                url: '/components/toastr',
+                templateUrl: 'modules/nbGuideline/views/components/toastr.html',
+                controller: 'nb.guideline.toastrCtrl',
+                controllerAs: 'ctrl'
+            })
+
             .state('home.button', {
                 url: '/components/button',
                 templateUrl: 'modules/nbGuideline/views/components/button.html',

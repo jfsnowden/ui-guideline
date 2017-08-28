@@ -1,0 +1,56 @@
+<div>
+    <div class="row"><h1>Date/Time Picker</h1></div>
+
+    <div class="row"><h3>Date Picker</h3></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            More usage check our <a href="http://confluence.netbraintech.com/confluence/pages/viewpage.action?pageId=53511932" target="_blank">JIRA documentation</a>
+        </div>
+        <br/><br/>
+        <div class="col-xs-3">
+            <nb-date-picker-popup ng-model="ctrl.selectedDate" is-open="ctrl.isOpen" append-to-body="true"></nb-date-picker-popup>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="html" no-escape>
+&lt;nb-date-picker-popup ng-model=&quot;ctrl.selectedDate&quot;
+                      is-open=&quot;ctrl.isOpen&quot;
+                      append-to-body=&quot;true&quot;&gt;
+&lt;/nb-date-picker-popup&gt;
+        </div>
+    </div>
+
+    <div class="row"><h3>Time Picker</h3></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            More usage, check <a href="https://angular-ui.github.io/bootstrap/#!#timepicker" target="_blank">ui bootstrap timepicker</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="col-xs-12">
+            <div uib-timepicker ng-model="ctrl.timeValue"
+                 ng-change="ctrl.onTimePickerChange(true)"
+                 hour-step="1"
+                 minute-step="1"
+                 show-meridian="true"
+                 show-spinners="false">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="html" no-escape>
+&lt;div uib-timepicker
+     ng-model=&quot;ctrl.timeValue&quot;
+     ng-change=&quot;ctrl.onTimePickerChange(true)&quot;
+     hour-step=&quot;1&quot;
+     minute-step=&quot;1&quot;
+     show-meridian=&quot;true&quot;
+     show-spinners=&quot;false&quot;&gt;
+&lt;/div&gt;
+        </div>
+    </div>
+</div>
