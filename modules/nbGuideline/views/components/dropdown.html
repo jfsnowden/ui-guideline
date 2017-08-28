@@ -1,0 +1,87 @@
+<div>
+    <div class="row"><h1>Dropdown</h1></div>
+
+    <div class="row"><h3>Basic</h3></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <nb-select ng-model="ctrl.basicDropdownSelectedItem"
+                       change="ctrl.onBasicDropdownChange"
+                       options="ctrl.basicDropdownItems"
+                       value-field="value"
+                       label-field="label">
+            </nb-select>
+
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;selected value: {{ctrl.basicDropdownSelectedItem}}</label>
+        </div>
+        <br/><br/>
+        <div class="col-xs-12">More usage, check our <a href="http://confluence.netbraintech.com/confluence/pages/viewpage.action?pageId=18448779" target="_blank">JIRA documentation</a></div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs>
+//controller
+self.basicDropdownSelectedItem = 2;
+
+self.basicDropdownItems = [
+    { value: 1, label: 'Boston' },
+    { value: 2, label: 'Beijing' },
+    { value: 3, label: 'New York' },
+    { value: 4, label: 'Sacramento' },
+    { value: 5, label: 'Munich' }
+]
+
+self.onBasicDropdownChange = function(){
+    // ...
+}
+        </div>
+        <div class="col-xs-12" hljs hljs-language="html" no-escape>
+&lt;!--html--&gt;
+&lt;nb-select ng-model=&quot;ctrl.basicDropdownSelectedItem&quot;
+           change=&quot;ctrl.onBasicDropdownChange&quot;
+           options=&quot;ctrl.basicDropdownItems&quot;
+           value-field=&quot;value&quot;
+           label-field=&quot;label&quot;&gt;
+&lt;/nb-select&gt;
+        </div>
+    </div>
+
+    <div class="row"><h3>Dropdown Tree</h3></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <nb-dropdown-tree-directive tree-data="ctrl.dropdownTreeData"
+                                        tree-options="ctrl.dropdownTreeOptions">
+            </nb-dropdown-tree-directive>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs>
+//controller
+self.dropdownTreeData ={
+    // ...
+};
+
+self.dropdownTreeOptions = {
+    expandToDepth: 1,
+    labelAttribute: 'label',
+    idAttribute: '_id',
+    childrenAttribute: 'children',
+    expandedAttribute: 'expanded',
+    selectedAttribute: 'selected',
+    enableMultipleSelect: true,
+    iconTemplate: function (node, trvw) {
+    return node.type <= 'department' ?
+        '<div class="icon_nb_folder"></div>' : '<div class="icon_nb_user"></div>';
+    },
+    nodeClickCallback: function (node, trvw) { /* ... */ }
+};
+        </div>
+        <div class="col-xs-12" hljs hljs-language="html" no-escape>
+&lt;nb-dropdown-tree-directive tree-data=&quot;ctrl.dropdownTreeData&quot;
+           tree-options=&quot;ctrl.dropdownTreeOptions&quot;&gt;
+&lt;/nb-dropdown-tree-directive&gt;
+        </div>
+    </div>
+</div>

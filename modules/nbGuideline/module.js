@@ -65,6 +65,20 @@
                 template: '<div ui-view></div>'
             })
 
+            .state('home.input', {
+                url: '/components/button',
+                templateUrl: 'modules/nbGuideline/views/components/input.html',
+                controller: 'nb.guideline.inputCtrl',
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.dropdown', {
+                url: '/components/dropdown',
+                templateUrl: 'modules/nbGuideline/views/components/dropdown.html',
+                controller: 'nb.guideline.dropdownCtrl',
+                controllerAs: 'ctrl'
+            })
+
             .state('home.button', {
                 url: '/components/button',
                 templateUrl: 'modules/nbGuideline/views/components/button.html',
