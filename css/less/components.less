@@ -147,7 +147,6 @@
 .nav-tabs, .nav-general {
     border-bottom: @tab-border;
     padding-left: 1px;
-    padding-bottom: 1px;
 
     > li {
         float: left;
@@ -178,6 +177,12 @@
         .close {
             display: inline-block;
             margin-left: @font-size-base/2;
+        }
+
+        * {
+            vertical-align: top;
+            margin-top: -1px;
+            margin-bottom: -1px;
         }
     }
 
@@ -709,8 +714,8 @@ div[ui-grid] .ui-grid-icon-down-dir:before, div[ui-grid] .ui-grid-icon-up-dir:be
         span {
             position: absolute;
             color: @brand-primary-lt1;
-            top: 3px;
-            right: 7px;
+            top: 2px;
+            right: 10px;
             background-color: white;
         }
     }
@@ -1048,4 +1053,30 @@ ul[uib-datepicker-popup-wrap] {
 }
 .position-absolute {
     position: absolute;
+}
+
+div[uib-timepicker] {
+    display: inline-block;
+
+    table {
+        display: inline-block;
+        vertical-align: middle;
+
+        .form-group {
+            margin: 0 6px;
+
+            .form-control {
+                flex: none;
+            }
+        }
+
+        td {
+            button {
+                background: none;
+                padding: 0 15px;
+                border-radius: 0;
+                margin-left: 6px;
+            }
+        }
+    }
 }
