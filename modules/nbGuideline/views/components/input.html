@@ -14,4 +14,30 @@
 <input class="form-control" placeholder="Type something..."/>
         </div>
     </div>
+
+    <div class="row"><h3>Icon Input</h3></div>
+
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <div class="form-group nb-filter-bar input-icon default-search-bar">
+                <input class="form-control" ng-model="ctrl.keyword" placeholder="Search..." />
+                <div class="icons icon-group">
+                    <i class="icon_nb_close" ng-show="ctrl.keyword" ng-click="ctrl.keyword=''"></i>
+                    <i class="icon_nb_search" ng-show="!ctrl.keyword"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" hljs hljs-language="html">
+<div class="form-group nb-filter-bar input-icon default-search-bar">
+    <input class="form-control" ng-model="ctrl.keyword" placeholder="Search..." />
+    <div class="icons icon-group">
+        <i class="icon_nb_close" ng-show="ctrl.keyword" ng-click="ctrl.keyword=''"></i>
+        <i class="icon_nb_search" ng-show="!ctrl.keyword"></i>
+    </div>
+</div>
+        </div>
+    </div>
 </div>
