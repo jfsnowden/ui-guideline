@@ -15,7 +15,7 @@
 
     GuidelineApp.config(function($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/introduction');
+        $urlRouterProvider.otherwise('/changes');
 
         $stateProvider
 
@@ -41,7 +41,7 @@
             .state('home.changes', {
                 url: '/changes',
                 templateUrl: 'modules/nbGuideline/views/changes.html',
-                controller: function(){},
+                controller: 'nb.guideline.changesCtrl',
                 controllerAs: 'ctrl'
             })
 

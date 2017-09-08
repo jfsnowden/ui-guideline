@@ -1,6 +1,7 @@
 document.write('<script src="modules/nbGuideline/module.js"></script>');
 
 document.write('<script src="modules/nbGuideline/controllers/sideBarCtrl.js"></script>');
+document.write('<script src="modules/nbGuideline/controllers/changesCtrl.js"></script>');
 
 document.write('<script src="modules/nbGuideline/controllers/components/iconCtrl.js"></script>');
 document.write('<script src="modules/nbGuideline/controllers/components/buttonCtrl.js"></script>');

@@ -14,18 +14,21 @@
     </div>
 
     <div class="menu" ng-click="ctrl.onTabSelect('design')">
-        Design
+        Style
     </div>
     <div class="sub-menu" ng-show="ctrl.selectedTab === 'design'">
         <div><a ui-sref="home.colors">Color Schema</a></div>
         <div><a ui-sref="home.fonts">Typography</a></div>
     </div>
 
+    <div class="menu">
+        <div><a ui-sref="home.icons" style="color: #000;">Icons</a></div>
+    </div>
+
     <div class="menu" ng-click="ctrl.onTabSelect('components')">
         Components
     </div>
     <div class="sub-menu" ng-show="ctrl.selectedTab === 'components'">
-        <div><a ui-sref="home.icons">Icons</a></div>
         <div>Input</div>
         <div><a ui-sref="home.button">Buttons</a></div>
         <div><a ui-sref="home.dropdown">Dropdown</a></div>
