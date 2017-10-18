@@ -142,6 +142,26 @@
                 controllerAs: 'ctrl'
             })
 
+            .state('home.wordings', {
+                abstract: true,
+                url: '/wordings',
+                template: '<div ui-view></div>'
+            })
+
+            .state('home.wordingGuideline', {
+                url: '/wordings/guideline',
+                templateUrl: 'modules/nbGuideline/views/wordings/guideline.html',
+                controller: 'nb.guideline.wordingGuidelineCtrl',
+                controllerAs: 'ctrl'
+            })
+
+            .state('home.wordingExamples', {
+                url: '/wordings/examples',
+                templateUrl: 'modules/nbGuideline/views/wordings/examples.html',
+                controller: 'nb.guideline.wordingExamplesCtrl',
+                controllerAs: 'ctrl'
+            })
+
     });
 
     GuidelineApp.run(function(){

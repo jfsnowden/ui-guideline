@@ -41,6 +41,14 @@
         <div><a ui-sref="home.toastr">Toastr</a></div>
     </div>
 
+    <div class="menu" ng-click="ctrl.onTabSelect('wordings')">
+        Wordings
+    </div>
+    <div class="sub-menu" ng-show="ctrl.selectedTab === 'wordings'">
+        <div><a ui-sref="home.wordingGuideline">Wording Guidelines</a></div>
+        <div><a ui-sref="home.wordingExamples">Detailed Message Examples</a></div>
+    </div>
+
     <div class="footer">
         Copyright © 2017. NetBrain Technologies Inc.
         <br/>All rights reserved.
