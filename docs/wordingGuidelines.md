@@ -14,11 +14,18 @@
 
 ### 3. Use clear action buttons, instead of simple Yes/No
 
-<h2 class="text-success">✔</h2>
-![](docs/assets/right-action-buttons.png)
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
+        <h2 class="text-success">✔</h2>
+        <img src="docs/assets/right-action-buttons.png" style="width:100%;" />
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
+        <h2 class="text-danger">✖</h2>
+        <img src="docs/assets/wrong-action-buttons.png" style="width:100%;" />
+    </div>
+</div>
 
-<h2 class="text-danger">✖</h2>
-![](docs/assets/wrong-action-buttons.png)
+
 
 
 
