@@ -1,14 +1,13 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbIvhTreeviewEditDirective', [
-        '$timeout', 'nb.ng.utilitySrvc', function($timeout, utilitySrvc) {
-
+        '$timeout', 'nb.ng.utilitySrvc',
+        function($timeout, utilitySrvc) {
             return {
                 restrict: 'A',
                 link: function(scope, elm, attrs) {
                     scope.node = scope.$parent.node;
-
 
                     elm.bind('blur', function() {
                         $timeout(function() {
@@ -19,14 +18,12 @@
                                 }
                             });
                         }, 1);
-
                     });
 
 
                     attrs.$observe('contenteditable', function(newValue) {
                         if (newValue === 'true' && !scope.node.systemFolder) {
                             $timeout(function() {
-
                                 var range = document.createRange();
                                 range.selectNodeContents(elm[0]);
                                 var sel = window.getSelection();
@@ -34,17 +31,11 @@
                                     sel.removeAllRanges();
                                     sel.addRange(range);
                                 }
-
-
-                            }, 1)
+                            }, 1);
                         }
                     });
-
-
                 }
             };
         }
     ]);
-
 })(NetBrain);
-

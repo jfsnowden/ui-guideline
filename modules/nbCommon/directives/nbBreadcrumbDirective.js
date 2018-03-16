@@ -1,14 +1,14 @@
-﻿(function (netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbBreadcrumbDirective', [
-        function () {
+        function() {
             return {
                 restrict: 'EA',
                 scope: {
-                    'id': '@',
-                    'folderClicked': '&',
-                    'val': '='
+                    id: '@',
+                    folderClicked: '&',
+                    val: '='
                 },
                 template: '<ul class="breadcrumb">' +
                     '<li style="float: left; cursor: pointer;margin:-1px 10px 0px -10px;" ng-if="showTopNav">' +
@@ -42,9 +42,8 @@
                     '</li>' +
                     '</ul>',
                 replace: true,
-                compile: function (tElement, tAttrs) {
-                    return function ($scope, $elem, $attr) {
-
+                compile: function() { // tElement, tAttrs
+                    return function($scope, $elem, $attr) {
                         $scope.folderLevel = 0;
 
                         $scope.displayFolderLevel = $attr.displayFolderLevel || 2;
@@ -55,11 +54,11 @@
 
                         $scope.displayNavMenu = [];
 
-                        $scope.selectBreadcrumbNode = function (obj) {
-                            $scope.folderClicked({ 'obj': obj });
+                        $scope.selectBreadcrumbNode = function(obj) {
+                            $scope.folderClicked({ obj: obj });
                         };
 
-                        $scope.toggleArrow = function (folder) {
+                        $scope.toggleArrow = function(folder) {
                             if (folder.child) {
                                 for (var i = 0; i < folder.child.length; i++) {
                                     if (folder.child[i].nodeType === 0) {
@@ -71,10 +70,10 @@
                             return false;
                         };
 
-                        $scope.$watch('val', function (value) {
-
-                            if (value === undefined)
+                        $scope.$watch('val', function(value) {
+                            if (value === undefined) {
                                 return;
+                            }
 
                             $scope.folderLevel = value.length;
 
@@ -93,12 +92,10 @@
                                     $scope.displayNavMenu.push(value[j]);
                                 }
                             }
-                        })
-                    }
+                        });
+                    };
                 }
             };
-
         }
     ]);
-
 })(NetBrain);

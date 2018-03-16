@@ -1,8 +1,5 @@
-;
-(function (NetBrain) {
-
-    angular.module('nb.common')
-        .directive('nbContextMenu', NbContextMenu);
+(function() {
+    angular.module('nb.common').directive('nbContextMenu', NbContextMenu);
 
     NbContextMenu.$inject = [
         '$rootScope', '$compile', '$sce', '$log', '$document', '$timeout',
@@ -25,13 +22,11 @@
 
         return directive;
 
-
-
-        function postHandler(scope, ele, attr, ctrl) {
+        function postHandler(scope, ele) { // , attr, ctrl
             var localScope =
                 scope.localScope = {};
 
-            var menuId = NgUtil.getGUID(); //'$$_nb-context-menu';
+            var menuId = NgUtil.getGUID(); // '$$_nb-context-menu';
             var menu = null;
 
             localScope.renderTemplate = renderTemplateHandler;
@@ -40,14 +35,14 @@
 
             bindMenus();
 
-            return void(0);
+            return undefined;
 
             function bindMenus() {
                 var eventName = scope.key === 'left' ? 'click' : 'contextmenu';
-                $(ele).on(eventName, function (event) {
+                $(ele).on(eventName, function(event) {
                     event.preventDefault();
                     event.stopPropagation();
-                    $timeout(function () {
+                    $timeout(function() {
                         open(event);
                     });
                 });
@@ -55,13 +50,13 @@
 
             function doActionHandler(item, event) {
                 if (angular.isFunction(item.action)) {
-                    item.action(scope.data, event)
+                    item.action(scope.data, event);
                 }
             }
 
             function rendMenuItemHandler(isLast) {
                 if (isLast) {
-                    $timeout(function () {
+                    $timeout(function() {
                         var defaultPosition = {
                             left: localScope.event.pageX,
                             top: localScope.event.pageY
@@ -90,8 +85,8 @@
 
                 scope.cancelOtherMenuShowWatcher = $rootScope.$on(
                     'system::menushow',
-                    function (event, data) {
-                        if (data.menuId != menu.id) {
+                    function(event, data) {
+                        if (data.menuId !== menu.id) {
                             close();
                         }
                     }
@@ -124,23 +119,21 @@
                 scope.cancelOtherMenuShowWatcher();
             }
 
-            function menuCloseChecker(event) {
+            function menuCloseChecker() {
                 close();
             }
 
             function appendContextMenuDropdown() {
-                var template = '<ul id="' + menuId + '" class="dropdown-menu" uib-dropdown-menu\
-                                    ng-show="localScope.contextMenuItems.length>1">\
-									<li ng-class="item.class" ng-click="localScope.doAction(item, $event)" ng-repeat="item in localScope.contextMenuItems" ng-init="localScope.rendMenuItem($last)">\
-										<a ng-bind-html="localScope.renderTemplate(item.template)"></a>\
-									</li>\
-								</ul>';
+                var template = '<ul id="' + menuId + '" class="dropdown-menu" uib-dropdown-menu' +
+                    '     ng-show="localScope.contextMenuItems.length>1">' +
+                    '     <li ng-class="item.class" ng-click="localScope.doAction(item, $event)" ng-repeat="item in localScope.contextMenuItems" ng-init="localScope.rendMenuItem($last)">' +
+                    '       <a ng-bind-html="localScope.renderTemplate(item.template)"></a>' +
+                    '    </li>' +
+                    '</ul>';
                 menu = $compile(template)(scope);
                 menu.id = menuId;
                 angular.element(document.body).append(menu);
             }
-
         }
     }
-
 })(NetBrain);

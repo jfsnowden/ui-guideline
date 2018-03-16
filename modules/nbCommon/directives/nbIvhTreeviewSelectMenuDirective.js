@@ -1,16 +1,17 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbIvhTreeviewSelectMenuDirective', [
         function() {
             'use strict';
+
             return {
                 restrict: 'A',
                 require: '^ivhTreeview',
-                link: function(scope, element, attrs, trvw) {
+                link: function(scope, element) { // , attrs, trvw
                     var node = scope.node;
 
-                    element.bind('click', function(event) {
+                    element.bind('click', function() {
                         if (node.selectMenu) {
                             node.selectMenu(node);
                         }
@@ -19,6 +20,4 @@
             };
         }
     ]);
-
 })(NetBrain);
-

@@ -1,15 +1,14 @@
 /**
  * Created by Marko Cen on 10/29/2015.
  */
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').factory('nb.common.nbGridUtilSrvc', nbGridUtilSrvc);
 
-    nbGridUtilSrvc.$inject = ['gridUtil'];
+    nbGridUtilSrvc.$inject = []; // 'gridUtil'
 
-    function nbGridUtilSrvc(gridUtil) {
-
+    function nbGridUtilSrvc() {
         var services = {
             resizeGrid: resizeGrid
         };
@@ -19,8 +18,5 @@
         }
 
         return services;
-
     }
-
-
 })(NetBrain);

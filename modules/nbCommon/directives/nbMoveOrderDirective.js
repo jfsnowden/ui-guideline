@@ -1,18 +1,18 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbMoveOrderDirective', [
-        '$log', '$window', function($log, $window) {
+        function() { // $log, $window
             return {
                 restrict: 'E',
-                templateUrl: "modules/nbCommon/views/nbMoveOrderDirective.html",
+                templateUrl: 'modules/nbCommon/views/nbMoveOrderDirective.html',
                 transclude: true,
                 scope: {
                     list: '=',
                     selectIndex: '='
                 },
-                link: function(scope, element, attrs) {
-                    scope.$watch('selectIndex', function(val, oldVal) {
+                link: function(scope) { // , element, attrs
+                    scope.$watch('selectIndex', function() { // val, oldVal
                         scope.disableMoveToTop = true;
                         scope.disableMoveUp = true;
                         scope.disableMoveDown = true;
@@ -67,7 +67,7 @@
                             resultList.push(scope.list[j]);
                         }
                         scope.list = resultList;
-                        scope.selectIndex = scope.selectIndex - 1;
+                        scope.selectIndex -= 1;
                     };
 
                     scope.moveDown = function() {
@@ -82,11 +82,10 @@
                             resultList.push(scope.list[j]);
                         }
                         scope.list = resultList;
-                        scope.selectIndex = scope.selectIndex + 1;
-                    }
+                        scope.selectIndex += 1;
+                    };
                 }
             };
         }
     ]);
-
 })(NetBrain);

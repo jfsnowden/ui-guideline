@@ -81,6 +81,7 @@ document.write('<script src="modules/nbCommon/directives/nb-clear-button.js"></s
 document.write('<script src="modules/nbCommon/directives/nb-filter-bar.js"></script>');
 document.write('<script src="modules/nbCommon/directives/nb-search-bar.js"></script>');
 document.write('<script src="modules/nbCommon/directives/ivhTreeviewAddons/nbTreeviewDirective.js"></script>');
+document.write('<script src="modules/nbCommon/directives/ivhTreeviewAddons/ivh-treeview-extend.js"></script>');
 document.write('<script src="modules/nbCommon/directives/ivhTreeviewAddons/nbTreeviewNodeTpl.js"></script>');
 document.write('<script src="modules/nbCommon/directives/ivhTreeviewAddons/trvwHelper.js"></script>');
 document.write('<script src="modules/nbCommon/directives/uiGridAddons/nbGrid.js"></script>');
@@ -102,12 +103,13 @@ document.write('<script src="modules/nbCommon/directives/nbWindowEventDirective.
 document.write('<script src="modules/nbCommon/directives/nbDatePickerPopupDirective.js"></script>');
 document.write('<script src="modules/nbCommon/directives/nbTimepickerDirective.js"></script>');
 document.write('<script src="modules/nbCommon/directives/nbAceSearchDirective.js"></script>');
+document.write('<script src="modules/nbCommon/directives/nbAnchorDropdownDirective.js"></script>');
+document.write('<script src="modules/nbCommon/directives/nbDatetimePickerDirective.js"></script>');
+document.write('<script src="modules/nbCommon/directives/nbScrollEventCbDirective.js"></script>');
+document.write('<script src="modules/nbCommon/directives/nbSearchAceDirective.js"></script>');
 
 document.write('<script src="modules/nbCommon/directives/nbRightClick.js"></script>');
-
-
-
-
+document.write('<script src="modules/nbCommon/directives/nbSelectUserEmailDirective.js"></script>');
 document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbCommons.less">');
 document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbMoveOrderDirective.less" />');
 document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbTreeview.less" />');
@@ -116,3 +118,11 @@ document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbDatePic
 document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbTimepickerDirective.less" />');
 document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbAlert.less" />');
 document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/exportLoadingModal.less" />');
+document.write('<link rel="stylesheet/less" href="modules/nbCommon/css/nbAnchorDropdownDirective.less" />');
+
+document.write('<script src="modules/nbCommon/resourceIO/controllers/nbResourceImportCtrl.js"></script>');
+document.write('<script src="modules/nbCommon/resourceIO/services/nbResourceImportSrvc.js"></script>');
+document.write('<script src="modules/nbCommon/resourceIO/controllers/nbResourceImportRelatedCtrl.js"></script>');
+document.write('<script src="modules/nbCommon/resourceIO/services/nbResourceImportRelatedSrvc.js"></script>');
+document.write('<script src="modules/nbCommon/resourceIO/services/nbResourceIOSrvc.js"></script>');
+document.write('<link rel="stylesheet/less" href="modules/nbCommon/resourceIO/css/nbResourceIO.less">');

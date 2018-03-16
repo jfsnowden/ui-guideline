@@ -1,11 +1,14 @@
 <div class="modal-header">
     <h2 ng-if="!isDataUnitFromQapp" class="modal-title">Select Built-in Data</h2>
     <h2 ng-if="isDataUnitFromQapp" class="modal-title">Select Variable from Qapp</h2>
+    <div class="icon-container" ng-click="onCancel();">
+        <span class="icon close"></span>
+    </div>
 </div>
 
 <div class="modal-body">
 
-    <h6 ng-if="!isDataUnitFromQapp">Select a {{isDeviceProperty?'device':'interface'}} property</h6>
+    <h6 ng-if="!isDataUnitFromQapp">Select {{isDeviceProperty?'a device':'an interface'}} property</h6>
     <h6 ng-if="isDataUnitFromQapp">Set variables from Qapp output</h6>
 
     <div class="top-bar">
@@ -18,13 +21,14 @@
                    change="onSelectPropertyCategory">
         </nb-select>
 
-        <div style="float:right; width:50%"><input ng-class="{'full-width' : isDataUnitFromQapp}"  style="width:100%; padding-right:30px;" ng-model="filterTarget.searchText" placeholder="Search..." ng-keyup="$event.keyCode == 13 ? onFilterFired() : null">
-        <i class="icon_nb_search" style="margin-top:-52px;margin-left:90%"></i>
+        <div style="float:right; width:50%" ng-class="{'full-width-box' : isDataUnitFromQapp}" ><input ng-class="{'full-width' : isDataUnitFromQapp}"  style="width:100%; padding-right:30px; padding-left: 6px;" ng-model="filterTarget.searchText" placeholder="Search..." ng-keyup="$event.keyCode == 13 || (($event.keyCode==8 || $event.keyCode==46) && filterTarget.searchText=='') ? onFilterFired() : null">
+            <i class="icon_nb_search" ng-show="filterTarget.searchText==''" style="right: 10px; position: absolute; top: 8px;"></i>
+            <i class="icon_nb_close" ng-show="filterTarget.searchText!=''" style="right: 10px; position: absolute; top: 11px; cursor: pointer;" ng-click="filterTarget.searchText='';onFilterFired();"></i>
         </div>
     </div>
 
     <div class="properties-list" ng-if="!isDataUnitFromQapp">
-        <nb-list-menu-directive ng-if="isDataReady && !isTreeViewNeeded()"
+        <nb-list-menu-directive ng-if="isDataReady && !isTreeViewNeeded() && !needShowsInTreeView()"
                                 class="list-menu" select-mode="'single'" filter-text="filterTarget.filterText" selected-items="lsSelectedProperty">
             <nb-list-menu-option is-disabled="property.hasChildren" ng-hide="property.isChild && !property.expanded"
                                  ng-repeat="property in lsProperties" option-item="property"
@@ -43,17 +47,20 @@
             </nb-list-menu-option>
         </nb-list-menu-directive>
 
-        <nb-interface-property-tree-directive
-                class="interface-property-tree"
-                ng-if="isDataReady && isTreeViewNeeded()"
-                intf-type="intfSchemaId"
-                is-multi-select="false"
-                is-only-leaf-selectable="true"
-                is-display-in-dataview="true"
-                selected-nodes="lsSelectedProperty"
-                filter-text="filterTarget.filterText"
-                pre-selected-intf-schema-ids="lsPreSelectIntfSchemaIds">
+        <nb-interface-property-tree-directive class="interface-property-tree"
+                                              ng-if="isDataReady && isTreeViewNeeded() && !needShowsInTreeView()"
+                                              intf-type="intfSchemaId"
+                                              is-multi-select="false"
+                                              is-only-leaf-selectable="true"
+                                              is-display-in-dataview="true"
+                                              selected-nodes="lsSelectedProperty"
+                                              filter-text="filterTarget.filterText"
+                                              pre-selected-intf-schema-ids="lsPreSelectIntfSchemaIds">
         </nb-interface-property-tree-directive>
+
+        <div ng-if="isDataReady && selectedNodeType && needShowsInTreeView()"
+             class="tree-body noLegacyNodeProperty" nb-treeview-directive="lsProperties" options="treeOptions"></div>
+
     </div>
 
     <div class="properties-list" ng-if="isDataUnitFromQapp">
@@ -70,5 +77,5 @@
 
 <div class="modal-footer">
     <button class="btn btn-link" ng-click="onCancel()">Cancel</button>
-    <button ng-disabled="isSelectionNeeded()" class="btn btn-primary" ng-click="onOK()">OK</button>
+    <button ng-disabled="isOkBtnDisabled()" class="btn btn-primary" ng-click="onOK()" style="margin-left: 20px;">OK</button>
 </div>

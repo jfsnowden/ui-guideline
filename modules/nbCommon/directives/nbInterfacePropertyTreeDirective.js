@@ -1,49 +1,46 @@
+/* global DeviceTableProcessor */
 /**
  * Created by Jia_Wei on 2/24/2016.
  */
 
-(function (netBrain) {
+(function() {
     'use strict';
 
-    angular.module("nb.common").directive("nbInterfacePropertyTreeDirective", [
+    angular.module('nb.common').directive('nbInterfacePropertyTreeDirective', [
         '$log', '$filter', 'nb.systemmodel.deviceSchemaMgrSrvc', 'ivhTreeviewMgr',
         function($log, $filter, deviceSchemaMgrSrvc, ivhTreeviewMgr) {
             return {
                 replace: true,
                 restrict: 'E',
                 scope: {
-                    intfType : '=',
-                    targetValueTypes : '=?', // to filter out properties with certain types -- if null, get all types
-                    isMultiSelect : '=?',
-                    isOnlyLeafSelectable : '=?',
-                    isDisplayInDataview : '=?',
-                    selectedNodes : '=', // output
-                    filterText : '=?', //
-                    preSelectedIntfSchemaIds : '=' // optional -- only used to set pre-selected ids, when directive is initiated -- immutable afterwards
+                    intfType: '=',
+                    targetValueTypes: '=?', // to filter out properties with certain types -- if null, get all types
+                    isMultiSelect: '=?',
+                    isOnlyLeafSelectable: '=?',
+                    isDisplayInDataview: '=?',
+                    selectedNodes: '=', // output
+                    filterText: '=?', //
+                    preSelectedIntfSchemaIds: '=' // optional -- only used to set pre-selected ids, when directive is initiated -- immutable afterwards
                 },
                 templateUrl: 'modules/nbCommon/views/nbInterfacePropertyTreeDirective.html',
-                link: function (scope, elem, attrs) {
-
-
+                link: function(scope) { // , elem, attrs
                     init();
 
                     function init() {
-
                         scope.treeOptions = {
-                            enableTwoWayBinding : true,
+                            enableTwoWayBinding: true,
                             labelAttribute: 'displayName',
                             idAttribute: 'ID',
                             childrenAttribute: 'child',
                             expandToDepth: -1,
                             selectedAttribute: 'selected',
                             enableMultipleSelect: scope.isMultiSelect ? scope.isMultiSelect : false,
-                            labelTemplate : function(node, trvw , labelScope) {//| nbHighlight:filterText
+                            labelTemplate: function(node) { // , trvw, labelScope | nbHighlight:filterText
                                 var filteredText = $filter('nbHighlight')(node.displayName, scope.filterText);
-                                return '<span>'+ filteredText +'</span>';
+                                return '<span>' + filteredText + '</span>';
                             },
                             nodeClickCallback: onSelectNode
                         };
-
 
                         scope.treeData = [];
 
@@ -51,12 +48,12 @@
                         var lsSchemaObjs = getIntfSchemasByType(scope.intfType);
 
                         var firstTree = {
-                            ID : intfSchemaObj.getID(),
-                            displayName : intfSchemaObj.getDisplayName(),
-                            selected : false,
+                            ID: intfSchemaObj.getID(),
+                            displayName: intfSchemaObj.getDisplayName(),
+                            selected: false,
                             isSchema: true,
                             isParent: true,
-                            child : []
+                            child: []
                         };
                         firstTree.child = getNodeValueForTree(lsSchemaObjs);
                         scope.treeData.push(firstTree);
@@ -65,19 +62,19 @@
                             var associateSchemaId = intfSchemaObj.getAssociatedSchema();
                             if (!associateSchemaId) {
                                 $log.error('Internal Error -- nbInterfacePropertyTreeDirective');
-                            } else {
-                                var associateIntfType = DeviceTableProcessor.getFirstPartBeforeDot(associateSchemaId);
-                                var associateIntfSchemaObjs = getIntfSchemasByType(associateIntfType);
+                                return;
                             }
+                            var associateIntfType = DeviceTableProcessor.getFirstPartBeforeDot(associateSchemaId);
+                            var associateIntfSchemaObjs = getIntfSchemasByType(associateIntfType);
 
                             var associateSchemaObj = deviceSchemaMgrSrvc.getSchemaObjByKey(associateIntfType);
                             var secondTree = {
-                                ID : associateSchemaObj.getID(),
-                                displayName : associateSchemaObj.getDisplayName(),
-                                selected : false,
+                                ID: associateSchemaObj.getID(),
+                                displayName: associateSchemaObj.getDisplayName(),
+                                selected: false,
                                 isSchema: true,
                                 isParent: true,
-                                child : []
+                                child: []
                             };
                             secondTree.child = getNodeValueForTree(associateIntfSchemaObjs);
                             scope.treeData.push(secondTree);
@@ -88,7 +85,8 @@
                     }
 
                     function getIntfSchemasByType(strIntfType) {
-                        return deviceSchemaMgrSrvc.getDisplayedIntfSchemasByIntfTypeAndValueType(strIntfType, scope.targetValueTypes, scope.isDisplayInDataview);
+                        return deviceSchemaMgrSrvc.getDisplayedIntfSchemasByIntfTypeAndValueType(strIntfType,
+                            scope.targetValueTypes, scope.isDisplayInDataview);
                     }
 
                     function getNodeValueForTree(lsSchemaObjs) {
@@ -97,13 +95,13 @@
                         });
                         return lsSchemaObjs.map(function(schemaObj) {
                             return {
-                                ID : schemaObj.getID(),
-                                displayName : schemaObj.getDisplayName(),
-                                type : schemaObj.getType(),
+                                ID: schemaObj.getID(),
+                                displayName: schemaObj.getDisplayName(),
+                                type: schemaObj.getType(),
                                 isSchema: true,
-                                selected : scope.preSelectedIntfSchemaIds && scope.preSelectedIntfSchemaIds.indexOf(schemaObj.getID()) > -1
-                            }
-                        })
+                                selected: scope.preSelectedIntfSchemaIds && scope.preSelectedIntfSchemaIds.indexOf(schemaObj.getID()) > -1
+                            };
+                        });
                     }
 
                     function onSelectNode(node) {
@@ -112,46 +110,47 @@
                                 scope.selectedNodes.pop();
                             }
 
-                            if (scope.isOnlyLeafSelectable&&node.isParent) {
+                            if (scope.isOnlyLeafSelectable && node.isParent) {
                                 return;
                             }
                             scope.selectedNodes.push(node);
                         } else {
-                             getSelectedNodesInTree(scope.isOnlyLeafSelectable, scope.selectedNodes);
+                            getSelectedNodesInTree(scope.isOnlyLeafSelectable, scope.selectedNodes);
                         }
                     }
 
                     function getSelectedNodesInTree(bExcludeFolder, refLsSelectedNodes) {
-
                         while (refLsSelectedNodes.length > 0) {
                             refLsSelectedNodes.pop();
                         }
 
                         for (var i in scope.treeData) {
-                            var subTree = scope.treeData[i];
-                            if (!bExcludeFolder&&subTree.selected) {
-                                refLsSelectedNodes.push(
-                                    {
-                                        ID : subTree.ID,
-                                        displayName : subTree.displayName
+                            if ({}.hasOwnProperty.call(scope.treeData, i)) {
+                                var subTree = scope.treeData[i];
+                                if (!bExcludeFolder && subTree.selected) {
+                                    refLsSelectedNodes.push({
+                                        ID: subTree.ID,
+                                        displayName: subTree.displayName
+                                    });
+                                }
+                                var lsChildNodes = subTree.child;
+                                for (var j in lsChildNodes) {
+                                    if ({}.hasOwnProperty.call(lsChildNodes, j)) {
+                                        var childNode = lsChildNodes[j];
+                                        if (childNode.selected) {
+                                            refLsSelectedNodes.push(childNode);
+                                        }
                                     }
-                                )
-                            }
-                            var lsChildNodes = subTree.child;
-                            for (var j in lsChildNodes) {
-                                var childNode = lsChildNodes[j];
-                                if (childNode.selected) {
-                                    refLsSelectedNodes.push(childNode);
                                 }
                             }
                         }
                     }
 
-                    scope.$watch('filterText', function(val) {
+                    scope.$watch('filterText', function() {
                         scope.refreshData();
                     }, true);
                     scope.refreshData = function() {
-                        if (!scope.filterText || scope.filterText.length == 0) {
+                        if (!scope.filterText || scope.filterText.length === 0) {
                             scope.treeData = angular.copy(scope.treeData_backup);
                         } else {
                             scope.treeData = getFilterData(scope.filterText);
@@ -181,8 +180,7 @@
                         return newTreeData;
                     }
                 }
-            }
+            };
         }
     ]);
-
 })(NetBrain);

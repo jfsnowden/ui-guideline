@@ -1,13 +1,12 @@
 /**
  * Created by yaoningning on 2016/9/12.
  */
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').service('nb.common.nbSelectQappModalSrvc', [
-        '$uibModal', '$q',
-        function($uibModal, $q) {
-
+        '$uibModal',
+        function($uibModal) {
             var modalOptions = {
                 backdrop: 'static',
                 windowClass: 'nbSelectQappModal',
@@ -17,7 +16,7 @@
 
             this.showModal = function(options) {
                 modalOptions.resolve = {
-                    options : function() {
+                    options: function() {
                         return options;
                     }
                 };
@@ -26,5 +25,4 @@
             };
         }
     ]);
-
 })(NetBrain);

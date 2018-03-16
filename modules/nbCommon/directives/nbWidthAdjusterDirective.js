@@ -1,15 +1,15 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbWidthAdjusterDirective', [
-        '$window', '$timeout',
-        function($window, $timeout) {
+        '$window',
+        function($window) { // , $timeout
             return {
                 restrict: 'A',
                 link: function(scope, element, attr) {
                     scope.onResizeWidth = function() {
-//                      console.log(element.css('width'));
-//                      console.log(attr.nbWidthAdjusterDirective);
+                        //                      console.log(element.css('width'));
+                        //                      console.log(attr.nbWidthAdjusterDirective);
                         var sourceDiv = attr.widthSource;
                         if (!sourceDiv) {
                             sourceDiv = angular.element($window);
@@ -26,5 +26,4 @@
             };
         }
     ]);
-
 })(NetBrain);

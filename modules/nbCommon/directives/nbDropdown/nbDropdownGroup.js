@@ -1,4 +1,4 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbDropdownGroup', [
@@ -15,5 +15,4 @@
             };
         }
     ]);
-
 })(NetBrain);

@@ -1,8 +1,8 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
-    angular.module('nb.common').directive("nbTableCellWithMenu", [
-        '$compile', '$log', function($compile, $log) {
+    angular.module('nb.common').directive('nbTableCellWithMenu', [
+        function() { // $compile, $log
             var cellWithFilter = '';
             cellWithFilter += '<div title="{{cellContent}}" ng-mouseenter="setShowMenu(true);"  ng-mouseleave="showMenuButton = false;menuSelected=false;"><div class="nbTableCellWithMenuCell" ng-bind-html="cellContent | nbHighlight: filterText"></div>';
             cellWithFilter += '  <div  ng-if="showMenuButton" class="nbTableCellDropdownMenuContainer" >';
@@ -15,7 +15,7 @@
             cellWithFilter += '  </div>';
             cellWithFilter += '  </div>';
             return {
-                restrict: "E",
+                restrict: 'E',
                 replace: true,
                 scope: {
                     rowEntity: '=',
@@ -26,7 +26,7 @@
 
                 },
                 template: cellWithFilter,
-                link: function(scope, element, attr) {
+                link: function(scope) { // , element, attr
                     scope.parentScope = scope.$parent;
                     scope.ngGrid = scope.gridOptions.ngGrid;
                     scope.menuSelected = false;
@@ -43,28 +43,25 @@
                         scope.showMenuButton = false;
                         scope.menuSelected = false;
                         var callbackFun = action.action;
-                        //scope.parentScope.$eval(callbackFun)(JSON.parse(scope.rowEntity));
+                        // scope.parentScope.$eval(callbackFun)(JSON.parse(scope.rowEntity));
                         scope.parentScope.$eval(callbackFun)(scope.rowEntity);
-                    }
-
+                    };
                 }
-            }
+            };
         }
-    ]).directive("nbTableCellMenuTopAdjust", [
+    ]).directive('nbTableCellMenuTopAdjust', [
         function() {
             return {
                 restrict: 'A',
 
-                link: function(scope, element, attrs) {
+                link: function(scope, element) { // , attrs
                     var grid = scope.ngGrid;
                     var scrollTop = grid.$viewport.scrollTop();
 
                     var offsetTop = element[0].offsetTop;
-                    element[0].style.top = (offsetTop - scrollTop) + "px";
-
+                    element[0].style.top = (offsetTop - scrollTop) + 'px';
                 }
-            }
+            };
         }
     ]);
-
 })(NetBrain);

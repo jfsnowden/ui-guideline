@@ -1,10 +1,9 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbListMenuDirective', [
         '$timeout',
         function($timeout) {
-
             return {
                 scope: {
                     selectMode: '=',
@@ -19,10 +18,9 @@
                     this.selectedItems = [];
 
                     this.itemToggleCheck = function(itemScopeId, item, isActive, isEvent) {
-
                         var self = this;
 
-                        //$timeout(function(){
+                        // $timeout(function(){
                         var isSingleMode = ($scope.selectMode === 'single');
                         if (isSingleMode) {
                             self.selectedItems = [];
@@ -32,10 +30,9 @@
                                     item: angular.copy(item)
                                 });
                             }
-
                         } else {
-                            var index = self.selectedItems.map(function(item) {
-                                return item.id;
+                            var index = self.selectedItems.map(function(item2) {
+                                return item2.id;
                             }).indexOf(itemScopeId);
 
                             if (index > -1 && !isActive) {
@@ -44,48 +41,46 @@
                                 self.selectedItems.push({
                                     id: itemScopeId,
                                     item: angular.copy(item)
-                                })
+                                });
                             }
                         }
 
                         // BUG here:
                         //      Will change reference of passed-in var
-                        //$scope.selectedItems = self.selectedItems.map(function(item) {
+                        // $scope.selectedItems = self.selectedItems.map(function(item) {
                         //    return item.item;
-                        //});
+                        // });
                         if (!$scope.selectedItems) {
-                            $scope.selectedItems =[];
+                            $scope.selectedItems = [];
                         }
                         while ($scope.selectedItems.length > 0) {
                             $scope.selectedItems.pop();
                         }
-                        var tmpItems = self.selectedItems.map(function(item) {
-                            return item.item;
+                        var tmpItems = self.selectedItems.map(function(item3) {
+                            return item3.item;
                         });
-                        tmpItems.forEach(function(item) {
-                            $scope.selectedItems.push(item);
+                        tmpItems.forEach(function(item4) {
+                            $scope.selectedItems.push(item4);
                         });
 
                         $scope.$broadcast('itemToggled', itemScopeId, isEvent, isSingleMode);
 
-                        //})
+                        // })
                     };
 
                     $scope.$watch('filterText', function(newText) {
                         $timeout(function() {
-                            $scope.$broadcast('filterTextChanged', newText, $attrs.filterText)
-                        })
-                    })
+                            $scope.$broadcast('filterTextChanged', newText, $attrs.filterText);
+                        });
+                    });
                 }
-            }
-
+            };
         }
     ]);
 
     angular.module('nb.common').directive('nbListMenuOption', [
         '$timeout', '$compile',
-        function($timeout, $compile) {
-
+        function($timeout) { // , $compile
             return {
                 replace: true,
                 restrict: 'E',
@@ -99,10 +94,9 @@
                 template: '<li ng-class="{active: isSelected, hide: isHide, disabled: isDisabled}" class="nb-list-menu-option" ng-transclude atag="domainAdmin:domainCreatePopup:selectDevicePopup:deviceTypeItem"></li>',
                 require: '^^nbListMenuDirective',
                 link: function(scope, element, attrs, ctrl, transFn) {
-
                     var isActiveWatcher;
 
-                    transFn(scope.$parent, function(clone, transScope) {
+                    transFn(scope.$parent, function(clone) { // , transScope
                         var tag = element;
                         tag.empty();
                         tag.append(clone);
@@ -111,8 +105,7 @@
                     scope.isSelected = scope.isActive ? scope.isActive : false;
                     scope.isHide = false;
 
-                    $(element).bind('click', function(event) {
-
+                    $(element).bind('click', function() {
                         if (scope.isDisabled) {
                             return;
                         }
@@ -121,7 +114,6 @@
                             scope.isSelected = !scope.isSelected;
                             ctrl.itemToggleCheck(scope.$id, scope.optionItem, scope.isSelected, true);
                         });
-
                     });
 
                     var toggleActiveWatcher = function(isSelected) {
@@ -134,7 +126,7 @@
                                     ctrl.itemToggleCheck(scope.$id, scope.optionItem, scope.isSelected, false);
                                 }
                             });
-                        })
+                        });
                     };
 
                     var itemToggleWatcher = scope.$on('itemToggled', function(event, id, isEvent, isSingleMode) {
@@ -143,19 +135,17 @@
                                 scope.isSelected = false;
                                 toggleActiveWatcher(scope.isSelected);
                             }
-                        } else {
-                            if (isEvent) {
-                                toggleActiveWatcher(scope.isSelected);
-                            }
+                        } else if (isEvent) {
+                            toggleActiveWatcher(scope.isSelected);
                         }
                     });
 
                     var filterStringWatcher = scope.$on('filterTextChanged', function(event, text, filterTextName) {
                         scope[filterTextName] = text;
 
-                        if (scope.isAvoidFilter === true)
+                        if (scope.isAvoidFilter === true) {
                             return;
-
+                        }
                         if (text !== null && text !== undefined) {
                             var elementText = $(element).text().trim();
                             var index = elementText.toLowerCase().indexOf(text.toLowerCase());
@@ -174,13 +164,9 @@
                         itemToggleWatcher();
                         filterStringWatcher();
                         isActiveWatcher();
-                    })
-
-
+                    });
                 }
-
-            }
-
+            };
         }
     ]);
 
@@ -190,17 +176,14 @@
             replace: false,
             require: '?^nbListMenuDirective',
             link: function(scope, element) {
-                scope.$watch("group.isOutSelected", function (nv) {
-                    if(nv){
-                        element.addClass("outSelectedHighlight");
-                    }else{
-                        element.removeClass("outSelectedHighlight");
+                scope.$watch('group.isOutSelected', function(nv) {
+                    if (nv) {
+                        element.addClass('outSelectedHighlight');
+                    } else {
+                        element.removeClass('outSelectedHighlight');
                     }
                 });
-
             }
-        }
-
+        };
     });
-
 })(NetBrain);

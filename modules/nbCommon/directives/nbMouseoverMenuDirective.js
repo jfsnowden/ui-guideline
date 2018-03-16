@@ -1,16 +1,16 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbMouseoverMenuDirective', [
-        '$compile', function($compile) {
+        '$compile',
+        function($compile) {
             return {
                 restrict: 'A',
                 scope: true,
                 replace: false,
-                //terminal: true,
+                // terminal: true,
                 priority: 1000,
-                compile: function(element, scope) {
-
+                compile: function(element) { // , scope
                     $(element).attr('dropdown', '');
                     $(element).attr('dropdown-append-to-body', '');
                     $(element).attr('is-open', 'isMouseoverMenuShow');
@@ -23,23 +23,20 @@
 
                     toggleMenu.css({ 'z-index': 9999 });
 
-                    //For further requirements
-                    //toggleMenu.attr('ng-style', '{top: mouseoverMenuPosition.top, left: mouseoverMenuPosition.left}');
+                    // For further requirements
+                    // toggleMenu.attr('ng-style', '{top: mouseoverMenuPosition.top, left: mouseoverMenuPosition.left}');
 
-                    $(element).removeAttr("nb-mouseover-menu-directive");
+                    $(element).removeAttr('nb-mouseover-menu-directive');
 
-                    return function(scope, element, attr) {
+                    return function(scope, element2) { // , attr
+                        $compile(element2)(scope);
 
-                        $compile(element)(scope);
-
-                        scope.toggleMouseoverMenu = function(isShow, event) {
+                        scope.toggleMouseoverMenu = function(isShow) { // , event
                             scope.isMouseoverMenuShow = isShow;
-                        }
-                    }
+                        };
+                    };
                 }
-
-            }
+            };
         }
     ]);
-
 })(NetBrain);

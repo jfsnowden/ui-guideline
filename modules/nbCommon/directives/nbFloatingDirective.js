@@ -1,14 +1,14 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
-    angular.module('nb.common').directive("floating", [
-        '$document', function($document) {
+    angular.module('nb.common').directive('floating', [
+        '$document',
+        function($document) {
             return {
-                restrict: "EA",
+                restrict: 'EA',
                 replace: false,
-                link: function(scope, element, attrs) {
-
-                    element.bind("mousedown", function(event) {
+                link: function(scope, element) { // , attrs
+                    element.bind('mousedown', function(event) {
                         var filterClass = ['modal-header', 'modal-title', 'ngMapOperHideFrame', 'panelHead', 'titleBar', 'title', 'floating'];
                         var target = event.target;
                         var bindLocation = function(e) {
@@ -16,19 +16,19 @@
                             var origPageX = e.pageX;
                             var origY = element.position().top;
                             var origX = element.position().left;
-                            element.bind("mousemove", function(e) {
+                            element.bind('mousemove', function(e2) {
                                 element.css({
-                                    "top": origY + e.pageY - origPageY,
-                                    "left": origX + e.pageX - origPageX
+                                    top: origY + e2.pageY - origPageY,
+                                    left: origX + e2.pageX - origPageX
                                 });
                             });
-                            $document.find('body').bind("mousemove."+scope.$id, function(e) {
+                            $document.find('body').bind('mousemove.' + scope.$id, function(e3) {
                                 element.css({
-                                    "top": origY + e.pageY - origPageY,
-                                    "left": origX + e.pageX - origPageX
+                                    top: origY + e3.pageY - origPageY,
+                                    left: origX + e3.pageX - origPageX
                                 });
                             });
-                            $document.find('body').addClass('unselectable')
+                            $document.find('body').addClass('unselectable');
                         };
 
                         for (var i in filterClass) {
@@ -36,22 +36,19 @@
                                 bindLocation(event);
                             }
                         }
-
                     });
 
-                    $document.find('body').bind("mouseup", function() {
+                    $document.find('body').bind('mouseup', function() {
                         $document.find('body').removeClass('unselectable');
-                        $document.find('body').unbind("mousemove."+scope.$id);
+                        $document.find('body').unbind('mousemove.' + scope.$id);
                     });
-                    element.bind("mouseup", function(e) {
-                        element.unbind("mousemove");
-                        $document.find('body').unbind("mousemove."+scope.$id);
-                        $document.find('body').removeClass('unselectable')
+                    element.bind('mouseup', function() {
+                        element.unbind('mousemove');
+                        $document.find('body').unbind('mousemove.' + scope.$id);
+                        $document.find('body').removeClass('unselectable');
                     });
-
                 }
-            }
+            };
         }
     ]);
-
 })(NetBrain);

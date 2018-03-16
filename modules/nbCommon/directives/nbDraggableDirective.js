@@ -1,48 +1,45 @@
-(function (netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbDraggable', [
         '$log',
-        function (
+        function(
             $log
         ) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 scope: false,
                 replace: false,
-                link: function (scope, element, attr) {
+                link: function(scope, element, attr) {
                     var el = element[0];
                     var callback = null;
                     var parentScope = scope;
                     el.draggable = true;
 
-                    if (attr.nbDraggable !== "") {
+                    if (attr.nbDraggable !== '') {
                         callback = parentScope[attr.nbDraggable];
                         while ((callback === undefined || callback === null) && parentScope.$parent) {
                             parentScope = parentScope.$parent;
-                            callback = parentScope[attr.nbDraggable]
-                            ;
+                            callback = parentScope[attr.nbDraggable];
                         }
                     }
 
-                    el.addEventListener('dragstart', function (event) {
-                        //event.preventDefault();
+                    el.addEventListener('dragstart', function(event) {
+                        // event.preventDefault();
                         if (callback) {
-                            //callback(parentScope, event);
+                            // callback(parentScope, event);
                             callback(scope, event);
                         } else {
-                            $log.log("no callback method");
+                            $log.log('no callback method');
                         }
                         return false;
-                    },
-                        false);
+                    }, false);
 
-                    el.addEventListener('dragend', function (event) {
+                    el.addEventListener('dragend', function() {
 
                     });
                 }
-            }
+            };
         }
     ]);
-
 })(NetBrain);

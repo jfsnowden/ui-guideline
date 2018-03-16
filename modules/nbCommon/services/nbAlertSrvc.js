@@ -1,3 +1,5 @@
+/* global alertSrvc */
+/* eslint no-unused-vars:0 */
 var NB_CONFIRM_OK = 0;
 var NB_CONFIRM_YES = 1;
 var NB_CONFIRM_NO = 2;
@@ -9,15 +11,14 @@ var NB_ICON_WARNING = 'WARNING';
 var NB_ICON_ERROR = 'ERROR';
 var NB_ICON_QUESTION = 'QUESTION';
 
-(function (netBrain) {
+(function() {
     'use strict';
 
-    angular.module("nb.common").factory('nb.common.nbAlertSrvc', NbAlertSrvc);
+    angular.module('nb.common').factory('nb.common.nbAlertSrvc', NbAlertSrvc);
 
-    NbAlertSrvc.$inject = ['$q', '$timeout', '$uibModal' ];
+    NbAlertSrvc.$inject = ['$q', '$timeout', '$uibModal'];
 
-    function NbAlertSrvc($q, $timeout, $uibModal ) {
-
+    function NbAlertSrvc($q, $timeout, $uibModal) {
         var modalDefaults = {
             backdrop: 'static',
             keyboard: false,
@@ -27,18 +28,19 @@ var NB_ICON_QUESTION = 'QUESTION';
             controller: 'nb.common.nbAlertCtrl'
         };
 
-        var showModal = function (customModalOptions) {
+        var showModal = function(customModalOptions) {
             var dialogOptions = customModalOptions;
             var customizedModalOptions = {};
 
-            _.each(modalDefaults, function (val, key) {
+            _.each(modalDefaults, function(val, key) {
                 customizedModalOptions[key] = val;
-                if(dialogOptions[key])
+                if (dialogOptions[key]) {
                     customizedModalOptions[key] = dialogOptions[key];
+                }
             });
 
             customizedModalOptions.resolve = {
-                dialogOptions: function () {
+                dialogOptions: function() {
                     return dialogOptions;
                 }
             };
@@ -47,27 +49,27 @@ var NB_ICON_QUESTION = 'QUESTION';
         };
 
 
-        var triConfirm = function(title, message,  btnContent, cancelCallback) {
+        var triConfirm = function(title, message, btnContent, cancelCallback) {
             var deferred = $q.defer();
             showModal({
-                "title": title,
-                "message": message,
-                "buttons": [{
+                title: title,
+                message: message,
+                buttons: [{
                     id: NB_CONFIRM_YES,
-                    label: btnContent.OK || "Yes"
+                    label: btnContent.OK || 'Yes'
                 }, {
                     id: NB_CONFIRM_NO,
-                    label: btnContent.No || "No"
+                    label: btnContent.No || 'No'
                 }, {
                     id: NB_CONFIRM_CANCEL,
-                    label: btnContent.Cancel || "Cancel"
+                    label: btnContent.Cancel || 'Cancel'
                 }]
             }).then(function(button) {
-                if(button == NB_CONFIRM_YES) {
+                if (button === NB_CONFIRM_YES) {
                     deferred.resolve(true);
-                } else if(button == NB_CONFIRM_NO) {
+                } else if (button === NB_CONFIRM_NO) {
                     deferred.resolve(false);
-                } else if(button == NB_CONFIRM_CANCEL && _.isFunction(cancelCallback)) {
+                } else if (button === NB_CONFIRM_CANCEL && _.isFunction(cancelCallback)) {
                     cancelCallback();
                 }
             });
@@ -80,7 +82,7 @@ var NB_ICON_QUESTION = 'QUESTION';
             notification: notification,
             confirm: confirm,
             warning: warning,
-            warnning: warning, //typo
+            warnning: warning, // typo
             error: error,
             triConfirm: triConfirm,
             test: createTest()
@@ -120,16 +122,16 @@ var NB_ICON_QUESTION = 'QUESTION';
             };
         }
 
-        //type:notification、warning、error
+        // type:notification、warning、error
         function alert(option) {
             if (option.type) {
                 var fn = alertSrvc[option.type];
-                if (typeof fn === "function") {
+                if (typeof fn === 'function') {
                     return fn(option);
                 }
-            } else {
-                return notification(option);
+                return undefined;
             }
+            return notification(option);
         }
 
         function notification(option) {
@@ -168,7 +170,7 @@ var NB_ICON_QUESTION = 'QUESTION';
                 _.extend({}, defaultOption, option)
             ).then(function(btn) {
                 // 此处不建议有此then处理,为兼容原来代码，留此逻辑
-                return(btn === NB_CONFIRM_YES) ?
+                return (btn === NB_CONFIRM_YES) ?
                     $q.resolve() :
                     $q.reject(btn);
             });
@@ -211,12 +213,12 @@ var NB_ICON_QUESTION = 'QUESTION';
         function makeLegacyOption(data) {
             var option = {};
 
-            if(data.length === 2) {
+            if (data.length === 2) {
                 option = {
                     message: data[0],
                     iconType: data[1]
                 };
-            } else if(data.length === 1 && angular.isString(data[0])) {
+            } else if (data.length === 1 && angular.isString(data[0])) {
                 option = {
                     message: data[0]
                 };
@@ -230,5 +232,4 @@ var NB_ICON_QUESTION = 'QUESTION';
             return option;
         }
     }
-
 })(NetBrain);

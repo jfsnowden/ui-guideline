@@ -1,4 +1,4 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('openTwist', function() {
@@ -8,11 +8,10 @@
         };
     });
 
-    angular.module('nb.common').directive('collapsedTwist', function () {
+    angular.module('nb.common').directive('collapsedTwist', function() {
         return {
             restrict: 'E',
             template: '<span class="icon_nb_tree_expand" ></span>'
         };
     });
-
 })(NetBrain);

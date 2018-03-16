@@ -1,5 +1,6 @@
 ﻿<div class="nb-grid-header-bar">
     <div class="default-btns-area" atag="grid:header:leftBtnGroup">
+        <a class="total-count">{{ totalCount }} Items</a>
         <a ng-repeat="item in leftBtnGroup" ng-bind-html="::renderHtml(item.template)" ng-click="callBtnAction(item, $event)" ng-show="checkBtnDisplay(item)" atag="grid:header:leftBtnGroup:item"></a>
     </div>
     

@@ -2,12 +2,12 @@
  * Created by Marko Cen on 12/24/2015.
  */
 
-; (function (NetBrain) {
-    angular.module('nb.common')
-        .directive('nbDropdownTreeDirective', DropdownTree);
+(function() {
+    angular.module('nb.common').directive('nbDropdownTreeDirective', DropdownTree);
 
-    DropdownTree.$inject = ['$compile'];
-    function DropdownTree($compile) {
+    DropdownTree.$inject = ['$compile', '$q'];
+
+    function DropdownTree($compile, $q) {
         var directive = {
             scope: {
                 treeOptions: '=',
@@ -21,7 +21,8 @@
                 '<button class="btn dropdown-toggle">' +
                 '<div class="icon-container"><span class="icon_nb_arrow_down"></span></div>' +
                 '</button>' +
-                //'<div class="dropdown-menu dropdown-menu-custom treeview-container"><div nb-treeview-directive="treeData" options="treeOptions"></div></div>' +
+                // '<div class="dropdown-menu dropdown-menu-custom treeview-container">
+                //  <div nb-treeview-directive="treeData" options="treeOptions"></div></div>' +
                 '</div>',
             controller: Controller
         };
@@ -29,11 +30,13 @@
         function Compile() {
             return {
                 pre: function (scope, ele, attr) {
-
                     scope.treeOptions.enableUnselect = false;
-
+                    if(!scope.treeOptions.className){
+                        scope.treeOptions.className = "";
+                    }
+                    
                     var dropdownTemp = '<div id="dropdown-treeview-' + scope.$id + '" ' +
-                        'class="dropdown-menu dropdown-menu-custom nb-dropdown-tree-directive treeview-container">' +
+                        'class="dropdown-menu dropdown-menu-custom nb-dropdown-tree-directive treeview-container '+ scope.treeOptions.className +'">' +
                         '<div nb-treeview-directive="treeData" options="treeOptions" watch-data atag="nbDropdownTreeDirective:tree"></div>' +
                         '</div>';
                     var dropdownEle = $compile(dropdownTemp)(scope);
@@ -45,7 +48,7 @@
                     $(document).on('click', docClickHandler);
                     $(document.body).append(dropdownEle);
 
-                    scope.$on('$destroy', function () {
+                    scope.$on('$destroy', function() {
                         $(document).off('mousedown', docClickHandler);
                         $(document).off('click', docClickHandler);
                         $(ele).off('click', btnClickHandler);
@@ -56,17 +59,17 @@
                     if (scope.treeOptions.nodeClickCallback !== undefined) {
                         var userCallback = scope.treeOptions.nodeClickCallback;
                         scope.treeOptions.nodeClickCallback = function (node, trvw) {
-                            if ((!node[scope.treeOptions.childrenAttribute]
-                                || node[scope.treeOptions.childrenAttribute].length <= 0)
-                                || !scope.treeOptions.enableLabelExpand) {
+                            if ((!node[scope.treeOptions.childrenAttribute] ||
+                                    node[scope.treeOptions.childrenAttribute].length <= 0) ||
+                                !scope.treeOptions.enableLabelExpand) {
                                 setDropdownTitle(
                                     node[scope.treeOptions.labelAttribute],
                                     node[scope.treeOptions.selectedAttribute],
                                     scope.treeOptions.enableMultipleSelect
                                 );
                             }
-                            userCallback(node, trvw)
-                        }
+                            userCallback(node, trvw);
+                        };
                     } else {
                         scope.treeOptions.nodeClickCallback = function (node, trvw) {
                             if (trvw.isLeaf(node) || !scope.treeOptions.enableLabelExpand) {
@@ -76,52 +79,79 @@
                                     scope.treeOptions.enableMultipleSelect
                                 );
                             }
-                        }
+                        };
                     }
 
-                    var watchTreeData = scope.$watch('treeData', function (newVal, oldVal, scope) {
+                    var watchTreeData = scope.$watch('treeData', function(newVal, oldVal, scope2) {
                         if (newVal === oldVal) {
-                            return;
-                        } else {
-                            if (scope.titles) {
-                                scope.titles = [];
-                                scope.setInitTitle(scope.treeData, scope.treeOptions, ele);
-                            }
+                            // return;
+                        } else if (scope2.titles) {
+                            scope2.titles = [];
+                            scope2.setInitTitle(scope2.treeData, scope2.treeOptions, ele);
                         }
                     });
 
-                    var watchWidth = scope.$watch(function () {
+                    var watchWidth = scope.$watch(function() {
                         return $(ele).width();
-                    }, function (newVal, oldVal) {
-                        if (newVal && oldVal && newVal !== oldVal)
+                    }, function(newVal, oldVal) {
+                        if (newVal && oldVal && newVal !== oldVal) {
                             scope.setDropdownWidth();
+                        }
                     });
 
-                    scope.setInitTitle = function (data, options, ele) {
+                    // 增加对于placdholder的watcher，在placeholder改变时，重新调用setInitTitle，以使用placeholder刷新nbDropdownTitle。
+                    var watchTreeDataPlaceHolder = function() {};
+                    if (scope.treeOptions.needWatchPlaceHolder) {
+                        watchTreeDataPlaceHolder = scope.$watch(function () {
+                            return attr.placeholder;
+                        }, function (newValue) {
+                            if (newValue === 'Select') {
+                                scope.setInitTitle(scope.treeData, scope.treeOptions, ele);
+                            }
+                        });
+                    }
+
+                    scope.setInitTitle = function(data, options, ele2) {
                         var childAttr = options.childrenAttribute || 'children';
                         var selAttr = options.selectedAttribute || 'selected';
                         var labelAttr = options.labelAttribute || 'label';
-                        var titleEle = $(ele).find('.tree-select-title');
+                        var titleEle = $(ele2).find('.tree-select-title');
                         scope.defaultTitle = angular.isDefined(attr.placeholder) ? attr.placeholder : 'Select';
                         scope.titles = [];
 
-                        function getTitles(root) {
+                        // 叶节点全部选中后，显示文件夹名称。
+                        function getTitlesFolder(root) {
                             if (_.isArray(root[childAttr]) && !root[selAttr]) {
-                                _.forEach(root[childAttr], function (subRoot) {
-                                    getTitles(subRoot);
+                                _.forEach(root[childAttr], function(subRoot) {
+                                    getTitlesFolder(subRoot);
                                 });
-                            } else {
-                                if (root[selAttr]) {
-                                    var index = scope.titles.indexOf(root[labelAttr]);
-                                    if (index < 0 && !root.avoidDropdownToggle) {
-                                        scope.titles.push(root[labelAttr]);
-                                    }
+                            } else if (root[selAttr]) {
+                                var index = scope.titles.indexOf(root[labelAttr]);
+                                if (index < 0 && !root.avoidDropdownToggle) {
+                                    scope.titles.push(root[labelAttr]);
                                 }
                             }
                         }
 
+                        // 叶节点全部选中后，仍然显示叶节点名称。
+                        function getTitlesNode(root) {
+                            if (_.isArray(root[childAttr])) {
+                                _.forEach(root[childAttr], function(subRoot) {
+                                    getTitlesNode(subRoot);
+                                });
+                            } else if (root[selAttr]) {
+                                var index = scope.titles.indexOf(root[labelAttr]);
+                                if (index < 0 && !root.avoidDropdownToggle) {
+                                    scope.titles.push(root[labelAttr]);
+                                }
+                            }
+                        }
+
+                        // 用于启用，只显示叶节点Title，即使叶节点全部被选中了，也仍然显示叶节点的Title。
+                        var getTitles = options.enableSetNodeTitle ? getTitlesNode : getTitlesFolder;
+
                         if (_.isArray(data)) {
-                            _.forEach(data, function (d) {
+                            _.forEach(data, function(d) {
                                 getTitles(d);
                             });
                         } else {
@@ -138,10 +168,11 @@
                         }
                     };
 
-                    scope.setDropdownWidth = function () {
-                        var dropdownEle = $('div#dropdown-treeview-' + scope.$id);
-                        if (dropdownEle)
-                            $(dropdownEle).css({ width: $(ele).width() > 250 ? $(ele).width() : 250 });
+                    scope.setDropdownWidth = function() {
+                        var dropdownEle2 = $('div#dropdown-treeview-' + scope.$id);
+                        if (dropdownEle2) {
+                            $(dropdownEle2).css({ width: $(ele).width() > 250 ? $(ele).width() : 250 });
+                        }
                     };
 
                     scope.setInitTitle(scope.treeData, scope.treeOptions, ele);
@@ -153,49 +184,67 @@
                             if (s.node.avoidDropdownToggle) return;
                             var children = s.node[scope.treeOptions.childrenAttribute || 'children'];
                             var dropdown = $(document.body).children('#dropdown-treeview-' + scope.$id);
-                            if ((!children || children.length <= 0)
-                                && !scope.treeOptions.enableMultipleSelect
-                                && !scope.treeOptions.enableLabelExpand
+                            if ((!children || children.length <= 0) &&
+                                !scope.treeOptions.enableMultipleSelect &&
+                                !scope.treeOptions.enableLabelExpand
                             ) {
-                                dropdown.css({
-                                    display: 'none'
-                                })
+                                dropdown.css({ display: 'none' });
                             }
                         }
                     }
 
                     function btnClickHandler(event) {
                         event.stopPropagation();
-                        var btn = $(event.target).closest('.nb-dropdown-tree-directive');
-                        var hasData = Array.isArray(scope.treeData) ? scope.treeData.length > 0 : scope.treeData[scope.treeOptions.childrenAttribute || 'children'].length > 0;
-                        if (scope.treeData && hasData) {
-                            var dropdown = $(document.body).children('#dropdown-treeview-' + scope.$id);
-                            dropdown.css({
-                                display: dropdown.css('display') === 'block' ? 'none' : 'block',
-                                top: btn.offset().top + 28,
-                                left: btn.offset().left
-                            });
-                        }
+                        var preHandler = scope.treeOptions.beforeShowDropdownCallback || $q.resolve; // 用于点击该控件时，立即刷新一次数据。
+                        preHandler(scope.treeOptions).then(function() {
+                            // 原来的逻辑。
+                            var btn = $(event.target).closest('.nb-dropdown-tree-directive');
+                            var hasData = Array.isArray(scope.treeData) ? scope.treeData.length > 0 : scope.treeData[scope.treeOptions.childrenAttribute || 'children'].length > 0;
+                            if (scope.treeData && hasData) {
+                                var dropdown = $(document.body).children('#dropdown-treeview-' + scope.$id);
+                                var maxHeight = parseInt(dropdown.css('max-height'));
+                                var clientHeight = $(document.body).height();
+                                var btnTop = btn.offset().top;
+                                var dropDownBottom = clientHeight - btnTop;
+                                if (clientHeight - btnTop - 28 < maxHeight) {
+                                    // 下拉框显示在上方。
+                                    dropdown.css({
+                                        display: dropdown.css('display') === 'block' ? 'none' : 'block',
+                                        top: 'unset',
+                                        bottom: dropDownBottom,
+                                        left: btn.offset().left
+                                    });
+                                } else {
+                                    // 原来的逻辑。
+                                    dropdown.css({
+                                        display: dropdown.css('display') === 'block' ? 'none' : 'block',
+                                        top: btn.offset().top + 28,
+                                        left: btn.offset().left
+                                    });
+                                }
+                            }
+                        });
                     }
 
                     function docClickHandler(event) {
                         var targetTree = $(event.target).closest('.nb-dropdown-tree-directive.treeview-container');
                         var targetId = targetTree.length > 0 ?
-                            targetTree[0]['id'] : 'dropdown-treeview-XXXXX';
+                            targetTree[0].id : 'dropdown-treeview-XXXXX';
                         // if(target.closest('.nb-dropdown-tree-directive').length <= 0){
                         //     var dropdown = $(document.body).children('#dropdown-treeview-'+scope.$id);
                         //     dropdown.css({
                         //         display: 'none'
                         //     })
                         // }
-                        var ids = _.map($('.nb-dropdown-tree-directive.treeview-container'), function (ele) {
-                            return ele.id;
+                        var ids = _.map($('.nb-dropdown-tree-directive.treeview-container'), function(ele3) {
+                            return ele3.id;
                         });
 
-                        _.each(ids, function (id) {
-                            if (id != targetId)
+                        _.each(ids, function(id) {
+                            if (id !== targetId) {
                                 $('#' + id).css({ display: 'none' });
-                        })
+                            }
+                        });
                     }
 
                     function setDropdownTitle(label, isSelect, isMultiple) {
@@ -214,48 +263,48 @@
                         );
                     }
 
-                    scope.$on('$destroy', function () {
+                    scope.$on('$destroy', function() {
                         watchTreeData();
                         watchWidth();
+                        if (scope.treeOptions.needWatchPlaceHolder) {
+                            watchTreeDataPlaceHolder();
+                        }
                     });
                 },
-                post: function (scope, ele, attr) {
-
-
+                post: function(scope, ele) { // , attr
                     $(ele).on('click', clickHandler);
                     $('#dropdown-treeview-' + scope.$id).css({ width: $(ele).width() > 250 ? $(ele).width() : 250 });
                     if (scope.treeData != null) {
-                        scope.$on('nbTreeview.nodeSelected', function (event) {
+                        scope.$on('nbTreeview.nodeSelected', function(event) {
                             event.stopPropagation();
                             scope.setInitTitle(scope.treeData, scope.treeOptions, ele);
-                        })
+                        });
                     }
-
-
 
                     function clickHandler(e) {
                         var element;
                         for (element = e.target; element; element = element.parentNode) {
                             var classNames = element.className;
-                            if (typeof classNames !== "string") {
+                            if (typeof classNames !== 'string') {
                                 continue;
                             }
-                            if (classNames.indexOf('treeview-container') > -1
-                                && scope.treeOptions.enableMultipleSelect) {
+                            if (classNames.indexOf('treeview-container') > -1 &&
+                                scope.treeOptions.enableMultipleSelect) {
                                 e.stopPropagation();
                                 return;
                             }
                         }
                     }
 
-                    scope.$on('$destroy', function () {
-                        $(ele).off('click', clickHandler)
-                    })
+                    scope.$on('$destroy', function() {
+                        $(ele).off('click', clickHandler);
+                    });
                 }
-            }
+            };
         }
 
         Controller.$inject = [];
+
         function Controller() {
 
         }

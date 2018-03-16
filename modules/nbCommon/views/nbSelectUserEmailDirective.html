@@ -1,0 +1,18 @@
+<div class="dropdown shareUser share_map_to_user_list share-file-url-popup-body" uib-dropdown on-toggle="toggleBubbleDropDown()" is-open="dropDownOpendFlagCollaboration">
+    <input type="text" class="form-control input-sm inputShareEmail" uib-dropdown-toggle style="width:100%" placeholder="Select user or input email." ng-model="shareUser" spellcheck="false" ng-mousedown="inputShareEmailMouseDown()" />
+    <div class="dropdown-menu shareDropdown" uib-dropdown-menu ng-click="eventShareMapStopPropagation($event)" ng-if="localpersonList.length > 0">
+        <ul atag="collaboration:shareFilePopup:userList">
+            <li ng-repeat="person in localpersonList"
+                ng-if="isUserShow(person,searchText,shareUser)"
+                ng-click="shareUserClick($event,person);" style="white-space: nowrap;" atag="collaboration:shareFilePopup:userList:selectUser">
+                <span class="highlight-container" style="width:150px;" title="{{person.name}}" ng-bind-html="person.name | nbParserTreeHighlightFilter: searchText"></span>
+                <span class="highlight-container" style="width: 230px;" title="{{person.email}}" ng-bind-html="person.email | nbParserTreeHighlightFilter: searchText"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+<style>
+ .share-file-url-popup-body .shareDropdown .highlight-container span {
+        display:inline
+    }
+</style>

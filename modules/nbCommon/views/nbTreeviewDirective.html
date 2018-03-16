@@ -6,12 +6,28 @@
                 ng-change="nbTreeview.searchQueryChange()">
         </nb-filter-bar>
     </div>
-    
-    <div ivh-treeview="nbTreeview.data" atag="treeViewDirective:tree"
+
+    <div class="location-bar" ng-show="::nbTreeview.treeviewOptions.enableLocationBar">
+        <input type="text" class="form-control" ng-model="nbTreeview.locationquery" ng-keypress="nbTreeview.locationNode(nbTreeview.locationquery)" placeholder="{{::nbTreeview.treeviewOptions.enableLocationBar.placeholder || 'Search...'}}">
+        <div class="icons location-bar-icons">
+            <span class="location-count-information" ng-show="nbTreeview.locationquery != ''"><span ng-show="nbTreeview.countTotal>0">{{nbTreeview.countIndex}} of {{nbTreeview.countTotal}}</span><span ng-show="nbTreeview.countTotal==0"> no </span> found</span>
+            <span class="icon_nb_close" style="cursor: pointer;" ng-show="nbTreeview.locationquery != ''" ng-click="nbTreeview.locationquery = ''; nbTreeview.clearLocation()"></span>
+            <span class="icon_nb_search " ng-show="nbTreeview.locationquery == ''"></span>
+        </div>
+    </div>
+    <!--不设置showNodeNum(节点条数限制)加载原模板-->
+    <div ng-if="nbTreeview.treeviewOptions.showNodeNum==0" ivh-treeview-filter="nbTreeview.treeviewOptions.filterKeyword" ivh-treeview="nbTreeview.data" atag="treeViewDirective:tree"
          ivh-treeview-options="nbTreeview.treeviewOptions"
          trvw-helper
          ng-show="nbTreeview.searchResults.length <= 0">
     </div>
+    <!--当设置showNodeNum(节点条数限制)加载扩展新模板-->
+    <div ng-if="nbTreeview.treeviewOptions.showNodeNum>0" ivh-treeview-filter="nbTreeview.treeviewOptions.filterKeyword" ivh-treeview-extend="nbTreeview.data" atag="treeViewDirective:tree"
+         ivh-treeview-options="nbTreeview.treeviewOptions"
+         trvw-helper-extend
+         ng-show="nbTreeview.searchResults.length <= 0">
+    </div>
+
     <div class="search-result-area" ng-if="nbTreeview.searchResults.length > 0">
         <div class="search-entry"
              ng-repeat="item in nbTreeview.searchResults"

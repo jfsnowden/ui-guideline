@@ -9,7 +9,7 @@
 
 .netbrainView {
     position: absolute;
-    top: 60px !important;
+    top: 40px !important;
     left: 0;
     right: 0;
     bottom: 0;
@@ -296,25 +296,16 @@ input::-ms-clear {
 .btn-default,
 .btn-dropdown,
 .btn-light,
-.btn-primary {
+.btn-primary,
+.btn-blue {
     height: 30px;
     padding-left: @font-size-base*2;
     padding-right: @font-size-base*2;
     .ellipsis;
 }
 
-.btn-primary {
-    &.focus,
-    &:focus,
-    &:hover {
-        background: -moz-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
-        background: -webkit-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
-        background: -o-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
-        background: -ms-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
-        background: linear-gradient(to bottom, #fbd797 0%, @brand-yellow 100%);
-        border-color: #f0b256;
-    }
-
+.btn-primary,
+.btn-blue {
     &.focus,
     &:active:focus,
     &:focus,
@@ -336,6 +327,41 @@ input::-ms-clear {
             border-color: @base-border-color;
             outline: none;
         }
+    }
+}
+
+.btn-primary {
+    &.focus,
+    &:focus,
+    &:hover {
+        background: -moz-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
+        background: -webkit-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
+        background: -o-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
+        background: -ms-linear-gradient(top, #fbd797 0%, @brand-yellow 100%);
+        background: linear-gradient(to bottom, #fbd797 0%, @brand-yellow 100%);
+        border-color: #f0b256;
+    }
+}
+
+.btn-blue {
+    border: 1px solid #aec5e0;
+    background-color: #e4edf9;
+
+    &.focus,
+    &:focus,
+    &:hover {
+        border: 1px solid #aec5e0;
+        background: unset;
+        background-color: #dbe9fb;
+    }
+
+    &.focus,
+    &:focus,
+    &.active,
+    &:active {
+        border: 1px solid #aec5e0;
+        background: unset;
+        background-color: #e4edf9;
     }
 }
 
@@ -395,12 +421,10 @@ input::-ms-clear {
     padding: 1px 3px;
     font-weight: normal;
     outline: none !important;
-
     //&:focus:not(:active) {
     //    text-decoration: none;
     //    border-color: #91b0cc;
     //}
-
     &.active, &:hover {
         color: @brand-primary;
     }
@@ -418,29 +442,23 @@ input::-ms-clear {
 .btn.btn-light, .btn.btn-default {
     font-weight: normal;
     outline: none;
-    border-color: #999999;
-    background-image: linear-gradient(to bottom, white 0%, #c8d7e5 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffc8d7e5', GradientType=0);
+    border-color: #aec5e0;
+    background-color: #e4edf9;
 
-    &:hover{
-        background-image: linear-gradient(to bottom, #e9eff5 0%, #c8d7e5 100%);
-        background-repeat: repeat-x;
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe9eff5', endColorstr='#ffc8d7e5', GradientType=0);
+
+    &:hover {
+        background-color: #dbe9fb;
     }
 
-    &:focus{
-        box-shadow: 0 0 3px #6590b7;
+    &:active {
+        box-shadow: inset 0px 3px 8px 0px rgba(101, 144, 183, .4);
+        background: #d4e4fb;
     }
 
-    &:active{
-        background: #c8d7e5;
-        opacity: 1;
-    }
-
-    &.disabled, &[disabled]{
+    &.disabled, &[disabled] {
         opacity: 0.65;
-        background: #e6e6e6;
+        background: #f9f9f9;
+        border-color: #d0d0d0;
         color: #999999;
     }
 }
@@ -451,15 +469,15 @@ input::-ms-clear {
     background: #6590b7;
     color: white;
 
-    &:hover{
+    &:hover {
         background: #91b0cc !important;
     }
 
-    &:focus{
+    &:focus {
         box-shadow: 0 0 2px #91b0cc !important;
     }
 
-    &:after{
+    &:after {
         font: normal normal normal 14px/1 FontAwesome;
         font-size: inherit;
         content: "\f00d";
@@ -558,6 +576,10 @@ input:-ms-input-placeholder {
 
 input {
     font-style: normal;
+}
+
+button[disabled], html input[disabled] {
+    background-color: #f7f7f7;
 }
 
 .nb-link {

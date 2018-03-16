@@ -1,4 +1,4 @@
-(function (netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbCheckbox', Checkbox);
@@ -11,22 +11,20 @@
             replace: true,
             transclude: true,
             scope: {},
-            link: function (scope, element, attrs, model) {
-
+            link: function(scope, element, attrs, model) {
                 scope.value = undefined;
                 scope.checkbox = $(element).find('input');
 
-                model.$render = function () {
+                model.$render = function() {
                     scope.value = model.$viewValue;
-                    scope.checkbox.prop("indeterminate", (scope.value === undefined));
+                    scope.checkbox.prop('indeterminate', (scope.value === undefined));
                 };
 
-                scope.update = function () {
+                scope.update = function() {
                     model.$setViewValue(scope.value);
                 };
             },
             templateUrl: 'controls/nb-checkbox/nb-checkbox.tpl.html'
         };
     }
-
 })(NetBrain);

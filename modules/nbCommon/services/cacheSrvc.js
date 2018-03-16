@@ -1,68 +1,63 @@
-﻿
+﻿(function(NetBrain) {
+    'use strict';
 
-(function (netBrain) {
-    "use strict";
+    angular.module('nb.common').factory('nb.common.cacheSrvc', cacheSrvc);
 
-    angular.module("nb.common").factory('nb.common.cacheSrvc', cacheSrvc);
+    cacheSrvc.$inject = ['$q', '$rootScope', '$timeout', 'nb.ng.offlineCacheSrvc', 'nb.deviceDetail.httpDeviceDetailSrvc', 'nb.datamodel.httpSiteManagerSrvc'];
 
-    cacheSrvc.$inject = ['$q', '$rootScope', '$timeout', 'nb.ng.offlineCacheSrvc', 'nb.mapfoldermanager.detailService', 'nb.datamodel.httpSiteManagerSrvc'];
-
-    function cacheSrvc($q, $rootScope, $timeout, offlineCacheSrvc, detailService, httpSiteManagerSrvc) {
+    function cacheSrvc($q, $rootScope, $timeout, offlineCacheSrvc, httpDeviceDetailSrvc, httpSiteManagerSrvc) {
         var vm = {};
-        vm.initCacheConfig = function () {
+        vm.initCacheConfig = function() {
             offlineCacheSrvc.initStores([{
                 name: 'ConfigFile',
-                getUpdateOn: function (item) {
+                getUpdateOn: function(item) {
                     return item.uploadDate;
                 },
-                generateId: function (item) {
+                generateId: function(item) {
                     return item;
                 },
-                freshChecker: function (arr) {
+                freshChecker: function(arr) {
                     var params = {
-                        folderType: 1,
-                        sourceId: '',
-                        type: 1,
+                        sourceType: NetBrain.DeviceDetail.DataFolder.CurrentBaseline,
+                        taskId: '',
+                        dataType: 1, // config
                         devIds: arr
                     };
-                    return detailService.getDetailLastUpdateTime(params);
+                    return httpDeviceDetailSrvc.getDetailLastUpdateTime(params);
                 }
             }, {
                 name: 'SiteInfo',
-                getUpdateOn: function (item) {
+                getUpdateOn: function(item) {
                     return item.operateInfo.operateTime;
                 },
-                generateId: function (item) {
+                generateId: function(item) {
                     return item;
                 },
-                freshChecker: function (arr) {
+                freshChecker: function(arr) {
                     return httpSiteManagerSrvc.getSitesLastUpdateTime(arr);
                 }
             }, {
                 name: 'InterfaceInfo',
-                getUpdateOn: function (item) {
-                    return "";
+                getUpdateOn: function() { // item
+                    return '';
                 },
-                generateId: function (item) {
-                    return item.intfKeyObj.value +"_"+ item.intfKeyObj.schema;
+                generateId: function(item) {
+                    return item.intfKeyObj.value + '_' + item.intfKeyObj.schema;
                 }
             }, {
                 name: 'DesignReader',
                 level: 'Tenant',
-                getUpdateOn: function (item) {
-                    return "";
+                getUpdateOn: function() { // item
+                    return '';
                 },
-                generateId: function (item) {
+                generateId: function(item) {
                     return item;
                 }
             }]);
         };
-        vm.resetFreshFlags= function() {
+        vm.resetFreshFlags = function() {
             offlineCacheSrvc.resetFreshFlags();
-        }
+        };
         return vm;
-
     }
 })(NetBrain);
-
-

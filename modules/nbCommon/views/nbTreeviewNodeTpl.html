@@ -4,15 +4,17 @@
          ng-click="selectNode(node, trvw, $event)"
          ng-class="{selected: trvw.isSelected(node)}"
          nb-right-click="openDropdown(node, $event, trvw)"
-         ng-if="::isTreeItemVisible(node, trvw) && !enableTwoWayBinding">
+         ng-if="::isTreeItemVisible(node, trvw) && !enableTwoWayBinding"
+         draggable="false">
         <div class="ivh-treeview-toggle node-arrow" ng-click="toggleNode(node, trvw, $event)" ng-show="showToggleArrow(node, trvw)">
             <span>
                 <i ng-class="{'icon_nb_tree_collapse': trvw.isExpanded(node), 'icon_nb_tree_expand': !trvw.isExpanded(node)}"></i>
             </span>
         </div>
         <span class="node-arrow-placeholder" ng-show="!showToggleArrow(node, trvw)"></span>
-        <span class="node-checkbox" ng-show="::showCheckBox()">
+        <span class="node-checkbox" ng-show="::showCheckBox(node, trvw)">
             <input type="checkbox"
+                   ng-disabled="shouldDisableMultiCheckbox(node)"
                    ng-click="checkboxChanged(node, trvw, $event)">
         </span>
 
@@ -22,8 +24,8 @@
               ng-bind-html="::getTemplateLabel(node, trvw)" ng-if="!showEditable(node, trvw)"></span>
 
         <input class="ivh-treeview-node-label ivh-treeview-toggle node-label-editable"
-             ng-if="showEditable(node, trvw)"
-             ng-init="initEditableContent(node, trvw)">
+               ng-if="showEditable(node, trvw)"
+               ng-init="initEditableContent(node, trvw)">
 
         <span class="node-dropdown-arrow"
               ng-if="::isDisplayDropdown(node, trvw)"
@@ -36,6 +38,7 @@
          class="ivh-node-row"
          ng-click="selectNode(node, trvw, $event)"
          ng-class="{selected: trvw.isSelected(node)}"
+         nb-draggable="dragNodeStart"
          nb-right-click="openDropdown(node, $event, trvw)"
          ng-if="::isTreeItemVisible(node, trvw) && enableTwoWayBinding">
         <div class="ivh-treeview-toggle node-arrow" ng-click="toggleNode(node, trvw, $event)" ng-show="showToggleArrow(node, trvw)">
@@ -43,8 +46,9 @@
             <span ng-show="!trvw.isExpanded(node)" ng-cloak><i class="icon_nb_tree_expand"></i></span>
         </div>
         <span class="node-arrow-placeholder" ng-show="!showToggleArrow(node, trvw)"></span>
-        <span class="node-checkbox" ng-show="showCheckBox()">
+        <span class="node-checkbox" ng-show="showCheckBox(node, trvw)">
             <input type="checkbox"
+                   ng-disabled="::shouldDisableMultiCheckbox(node)"
                    ng-click="checkboxChanged(node, trvw, $event)">
         </span>
 
@@ -53,12 +57,9 @@
         <span class="ivh-treeview-node-label node-label"
               ng-bind-html="getTemplateLabel(node, trvw)" ng-if="!showEditable(node, trvw)"></span>
 
-        <div class="ivh-treeview-node-label ivh-treeview-toggle node-label-editable"
-             contenteditable="true"
-             ng-if="showEditable(node, trvw)"
-             ng-init="initEditableContent(node, trvw)">
-            {{getTemplateLabel(node,trvw, true)}}
-        </div>
+        <input class="ivh-treeview-node-label ivh-treeview-toggle node-label-editable"
+               ng-if="showEditable(node, trvw)"
+               ng-init="initEditableContent(node, trvw)">
 
         <span class="node-dropdown-arrow"
               ng-if="isDisplayDropdown(node, trvw)"
@@ -67,5 +68,7 @@
         </span>
     </div>
 
-    <div ivh-treeview-children ng-if="trvw.isExpanded(node)"></div>
+    <div ivh-treeview-children ng-if="trvw.isExpanded(node)&&showNodeNum==0"></div>
+
+    <div show-node-num="showNodeNum" ivh-treeview-children-extend ng-if="trvw.isExpanded(node)&&showNodeNum!=0"></div>
 </div>

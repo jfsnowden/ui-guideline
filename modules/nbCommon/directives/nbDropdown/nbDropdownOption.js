@@ -1,8 +1,9 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbDropdownOption', [
-        '$compile', '$timeout', function($compile, $timeout) {
+        '$compile', '$timeout',
+        function($compile, $timeout) {
             return {
                 require: ['nbDropdownOption', '^nbDropdown', '^ngModel', '?^ngDropdownGroup'],
                 restrict: 'E',
@@ -13,7 +14,6 @@
                     optionDisabled: '&'
                 },
                 link: function(scope, element, attrs, ctrls) {
-
                     scope.nbDropdown = ctrls[1];
                     scope.ngModel = ctrls[2];
                     scope.ngDropdownGroup = ctrls[3];
@@ -25,13 +25,16 @@
                     scope.$watch('optionDisabled', function() {
                         $timeout(function() {
                             scope.isDisabled = scope.optionDisabled();
-                        })
-                    })
-
+                        });
+                    });
                 },
                 controller: function($scope, $element) {
                     $scope.getSelectedRepresentation = function() {
                         return $element.find('[ng-transclude]').html();
+                    };
+
+                    $scope.getSelectedText = function() {
+                        return $element.find('[ng-transclude]').text().trim();
                     };
 
                     $scope.selected = function(event, value) {
@@ -40,19 +43,17 @@
                                 event.preventDefault();
                                 event.stopPropagation();
                             }
-                            return;
+                            return undefined;
                         }
                         if ((value !== undefined) && ($scope._selected !== value)) {
                             $scope._selected = value;
                             $scope.nbDropdown.select($scope);
                         }
                         return $scope._selected;
-                    }.bind(this);
-
+                    }; // .bind(this)
                 },
                 templateUrl: 'controls/nb-dropdown/nb-dropdown-option.tpl.html'
             };
         }
     ]);
-
 })(NetBrain);

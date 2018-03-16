@@ -14,8 +14,8 @@
             <span ng-switch-when="QUESTION" class="icon_nb_question_32"></span>
         </div>
         <div class="message-text nbAlertCancelHidingOverflow">
-            <div atag="alert:message" class="message-title" data-ng-bind-html="message" ng-show="!showText"></div>
-            <div atag="alert:message" class="message-title" ng-bind="message" ng-show="showText"></div>
+            <div atag="alert:message:showHtml" class="message-title" data-ng-bind-html="message" ng-show="!showText"></div>
+            <div atag="alert:message:showText" class="message-title" ng-bind="message" ng-show="showText"></div>
         </div>
 
         <div ng-if="check_button" class="check-button" atag="alert:checkBtn">

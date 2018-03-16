@@ -1,0 +1,25 @@
+﻿<div class="modal-header">
+    <div class="icon-container" ng-click="onCancel()">
+        <span class="icon close"></span>
+    </div>
+    <h3 class="modal-title">Related Resources</h3>
+</div>
+
+<div class="modal-body resource-io-import-related-inner" ng-style="{width: dataModel.options.relatedDialogSize.width+'px', height: dataModel.options.relatedDialogSize.height+'px'}">
+    <div class="rii-filename">{{dataModel.fileInfo.name}}</div>
+    <div class="rii-filelist">
+        <div class="rii-grid-outer" ng-repeat="eleDG in dataModel.dependentGroups">
+            <div class="rii-tbl-header"><em ng-class="{'icon_nb_tree_collapse': !eleDG.bHide, 'icon_nb_tree_expand': eleDG.bHide}" ng-click="eleDG.bHide=!eleDG.bHide;"></em><span ng-click="eleDG.bHide=!eleDG.bHide;">{{eleDG.dispType}}</span></div>
+            <div class="rii-grid" ng-style="{'height': eleDG.height + 'px'}" ng-show="!eleDG.bHide">
+                <div ng-cloak ui-grid="eleDG.tblDef" ui-grid-selection ui-grid-resize-columns style="text-align: left;" ui-grid-auto-resize>
+                </div>
+                <input id="{{eleDG.tblDef.gidCK}}" class="rii-all-ck" type="checkbox" ng-change="onAllCheck(eleDG)" ng-model="eleDG.tblDef.allCheck" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="onCancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="onOK()">OK</button>
+</div>

@@ -1,0 +1,20 @@
+<div class="m-searchAce btn-group dropdown">
+    <div class="input-group">
+        <div class="input-icon search" style="display: flex;">
+            <input type="text" class="form-control" ng-model="userInputSearchText" placeholder="Search..." ng-trim="false"
+                   style="padding-right: 22px;margin-right: 6px"
+                   ui-keydown="{enter:'onSearch()'}">
+            <div class="icons icon-group" style="padding-right: 6px;">
+                <span class="icon_nb_finder" ng-show="!userInputSearchText"></span>
+                <div class="icon_nb_close ng-hide" ng-show="userInputSearchText" atag="searchAce:clearBtn" ng-click="onClear();">
+                </div>
+            </div>
+        </div>
+        <div class="input-group-btn">
+            <div ng-init="downIconActived=false" ng-mousedown="downIconActived=true" ng-mouseup="downIconActived=false"  ng-class="downIconActived ? 'icon_nb_arrow_down_click' : 'icon_nb_arrow_down_normal'" ng-click="nextAction()" atag="searchAce:downBtn" >
+            </div>
+            <div ng-click="prevAction()" ng-mousedown="upIconActived=true" ng-mouseup="upIconActived=false" ng-init="upIconActived=false" ng-class="upIconActived ? 'icon_nb_arrow_up_click' : 'icon_nb_arrow_up_normal'" atag="searchAce:upBtn">
+            </div>
+        </div>
+    </div>
+</div>

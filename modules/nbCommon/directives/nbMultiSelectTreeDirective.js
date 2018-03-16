@@ -1,8 +1,9 @@
-(function (netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbMultiSelectedTree', [
-        '$compile', '$log', function ($compile, $log) {
+        '$compile',
+        function($compile) { // , $log
             return {
                 restrict: 'E',
                 terminal: true,
@@ -18,9 +19,8 @@
                     selectCallback: '='
                 },
 
-                link: function (scope, element, attrs, model) {
-
-                    var _setParentCheckNum = function (node) {
+                link: function(scope, element) { // , element, attrs, model
+                    var _setParentCheckNum = function(node) {
                         var children = node[scope.fieldchildren];
 
                         if (children && (node.iSelectedChildren >= children.length)) {
@@ -36,14 +36,14 @@
                         }
                     };
 
-                    var _setChecks = function (node) {
+                    var _setChecks = function(node) {
                         if (node.checked === true) {
                             var children = node[scope.fieldchildren];
                             if (children) {
                                 node.iSelectedChildren = children.length;
                             } else {
                                 node.iSelectedChildren = 1;
-                            };
+                            }
 
                             if (node.parentNode) {
                                 var parentNode = node.parentNode;
@@ -53,13 +53,10 @@
                                     _setParentCheckNum(parentNode);
                                 }
                             }
-
                         }
-
                     };
 
-                    var _setParentUncheckNum = function (node) {
-
+                    var _setParentUncheckNum = function(node) {
                         if (node.iSelectedChildren === 0) {
                             node.checked = false;
                         }
@@ -73,7 +70,7 @@
                         }
                     };
 
-                    var _setUnchecks = function (node) {
+                    var _setUnchecks = function(node) {
                         if (node.checked === false) {
                             node.iSelectedChildren = 0;
 
@@ -85,17 +82,15 @@
                                     _setParentUncheckNum(parentNode);
                                 }
                             }
-
                         }
-
                     };
 
-                    var _setParents = function (node) {
-                        if (node == null || typeof (node) === 'undefined') return;
+                    var _setParents = function(node) {
+                        if (node == null || typeof node === 'undefined') return;
 
                         node.iSelectedChildren = 0;
                         var children = node[scope.fieldchildren];
-                        angular.forEach(children, function (child) {
+                        angular.forEach(children, function(child) {
                             if (!child.parentNode) {
                                 child.parentNode = node;
                                 child.iSelectedChildren = 0;
@@ -105,21 +100,19 @@
                                 _setChecks(child);
                             }
                         });
-
                     };
 
-                    scope.checkParent = function (node) {
+                    scope.checkParent = function(node) {
                         if (node.parentNode) {
                             node.parentNode.checked = 'indeterminate';
                             scope.checkParent(node.parentNode);
-                        };
-
+                        }
                     };
 
-                    scope.onCheckChange = function (node) {
+                    scope.onCheckChange = function(node) {
                         if (scope.val.children) {
                             scope.checkChildren(scope.val);
-                        };
+                        }
 
                         if (scope.val.checked) {
                             _setChecks(scope.val);
@@ -135,8 +128,8 @@
                         }
                     };
 
-                    scope.checkChildren = function (node) {
-                        angular.forEach(node.children, function (child) {
+                    scope.checkChildren = function(node) {
+                        angular.forEach(node.children, function(child) {
                             child.checked = scope.val.checked;
                             if (child.children) {
                                 scope.checkChildren(child);
@@ -144,32 +137,32 @@
                         });
                     };
 
-                    scope.findChecked = function (node, result) {
+                    scope.findChecked = function(node, result) {
                         if (!angular.isDefined(result)) {
-                            result = []
+                            result = [];
                         }
 
                         if (node.checked === true && !node.isGrouping) {
                             result.push(node);
                         }
 
-                        angular.forEach(node.children, function (child) {
+                        angular.forEach(node.children, function(child) {
                             scope.findChecked(child, result);
                         });
 
-                        return result
+                        return result;
                     };
 
-                    scope.expand = function (val) {
+                    scope.expand = function(val) {
                         val.show = !val.show;
 
                         if (val.show && val.hasChildren && val.rootScope.fetch && val.children == null) {
                             val.isLoading = true;
-                            val.rootScope.fetch(val).then(function (fetchedItems) {
+                            val.rootScope.fetch(val).then(function(fetchedItems) {
                                 var items = [];
 
-                                angular.forEach(fetchedItems, function (_fetchedItem) {
-                                    var hasChildren = _fetchedItem.hasChildren ? true : false;
+                                angular.forEach(fetchedItems, function(_fetchedItem) {
+                                    var hasChildren = _fetchedItem.hasChildren;
                                     var treeData = createTreeData(_fetchedItem.id, _fetchedItem.name, null, val.rootScope, hasChildren, false, false);
                                     treeData.checked = _fetchedItem.checked;
                                     items.push(treeData);
@@ -182,7 +175,7 @@
                         }
                     };
 
-                    scope.$watch('root', function (root, oldRoot) {
+                    scope.$watch('root', function(root) { // , oldRoot
                         if (root) {
                             initialiseRootScope(scope);
                             scope.val = createTreeData(root, root, null, scope, true, true, false);
@@ -200,7 +193,7 @@
                             isLoading: false,
                             isGrouping: isGrouping,
                             filterText: null,
-                            getId: function () {
+                            getId: function() {
                                 return treeData[treeData.rootScope.fieldid];
                             }
                         };
@@ -212,9 +205,9 @@
                     }
 
                     function _refresh(treeData) {
-                        var filteredItems = []
+                        var filteredItems = [];
                         if (treeData.filterText != null) {
-                            angular.forEach(treeData._children, function (item) {
+                            angular.forEach(treeData._children, function(item) {
                                 if (_getLabel(item).indexOf(treeData.filterText) === 0) {
                                     filteredItems.push(item);
                                 }
@@ -222,7 +215,7 @@
                         } else {
                             filteredItems = treeData._children;
                         }
-                        treeData.children = filteredItems
+                        treeData.children = filteredItems;
                     }
 
                     function _getLabel(treeData) {
@@ -232,15 +225,15 @@
                     function _setChildren(treeData, children) {
                         treeData._children = children;
                         treeData.items = children;
-                        _refresh(treeData)
+                        _refresh(treeData);
                     }
 
-                    function initialiseStaticTree(val, scope) {
+                    function initialiseStaticTree(val, scope2) {
                         if (!angular.isDefined(val.rootScope)) {
-                            initialiseRootScope(scope);
-                            val.rootScope = scope;
+                            initialiseRootScope(scope2);
+                            val.rootScope = scope2;
 
-                            var _recurse = function (node, rootScope) {
+                            var _recurse = function(node, rootScope) {
                                 if (!angular.isDefined(node.show)) {
                                     node.show = false;
                                 }
@@ -251,21 +244,22 @@
                                     node.rootScope = rootScope;
                                 }
 
-                                node.getId = function () {
+                                node.getId = function() {
                                     return node[node.rootScope.fieldid];
-                                }
+                                };
 
-                                var items = node[node.rootScope.fieldchildren]
+                                var items = node[node.rootScope.fieldchildren];
                                 if (angular.isDefined(items)) {
                                     node.hasChildren = true;
                                     _setChildren(node, items);
                                     for (var i in items) {
-                                        _recurse(items[i], rootScope);
+                                        if ({}.hasOwnProperty.call(items, i)) {
+                                            _recurse(items[i], rootScope);
+                                        }
                                     }
                                 }
                             };
                             _recurse(val, val.rootScope);
-
                         }
                     }
 
@@ -275,19 +269,19 @@
                         rootScope.fieldchildren = angular.isDefined(rootScope.fieldchildren) ? rootScope.fieldchildren : 'items';
                     }
 
-                    scope.$watch('val.filterText', function (val, old) {
+                    scope.$watch('val.filterText', function(val) { // , old
                         if (val != null) {
                             _refresh(scope.val);
                         }
                     });
 
-                    scope.$watch('val', function (val, oldVal) {
+                    scope.$watch('val', function(val) { // , oldVal
                         if (val && angular.isDefined(val)) {
                             initialiseStaticTree(val, scope);
                             _setParents(scope.val);
 
                             var nt = val.isGrouping ? 'span' : 'ul';
-                            var template = ''
+                            var template = '';
                             template += val.isRoot ? '<div class="multiSelectTree_treeView">' : '';
                             template += '<div class="multiSelectTree_treeItem">';
                             template += '  <span ng-if="val.hasChildren && val.show" class="icon_nb_tree_collapse" ng-click="expand(val)" ></span>';
@@ -299,9 +293,9 @@
                             template += '    <i ng-if="val.checked ===\'indeterminate\'" class="fa fa-square"></i>';
                             template += '    </span>     ';
                             template += '    </label>     ';
-                            template += '  <a ng-if="val.hasChildren && !val.show" href="" ng-click="expand(val)" class="multiSelectTree_treeItemCollapse" title="{{ val.getId() }}">{{ val[val.rootScope.fieldlabel] }}</a>'
-                            template += '  <a ng-if="val.hasChildren && val.show" href="" ng-click="expand(val)" class="multiSelectTree_treeItemExpand" title="{{ val.getId() }}">{{ val[val.rootScope.fieldlabel] }}</a>'
-                            template += '  <span ng-if="!val.hasChildren" class="multiSelectTree_treeItemSingle" title="{{ val.getId() }}">{{ val[val.rootScope.fieldlabel]}}</span>'
+                            template += '  <a ng-if="val.hasChildren && !val.show" href="" ng-click="expand(val)" class="multiSelectTree_treeItemCollapse" title="{{ val.getId() }}">{{ val[val.rootScope.fieldlabel] }}</a>';
+                            template += '  <a ng-if="val.hasChildren && val.show" href="" ng-click="expand(val)" class="multiSelectTree_treeItemExpand" title="{{ val.getId() }}">{{ val[val.rootScope.fieldlabel] }}</a>';
+                            template += '  <span ng-if="!val.hasChildren" class="multiSelectTree_treeItemSingle" title="{{ val.getId() }}">{{ val[val.rootScope.fieldlabel]}}</span>';
                             template += '  <' + nt + ' ng-if="val.show" class="multiSelectTree_treeItemChildren">';
                             template += '    <li ng-repeat="item in val.children track by item.getId()" class="multiSelectTree_treeItemChild_{{ item.hasChildren }}">';
                             template += '      <nb-multi-selected-tree is-root="false" val="item" fetch="expandTree" fieldchildren="{{fieldchildren}}" fieldlabel="name" expand-tree="expandTree" select-callback="selectCallback"></tree>';
@@ -316,12 +310,10 @@
                             $compile(newElement)(scope);
                             element.replaceWith(newElement);
                             element = newElement;
-
                         }
                     });
                 }
             };
         }
     ]);
-
 })(NetBrain);

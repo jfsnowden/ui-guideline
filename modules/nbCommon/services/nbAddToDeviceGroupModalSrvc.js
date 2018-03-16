@@ -2,13 +2,12 @@
  * Created by Jia_Wei on 3/8/2016.
  */
 
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').service('nb.common.nbAddToDeviceGroupModalSrvc', [
-        '$uibModal', '$q',
-        function($uibModal, $q) {
-
+        '$uibModal',
+        function($uibModal) {
             var modalOptions = {
                 templateUrl: 'modules/nbCommon/views/addToDeviceGroupPopup.html',
                 controller: 'nb.common.addToDeviceGroupPopupCtrl',
@@ -18,9 +17,9 @@
 
             this.showModal = function(lsDevIds) {
                 modalOptions.resolve = {
-                    args : function() {
+                    args: function() {
                         return {
-                            lsDevIds : lsDevIds
+                            lsDevIds: lsDevIds
                         };
                     }
                 };
@@ -29,5 +28,4 @@
             };
         }
     ]);
-
 })(NetBrain);

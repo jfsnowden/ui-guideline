@@ -1,8 +1,9 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbHeightAdjusterDirective', [
-        '$window', function($window) {
+        '$window',
+        function($window) {
             return {
                 restrict: 'A',
                 link: function(scope, element, attr) {
@@ -24,5 +25,4 @@
             };
         }
     ]);
-
 })(NetBrain);

@@ -1,8 +1,6 @@
-;
+/* global commonUiEvent */
 (function(netBrain) {
-
-    netBrain.nbCommon
-        .directive('nbGridRowDblClick', NbGridRowDblClick);
+    netBrain.nbCommon.directive('nbGridRowDblClick', NbGridRowDblClick);
 
     NbGridRowDblClick.$inject = ['$rootScope'];
 
@@ -14,16 +12,13 @@
             link: link
         };
 
-        // return void(0);
-
-
         function link(scope, element, attr) {
             var callback = getCallback();
             if (angular.isFunction(callback)) {
                 element.dblclick(dblClickHandler);
             }
 
-            return void(0);
+            return undefined;
 
 
             function dblClickHandler(event) {
@@ -34,20 +29,20 @@
                 var entity = getEntity(event.target);
                 if (entity) {
                     callback(scope, entity, event);
-                }                
+                }
             }
 
             function getCallback() {
-                var callback;
+                var callback2;
                 var parentScope = scope;
                 var attrName = attr.nbGridRowDblClick;
 
-                while (!callback && parentScope) {
-                    callback = parentScope[attrName];
+                while (!callback2 && parentScope) {
+                    callback2 = parentScope[attrName];
                     parentScope = parentScope.$parent;
                 }
 
-                return callback;
+                return callback2;
             }
 
             function getEntity(eventTarget) {

@@ -1,4 +1,4 @@
-angular.module('nb.common').directive('nbFilterBar', function () {
+angular.module('nb.common').directive('nbFilterBar', function() {
     return {
         restrict: 'E',
         transclude: true,
@@ -8,36 +8,35 @@ angular.module('nb.common').directive('nbFilterBar', function () {
         require: ['ngModel'],
         templateUrl: 'controls/nb-filter-bar/nb-filter-bar.tpl.html',
         replace: true,
-        link: function (scope, element, attrs, ctrls) {
+        link: function(scope, element, attrs, ctrls) {
             scope.ngModel = ctrls[0];
 
             scope.inputValue = scope.ngModel.$modelValue;
 
             scope.$watch(
-                function () {
+                function() {
                     return scope.ngModel.$modelValue;
                 },
-                function () {
+                function() {
                     scope.inputValue = scope.ngModel.$modelValue;
                 }
             );
 
             scope.$watch(
-                function () {
+                function() {
                     return scope.inputValue;
                 },
-                function () {
+                function() {
                     scope.ngModel.$setViewValue(scope.inputValue);
                 }
             );
 
-            scope.clear = function () {
+            scope.clear = function() {
                 scope.inputValue = '';
             };
         },
-        controller: function ($scope, $element) {
+        controller: function() { // $scope, $element
 
         }
     };
-})
-;
+});

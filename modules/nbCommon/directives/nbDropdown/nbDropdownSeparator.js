@@ -1,10 +1,10 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbDropdownSeparator', [
         function() {
             return {
-                require: ['^nbDropdown' , 'ngChange'],
+                require: ['^nbDropdown', 'ngChange'],
                 restrict: 'E',
                 transclude: true,
                 replace: true,
@@ -13,5 +13,4 @@
             };
         }
     ]);
-
 })(NetBrain);

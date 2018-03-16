@@ -1,0 +1,218 @@
+﻿.resource-io {
+}
+
+.resource-io-import {
+    .modal-content {
+        overflow: visible;
+    }
+
+    .modal-body {
+        width: 791px;
+        height: 325px;
+    }
+
+    .resource-io-import-inner {
+        font-weight: 400 !important;
+
+        a {
+            cursor: pointer;
+        }
+
+        .rii-top {
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+            margin-top: -6px;
+            margin-bottom: 6px;
+
+            .rii-select {
+                float: left;
+                height: 24px;
+                line-height: 24px;
+            }
+
+            .rii-import-to {
+                max-width: ~"calc(100% - 250px)";
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                float: right;
+                height: 24px;
+                line-height: 24px;
+            }
+        }
+
+        .rii-grid {
+            width: 100%;
+            height: ~"calc(100% - 24px)";
+            padding-right: 0;
+            position: relative;
+
+            > div {
+                height: 100%;
+            }
+
+            .ui-grid-cell-contents-ck {
+                padding: 0;
+
+                .rii-item {
+                    width: 100%;
+                    height: 29px;
+                    line-height: 29px;
+                    text-align: center;
+
+                    .rii-item-ck {
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin: 0;
+                    }
+                }
+            }
+
+            .ui-grid-header-cell {
+                font-weight: 600;
+                border-right: 0;
+                border-bottom: 1px solid #d4d4d4;
+            }
+
+            .ui-grid-cell {
+                border-right: 0;
+                border-bottom: 1px solid #d4d4d4;
+            }
+
+            .ui-grid-row {
+                .rii-item-op {
+                    display: none;
+                    vertical-align: middle;
+                    margin: 0;
+                    cursor: pointer;
+                }
+            }
+
+            .ui-grid-row:hover {
+                .rii-item-op {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+.resource-io-import-related {
+    .modal-content {
+        overflow: visible;
+    }
+
+    .modal-body {
+        width: 791px;
+        height: 325px;
+    }
+
+    .resource-io-import-related-inner {
+        font-weight: 400 !important;
+
+        a {
+            cursor: pointer;
+        }
+
+        .rii-filename {
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+            margin-top: -6px;
+            margin-bottom: 0;
+        }
+
+        .rii-filelist {
+            //width: 100%;
+            height: ~"calc(100% - 24px)";
+            overflow-y: auto;
+            margin-left: 0;
+            margin-right: -20px;
+            padding-right: 20px;
+        }
+
+        .rii-grid-outer {
+            width: 100%;
+
+            .rii-tbl-header {
+                width: 100%;
+                height: 24px;
+                line-height: 24px;
+                margin-top: 12px;
+                margin-bottom: 6px;
+
+                em {
+                    cursor: pointer;
+                    margin-right: 3px;
+                }
+
+                > span {
+                    cursor: pointer;
+                }
+            }
+
+            .rii-grid {
+                width: 100%;
+                height: 60px;
+                padding-right: 0;
+                position: relative;
+
+                .rii-all-ck {
+                    position: absolute;
+                    left: 10px;
+                    top: 6px;
+                }
+
+                > div {
+                    height: 100%;
+                }
+
+                .ui-grid-cell-contents-ck {
+                    padding: 0;
+
+                    .rii-item {
+                        width: 100%;
+                        height: 29px;
+                        line-height: 29px;
+                        text-align: center;
+
+                        .rii-item-ck {
+                            display: inline-block;
+                            vertical-align: middle;
+                            margin: 0;
+                        }
+                    }
+                }
+
+                .ui-grid-header-cell {
+                    font-weight: 600;
+                    border-right: 0;
+                }
+
+                .ui-grid-header-cell-wrapper {
+                    border-bottom: 1px solid #d4d4d4;
+                }
+
+                .ui-grid-cell {
+                    border-right: 0;
+                    background-color: unset;
+                }
+
+                .ui-grid-row {
+                    border-right: 0;
+                    border-bottom: 1px solid #d4d4d4;
+                }
+
+                .ui-grid-row:last-child {
+                    border-right: 0;
+                    border-bottom: 0;
+                }
+
+                .ui-grid-row:hover {
+                    background-color: #ddedf8;
+                }
+            }
+        }
+    }
+}

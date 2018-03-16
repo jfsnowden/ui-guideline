@@ -1,4 +1,4 @@
-angular.module('nb.common').directive('nbSearchBar', function () {
+angular.module('nb.common').directive('nbSearchBar', function() {
     return {
         restrict: 'E',
         transclude: true,
@@ -10,31 +10,29 @@ angular.module('nb.common').directive('nbSearchBar', function () {
         require: ['ngModel'],
         templateUrl: 'controls/nb-search-bar/nb-search-bar.tpl.html',
         replace: true,
-        link: function (scope, element, attrs, ctrls) {
+        link: function(scope, element, attrs, ctrls) {
             scope.ngModel = ctrls[0];
 
             scope.inputValue = scope.ngModel.$modelValue;
 
             scope.$watch(
-                function () {
+                function() {
                     return scope.ngModel.$modelValue;
                 },
-                function () {
+                function() {
                     scope.inputValue = scope.ngModel.$modelValue;
                 }
             );
 
             scope.$watch(
-                function () {
+                function() {
                     return scope.inputValue;
                 },
-                function () {
+                function() {
                     scope.ngModel.$setViewValue(scope.inputValue);
                 }
             );
         },
-        controller: function ($scope, $element) {
-        }
+        controller: function() {} // $scope, $element
     };
-})
-;
+});

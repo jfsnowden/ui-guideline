@@ -1,8 +1,9 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbTreeWithMenuDirective', [
-        '$compile', function($compile) {
+        '$compile',
+        function($compile) {
             var parentScope = null;
             return {
                 restrict: 'EA',
@@ -21,22 +22,21 @@
                     treeNodeSelect: '&',
                     treeActionMenu: '=',
                     nbMenuPositionDirective: '@',
-                    treeNodeDrag: "&",
-                    treeNodeDrop: "&"
+                    treeNodeDrag: '&',
+                    treeNodeDrop: '&'
                 },
 
-                link: function(scope, element, attrs) {
+                link: function(scope, element) { // , attrs
                     if (scope.fieldlabel) {
                         parentScope = scope.$parent;
                     }
 
-                    scope.dragStart = function(myscope, myevent) {
-                        scope.val.rootScope.treeNodeDrag({ 'node': scope.val.ID });
-
-                    }
-                    scope.dropItem = function(myscope, myevent) {
-                        scope.val.rootScope.treeNodeDrop({ 'node': scope.val.ID });
-                    }
+                    scope.dragStart = function() { // myscope, myevent
+                        scope.val.rootScope.treeNodeDrag({ node: scope.val.ID });
+                    };
+                    scope.dropItem = function() { // myscope, myevent
+                        scope.val.rootScope.treeNodeDrop({ node: scope.val.ID });
+                    };
 
                     scope.expand = function(val) {
                         val.show = !val.show;
@@ -54,7 +54,7 @@
                                     fetchedItem = _fetchedItem[0];
                                     isFolder = _fetchedItem[1];
 
-                                    index = fetchedItem.lastIndexOf("/") > -1 ? fetchedItem.lastIndexOf("/") : fetchedItem.lastIndexOf("\\");
+                                    index = fetchedItem.lastIndexOf('/') > -1 ? fetchedItem.lastIndexOf('/') : fetchedItem.lastIndexOf('\\');
                                     label = fetchedItem.substr(index + 1);
                                     items.push(createTreeData(fetchedItem, label, null, val.rootScope, isFolder, false, false));
                                 });
@@ -70,12 +70,13 @@
                         if (parentScope.nodeSelected) {
                             parentScope.nodeSelected.selected = false;
                         }
-                        if (parentScope.nodeSelected && parentScope.nodeSelected.editMode && (node.getId() !== parentScope.nodeSelected.getId())) { //user clicked on a different node, reset the edit mode if it's in edit mode
+                        if (parentScope.nodeSelected && parentScope.nodeSelected.editMode && (node.getId() !== parentScope.nodeSelected.getId())) {
+                            // user clicked on a different node, reset the edit mode if it's in edit mode
                             parentScope.nodeSelected.editMode = false;
                         }
                         node.selected = true;
                         parentScope.nodeSelected = node;
-                        scope.val.rootScope.treeNodeSelect({ 'node': node });
+                        scope.val.rootScope.treeNodeSelect({ node: node });
                     };
 
                     function _subDivideChildren(val, items) {
@@ -84,22 +85,20 @@
                             var result = [];
                             var label = '';
 
-                            angular.forEach(groups, function(items, group) {
-                                if (items.length === 1) {
-                                    result.push(items[0]);
+                            angular.forEach(groups, function(items2, group) {
+                                if (items2.length === 1) {
+                                    result.push(items2[0]);
                                 } else {
-                                    label = group + '... [' + items.length + ' items]';
-                                    result.push(createTreeData(val.id + '.' + group, label, items, val.rootScope, true, false, true));
+                                    label = group + '... [' + items2.length + ' items]';
+                                    result.push(createTreeData(val.id + '.' + group, label, items2, val.rootScope, true, false, true));
                                 }
                             });
 
                             return result.sort(function(a, b) {
                                 return _getLabel(a) - _getLabel(b);
                             });
-
-                        } else {
-                            return items;
                         }
+                        return items;
                     }
 
                     function _subDivideChildrenIntoGroups(rootScope, items, numberChars) {
@@ -112,15 +111,15 @@
                                 groups[prefix] = [];
                             }
 
-                            groups[prefix].push(item)
+                            groups[prefix].push(item);
                         });
 
-                        angular.forEach(groups, function(items, group) {
-                            if (items.length > rootScope.maxnumberchildren && numberChars < 10) {
+                        angular.forEach(groups, function(items3, group) {
+                            if (items3.length > rootScope.maxnumberchildren && numberChars < 10) {
                                 delete groups[group];
-                                var newGroups = _subDivideChildrenIntoGroups(rootScope, items, numberChars + 1);
-                                angular.forEach(newGroups, function(items, group) {
-                                    groups[group] = items;
+                                var newGroups = _subDivideChildrenIntoGroups(rootScope, items3, numberChars + 1);
+                                angular.forEach(newGroups, function(items4, group3) {
+                                    groups[group3] = items4;
                                 });
                             }
                         });
@@ -128,7 +127,7 @@
                         return groups;
                     }
 
-                    scope.$watch('root', function(root, oldRoot) {
+                    scope.$watch('root', function(root) { // , oldRoot
                         if (root) {
                             initialiseRootScope(scope);
                             scope.val = createTreeData(root, root, null, scope, true, true, false);
@@ -169,7 +168,7 @@
                         } else {
                             filteredItems = treeData._children;
                         }
-                        treeData.children = treeData.rootScope.maxnumberchildren > 0 ? _subDivideChildren(treeData, filteredItems) : filteredItems
+                        treeData.children = treeData.rootScope.maxnumberchildren > 0 ? _subDivideChildren(treeData, filteredItems) : filteredItems;
                     }
 
                     function _getLabel(treeData) {
@@ -178,13 +177,13 @@
 
                     function _setChildren(treeData, children) {
                         treeData._children = children;
-                        _refresh(treeData)
+                        _refresh(treeData);
                     }
 
-                    function initialiseStaticTree(val, scope) {
+                    function initialiseStaticTree(val, scope2) {
                         if (!angular.isDefined(val.rootScope)) {
-                            initialiseRootScope(scope);
-                            val.rootScope = scope;
+                            initialiseRootScope(scope2);
+                            val.rootScope = scope2;
 
                             var _recurse = function(node, rootScope) {
                                 if (!angular.isDefined(node.show)) {
@@ -194,7 +193,7 @@
                                     parentScope.nodeSelected = node;
                                 }
 
-                                node.isFolder = (node.nodeType === undefined || node.nodeType === 0) ? true : false;
+                                node.isFolder = (node.nodeType === undefined || node.nodeType === 0);
 
                                 node.rootScope = rootScope;
 
@@ -210,7 +209,9 @@
                                 if (angular.isDefined(items)) {
                                     _setChildren(node, items);
                                     for (var i in items) {
-                                        _recurse(items[i], rootScope);
+                                        if ({}.hasOwnProperty.call(items, i)) {
+                                            _recurse(items[i], rootScope);
+                                        }
                                     }
                                 }
                             };
@@ -223,15 +224,13 @@
                         rootScope.fieldid = angular.isDefined(rootScope.fieldid) ? rootScope.fieldid : 'id';
                         rootScope.fieldlabel = angular.isDefined(rootScope.fieldlabel) ? rootScope.fieldlabel : 'label';
                         rootScope.fieldchildren = angular.isDefined(rootScope.fieldchildren) ? rootScope.fieldchildren : 'items';
-                        rootScope.multi = angular.isDefined(rootScope.multi) ? (rootScope.multi === "true" || rootScope.multi === true ? true : false) : false;
+                        rootScope.multi = angular.isDefined(rootScope.multi) ? (rootScope.multi === 'true' || rootScope.multi === true) : false;
                     }
 
-                    scope.selectMenu = function(viewId) {
+                    scope.selectMenu = function() { // viewId
                         scope.showMenuSelect = scope.showMenuSelect;
                         scope.menuSelected = !scope.menuSelected;
-
-
-                    }
+                    };
 
                     scope.selectAction = function(folderId, action) {
                         scope.showMenuSelect = false;
@@ -246,7 +245,7 @@
                         } else {
                             parentScope.$eval(callbackFun)(folderId);
                         }
-                    }
+                    };
 
                     scope.updateFolderName = function(selectFolder) {
                         if (scope.callbackFunName) {
@@ -258,16 +257,15 @@
                         if (parentScope.nodeSelected) {
                             parentScope.nodeSelected.editMode = false;
                         }
+                    };
 
-                    }
-
-                    scope.$watch('val.filterText', function(val, old) {
+                    scope.$watch('val.filterText', function(val) { // , old
                         if (val != null) {
                             _refresh(scope.val);
                         }
                     });
 
-                    scope.$watch('val', function(val, oldVal) {
+                    scope.$watch('val', function(val) { // , oldVal
                         var template;
                         var newElement;
                         if (val && angular.isDefined(val)) {
@@ -306,7 +304,6 @@
                             $compile(newElement)(scope);
                             element.replaceWith(newElement);
                             element = newElement;
-
                         } else {
                             template = '';
                             template += '<span style="padding-left:4px;"> No Data Views found. </span>';
@@ -320,6 +317,4 @@
             };
         }
     ]);
-
 })(NetBrain);
-

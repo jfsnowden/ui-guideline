@@ -1,8 +1,6 @@
-;
-(function(NetBrain) {
-
+(function() {
     angular.module('nb.common')
-        .directive('nbTimepicker', ['nbTimepickerPaddingFilter', function(paddingFilter) {
+        .directive('nbTimepicker', [function() { // 'nbTimepickerPaddingFilter',
             return {
                 restrict: 'E',
                 require: 'ngModel',
@@ -15,24 +13,32 @@
                 },
                 templateUrl: 'modules/nbCommon/views/nbTimepickerDirective.html',
                 controller: ['$scope', function($scope) {
-
                     $scope.AM = 'AM';
                     $scope.PM = 'PM';
                     $scope.meridian = $scope.AM;
 
-                    if ($scope.showMeridian == undefined) {
+                    $scope.$on('CLOSE-TIMEPICKER-MENU-ON-SCROLL', function() {
+                        $scope.$apply(function() {
+                            $scope.openHour = false;
+                            $scope.openMinute = false;
+                            $scope.openSecond = false;
+                            $scope.openMeridian = false;
+                        });
+                    });
+
+                    if ($scope.showMeridian === undefined) {
                         $scope.showMeridian = true;
                     }
-                    if ($scope.showSecond == undefined) {
+                    if ($scope.showSecond === undefined) {
                         $scope.showSecond = false;
                     }
-                    if ($scope.hourStep == undefined) {
+                    if ($scope.hourStep === undefined) {
                         $scope.hourStep = 1;
                     }
-                    if ($scope.minuteStep == undefined) {
+                    if ($scope.minuteStep === undefined) {
                         $scope.minuteStep = 1;
                     }
-                    if ($scope.secondStep == undefined) {
+                    if ($scope.secondStep === undefined) {
                         $scope.secondStep = 1;
                     }
 
@@ -48,27 +54,24 @@
                     $scope.setHour = function(h) {
                         $scope.hour = parseInt(h);
                         $scope.changeHour = true;
-                    }
+                    };
                     $scope.setMinute = function(m) {
                         $scope.minute = parseInt(m);
                         $scope.changeMinute = true;
-                    }
+                    };
                     $scope.setSecond = function(s) {
                         $scope.second = parseInt(s);
                         $scope.changeSecond = true;
-                    }
+                    };
                     $scope.setMeridian = function(item) {
                         $scope.meridian = item;
                         $scope.changeMeridian = true;
-                    }
+                    };
                 }],
                 link: function(scope, element, attrs, ngModelCtrl) {
-
                     ngModelCtrl.$formatters.push(function(modelValue) {
-
                         var time = { hour: 0, minute: 0 };
                         if (modelValue) {
-
                             time.hour = modelValue.getHours();
                             time.minute = modelValue.getMinutes();
                         }
@@ -81,7 +84,6 @@
                     });
 
                     ngModelCtrl.$render = function() {
-
                         scope.hour = ngModelCtrl.$viewValue.hour;
                         if (scope.showMeridian) {
                             switch (scope.hour) {
@@ -115,10 +117,9 @@
 
                     ngModelCtrl.$parsers.push(function(viewValue) {
                         var h = viewValue.hour;
-                        if (scope.showMeridian)
-                        {
+                        if (scope.showMeridian) {
                             h %= 12;
-                            h += (viewValue.meridian == scope.PM) ? 12 : 0;
+                            h += (viewValue.meridian === scope.PM) ? 12 : 0;
                         }
                         var time = new Date();
                         time.setHours(h);
@@ -131,7 +132,7 @@
                         return time;
                     });
                 }
-            }
+            };
 
             function getList(begin, end, step) {
                 var list = [];
@@ -141,7 +142,6 @@
                 }
                 return list;
             }
-
         }])
         .filter('nbTimepickerPadding', function() {
             return function(input) {
@@ -150,7 +150,6 @@
                     item = '0' + item;
                 }
                 return item;
-            }
+            };
         });
-
 })(NetBrain);

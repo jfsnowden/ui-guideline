@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+    <div class="icon-container" ng-click="onCancel()" ng-if="beforeUploading()">
+        <span class="icon close"></span>
+    </div>
+    <div class="icon-container" ng-click="onClose()" ng-if="isComplete()">
+        <span class="icon close"></span>
+    </div>
+    <h3 class="modal-title"><span>Import </span><span>{{dataModel.typeModel.displayName}}</span></h3>
+</div>
+
+<div class="modal-body resource-io-import-inner" ng-style="{width: dataModel.options.mainDialogSize.width+'px', height: dataModel.options.mainDialogSize.height+'px'}">
+    <div class="rii-top">
+        <div class="rii-select" ng-if="!isAfterUploading()">
+            <a ng-click="onSelectFile()">
+                <span>Add</span>
+                <span>{{dataModel.typeModel.displayName}}</span>
+                <span>...</span>
+            </a>
+            <input id="{{dataModel.fileSelect.gidSelect}}" type="file" ng-file-select="onFileSelect($files, $event)" style="display: none;" multiple accept="{{dataModel.fileSelect.opts.accept}}">
+        </div>
+        <div class="rii-import-to">
+            <span>Import Resources to:</span>
+            <span title="{{dataModel.importTo}}">{{dataModel.importTo}}</span>
+        </div>
+    </div>
+    <div class="rii-grid">
+        <div id="{{dataModel.tblDef.gid}}" ng-cloak ui-grid="dataModel.tblDef" ui-grid-selection ui-grid-resize-columns style="text-align: left;" ui-grid-auto-resize>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="onCancel()" ng-if="beforeUploading()">Cancel</button>
+    <button class="btn btn-primary" ng-click="onUpload()" ng-if="isReady()">Upload</button>
+    <button class="btn btn-primary" ng-click="onClose()" ng-if="isComplete()">Close</button>
+</div>

@@ -1,8 +1,5 @@
-;
-(function (netBrain) {
-
-    netBrain.nbCommon
-        .directive('nbGridEmptyContextMenu', NbGridEmptyContextMenu);
+(function(netBrain) {
+    netBrain.nbCommon.directive('nbGridEmptyContextMenu', NbGridEmptyContextMenu);
 
     NbGridEmptyContextMenu.$inject = [
         '$rootScope', '$compile', '$sce', '$document', '$timeout',
@@ -20,14 +17,12 @@
             link: postHandler
         };
 
-
-
         function postHandler(scope, ele, attr, uiGridCtrl) {
             var grid = uiGridCtrl.grid;
             var atag = attr.atag;
 
             if (!grid.options.enableEmptyContextMenu) {
-                return;
+                return undefined;
             }
 
             var localScope =
@@ -43,10 +38,10 @@
             appendEmptyElement();
             bindCloseChecker();
 
-            return void(0);
+            return undefined;
 
             function appendEmptyElement() {
-                $timeout(function () {
+                $timeout(function() {
                     var gridCanvas = $(ele).find('.ui-grid-canvas');
 
                     var parent = gridCanvas.parent()
@@ -59,7 +54,7 @@
 
             function openEmptyContextMenus(event) {
                 var nodeClassList = event.target.classList;
-                if(_.contains(nodeClassList,'ui-grid-viewport')) {
+                if (_.contains(nodeClassList, 'ui-grid-viewport')) {
                     event.preventDefault();
                     event.stopPropagation();
                     open(event);
@@ -72,7 +67,7 @@
 
             function doActionHandler(item, event) {
                 if (angular.isFunction(item.action)) {
-                    item.action(grid, event)
+                    item.action(grid, event);
                 }
             }
 
@@ -92,15 +87,15 @@
                     menuId: menuId
                 });
 
-                $timeout(function () {
+                $timeout(function() {
                     menu.show();
                     grid.api.selection.clearSelectedRows();
                 });
-                $timeout(function () {
+                $timeout(function() {
                     utilitySrvc.setMenuPosition(menu, defaultPosition);
                 });
 
-                $("#row-context-menu-dropdown-" + grid.id).hide();
+                $('#row-context-menu-dropdown-' + grid.id).hide();
             }
 
             function close() {
@@ -113,14 +108,14 @@
 
                 var cancelOtherMenuShowWatcher = $rootScope.$on(
                     'system::menushow',
-                    function (event, data) {
+                    function(event, data) {
                         if (data.menuId !== menu.id) {
                             close();
                         }
                     }
                 );
 
-                scope.$on('$destroy', function () {
+                scope.$on('$destroy', function() {
                     $document.unbind('click', menuCloseChecker);
                     $document.unbind('contextmenu', menuCloseChecker);
 
@@ -130,24 +125,23 @@
                 });
             }
 
-            function menuCloseChecker(event) {
+            function menuCloseChecker() {
                 close();
             }
 
             function appendContextMenuDropdown() {
-                var atagString = atag ? 'atag = "' + atag + ':emptyContextMenu"' : "";
-                var template = '<ul ' + atagString + ' id="' + menuId + '" \
-									class="dropdown-menu nb-grid-empty-context-menu-dropdown" uib-dropdown-menu\
-                                    ng-show="localScope.emptyContextMenuItems.length>1">\
-									<li ng-click="localScope.doAction(item, $event)" ng-class="item.class" ng-repeat="item in localScope.emptyContextMenuItems">\
-										<a ng-bind-html="localScope.renderTemplate(item.template)"></a>\
-									</li>\
-								</ul>';
+                var atagString = atag ? 'atag = "' + atag + ':emptyContextMenu"' : '';
+                var template = '<ul ' + atagString + ' id="' + menuId + '"' +
+                    'class="dropdown-menu nb-grid-empty-context-menu-dropdown" uib-dropdown-menu' +
+                    'ng-show="localScope.emptyContextMenuItems.length>1">' +
+                    '<li ng-click="localScope.doAction(item, $event)" ng-class="item.class" ng-repeat="item in localScope.emptyContextMenuItems">' +
+                    '<a ng-bind-html="localScope.renderTemplate(item.template)"></a>' +
+                    '</li>' +
+                    '</ul>';
                 menu = $compile(template)(scope);
                 menu.id = menuId;
                 angular.element(document.body).append(menu);
             }
-
         }
     }
 })(NetBrain);

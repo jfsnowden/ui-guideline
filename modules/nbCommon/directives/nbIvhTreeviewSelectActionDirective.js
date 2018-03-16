@@ -1,16 +1,17 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbIvhTreeviewSelectActionDirective', [
         function() {
             'use strict';
+
             return {
                 restrict: 'A',
                 require: '^ivhTreeview',
                 scope: {
-                    actionIndex: "="
+                    actionIndex: '='
                 },
-                link: function(scope, element, attrs, trvw) {
+                link: function(scope, element) { // , attrs, trvw
                     var node = scope.$parent.node;
 
                     element.bind('click', function() {
@@ -23,6 +24,4 @@
             };
         }
     ]);
-
 })(NetBrain);
-

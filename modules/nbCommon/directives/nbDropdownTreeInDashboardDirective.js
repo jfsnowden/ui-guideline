@@ -1,12 +1,11 @@
 /**
  * Created by Marko Cen on 12/24/2015.
  */
-
-; (function (NetBrain) {
-    angular.module('nb.common')
-        .directive('nbDropdownTreeInDashboardDirective', DropdownTree);
+(function() {
+    angular.module('nb.common').directive('nbDropdownTreeInDashboardDirective', DropdownTree);
 
     DropdownTree.$inject = ['$compile'];
+
     function DropdownTree($compile) {
         var directive = {
             scope: {
@@ -27,7 +26,7 @@
 
         function Compile() {
             return {
-                pre: function (scope, ele, attr) {
+                pre: function(scope, ele, attr) {
                     ele.attr('id', 'dropdown-treeview-' + scope.$id);
                     var dropdownTemp = $('<div ' +
                         'class="dropdown-menu dropdown-menu-custom nb-dropdown-tree-directive treeview-container">' +
@@ -41,7 +40,7 @@
                     $(document).on('click', docClickHandler.bind(null, dropdownEle, ele));
                     $(ele).append(dropdownEle);
 
-                    scope.$on('$destroy', function () {
+                    scope.$on('$destroy', function() {
                         $(document).off('click', docClickHandler);
                         $(ele).off('click', btnClickHandler);
                         $(dropdownEle).off('click', dropdownClickHandler);
@@ -50,20 +49,20 @@
 
                     if (scope.treeOptions.nodeClickCallback !== undefined) {
                         var userCallback = scope.treeOptions.nodeClickCallback;
-                        scope.treeOptions.nodeClickCallback = function (node, trvw) {
-                            if ((!node[scope.treeOptions.childrenAttribute]
-                                || node[scope.treeOptions.childrenAttribute].length <= 0)
-                                || !scope.treeOptions.enableLabelExpand) {
+                        scope.treeOptions.nodeClickCallback = function(node, trvw) {
+                            if ((!node[scope.treeOptions.childrenAttribute] ||
+                                    node[scope.treeOptions.childrenAttribute].length <= 0) ||
+                                !scope.treeOptions.enableLabelExpand) {
                                 setDropdownTitle(
                                     node[scope.treeOptions.labelAttribute],
                                     node[scope.treeOptions.selectedAttribute],
                                     scope.treeOptions.enableMultipleSelect
                                 );
                             }
-                            userCallback(node, trvw)
-                        }
+                            userCallback(node, trvw);
+                        };
                     } else {
-                        scope.treeOptions.nodeClickCallback = function (node, trvw) {
+                        scope.treeOptions.nodeClickCallback = function(node, trvw) {
                             if (trvw.isLeaf(node) || !scope.treeOptions.enableLabelExpand) {
                                 setDropdownTitle(
                                     node[scope.treeOptions.labelAttribute],
@@ -71,45 +70,41 @@
                                     scope.treeOptions.enableMultipleSelect
                                 );
                             }
-                        }
+                        };
                     }
 
-                    var watchTreeData = scope.$watch('treeData', function (newVal, oldVal, scope) {
+                    var watchTreeData = scope.$watch('treeData', function(newVal, oldVal, scope2) {
                         if (newVal === oldVal) {
-                            return;
-                        } else {
-                            if (scope.titles) {
-                                scope.titles = [];
-                                scope.setInitTitle(scope.treeData, scope.treeOptions, ele);
-                            }
+                            // return;
+                        } else if (scope2.titles) {
+                            scope2.titles = [];
+                            scope2.setInitTitle(scope2.treeData, scope2.treeOptions, ele);
                         }
                     });
 
-                    scope.setInitTitle = function (data, options, ele) {
+                    scope.setInitTitle = function(data, options, ele2) {
                         var childAttr = options.childrenAttribute || 'children';
                         var selAttr = options.selectedAttribute || 'selected';
                         var labelAttr = options.labelAttribute || 'label';
-                        var titleEle = $(ele).find('.tree-select-title');
+                        var titleEle = $(ele2).find('.tree-select-title');
                         scope.defaultTitle = angular.isDefined(attr.placeholder) ? attr.placeholder : 'Select';
                         scope.titles = [];
 
                         function getTitles(root) {
                             if (_.isArray(root[childAttr]) && !root[selAttr]) {
-                                _.forEach(root[childAttr], function (subRoot) {
+                                _.forEach(root[childAttr], function(subRoot) {
                                     getTitles(subRoot);
                                 });
-                            } else {
-                                if (root[selAttr]) {
-                                    var index = scope.titles.indexOf(root[labelAttr]);
-                                    if (index < 0 && !root.avoidDropdownToggle) {
-                                        scope.titles.push(root[labelAttr]);
-                                    }
+                            } else if (root[selAttr]) {
+                                var index = scope.titles.indexOf(root[labelAttr]);
+                                if (index < 0 && !root.avoidDropdownToggle) {
+                                    scope.titles.push(root[labelAttr]);
                                 }
                             }
                         }
 
                         if (_.isArray(data)) {
-                            _.forEach(data, function (d) {
+                            _.forEach(data, function(d) {
                                 getTitles(d);
                             });
                         } else {
@@ -135,13 +130,14 @@
                         if (s && s.node) {
                             if (s.node.avoidDropdownToggle) return;
                             var children = s.node[scope.treeOptions.childrenAttribute || 'children'];
-                            if (((!children || children.length <= 0) && !scope.treeOptions.enableMultipleSelect) || !scope.treeOptions.enableLabelExpand) {
-                                treeEl.css({ display: 'none' })
+                            if (((!children || children.length <= 0) &&
+                                    !scope.treeOptions.enableMultipleSelect) || !scope.treeOptions.enableLabelExpand) {
+                                treeEl.css({ display: 'none' });
                             }
                         }
                     }
 
-                    function btnClickHandler(treeEl, event) {
+                    function btnClickHandler(treeEl) { // , event
                         var hasData = Array.isArray(scope.treeData) ? scope.treeData.length > 0 : scope.treeData[scope.treeOptions.childrenAttribute || 'children'].length > 0;
                         if (scope.treeData && hasData) {
                             treeEl.toggle();
@@ -150,12 +146,11 @@
 
                     function docClickHandler(treeEl, el, event) {
                         var targetTree = $(event.target).closest('.nb-dropdown-tree-directive');
-                        if (targetTree.length && targetTree[0]['id'] == el[0]['id']) {
-
+                        if (targetTree.length && targetTree[0].id === el[0].id) {
+                            //
                         } else {
                             treeEl.hide();
                         }
-
                     }
 
                     function setDropdownTitle(label, isSelect, isMultiple) {
@@ -174,47 +169,44 @@
                         );
                     }
 
-                    scope.$on('$destroy', function () {
+                    scope.$on('$destroy', function() {
                         watchTreeData();
                     });
                 },
-                post: function (scope, ele, attr) {
-
-
+                post: function(scope, ele) { // , attr
                     $(ele).on('click', clickHandler);
                     $('#dropdown-treeview-' + scope.$id).css({ width: $(ele).width() > 250 ? $(ele).width() : 250 });
                     if (scope.treeData != null) {
-                        scope.$on('nbTreeview.nodeSelected', function (event) {
+                        scope.$on('nbTreeview.nodeSelected', function(event) {
                             event.stopPropagation();
                             scope.setInitTitle(scope.treeData, scope.treeOptions, ele);
-                        })
+                        });
                     }
-
-
 
                     function clickHandler(e) {
                         var element;
                         for (element = e.target; element; element = element.parentNode) {
                             var classNames = element.className;
-                            if (typeof classNames !== "string") {
+                            if (typeof classNames !== 'string') {
                                 continue;
                             }
-                            if (classNames.indexOf('treeview-container') > -1
-                                && scope.treeOptions.enableMultipleSelect) {
+                            if (classNames.indexOf('treeview-container') > -1 &&
+                                scope.treeOptions.enableMultipleSelect) {
                                 e.stopPropagation();
                                 return;
                             }
                         }
                     }
 
-                    scope.$on('$destroy', function () {
-                        $(ele).off('click', clickHandler)
-                    })
+                    scope.$on('$destroy', function() {
+                        $(ele).off('click', clickHandler);
+                    });
                 }
-            }
+            };
         }
 
         Controller.$inject = [];
+
         function Controller() {
 
         }

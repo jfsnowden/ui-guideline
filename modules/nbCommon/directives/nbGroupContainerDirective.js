@@ -1,15 +1,14 @@
 /**
  * Created by Marko Cen on 9/23/2015.
  */
-; (function (netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbGroupContainerDirective', GroupContainerDirective);
 
-    GroupContainerDirective.$inject = ['$document'];
+    GroupContainerDirective.$inject = [];
 
-    function GroupContainerDirective($document) {
-
+    function GroupContainerDirective() { // $document
         var directive = {
             restrict: 'A',
             scope: false,
@@ -17,12 +16,12 @@
             compile: compile
         };
 
-        function compile(){
+        function compile() {
             return {
-                pre: function(scope, ele, attr){
+                pre: function() { // scope, ele, attr
 
                 },
-                post: function(scope, ele, attr){
+                post: function(scope, ele, attr) {
                     ele[0].style.position = 'relative';
                     ele[0].style.padding = '15px';
                     ele[0].style.border = '1px solid lightgray';
@@ -38,11 +37,9 @@
 
                     ele.prepend(label);
                 }
-            }
+            };
         }
 
         return directive;
-
     }
-
 })(NetBrain);

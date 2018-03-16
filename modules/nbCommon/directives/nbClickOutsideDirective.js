@@ -1,42 +1,39 @@
-﻿;
-(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbClickOutsideDirective', [
-        '$document', '$rootScope', '$timeout', function($document, $rootScope, $timeout) {
+        '$document', '$rootScope', '$timeout',
+        function($document, $rootScope, $timeout) {
             return {
                 restrict: 'A',
                 scope: false,
                 link: function($scope, elem, attr) {
-
                     var classList = (attr.outsideIfNot !== undefined) ? attr.outsideIfNot.replace(', ', ',').split(',') : [];
                     var timer = null;
 
-                    classList.forEach(function (elem) {
-                        elem = elem.trim();
+                    classList.forEach(function(elem2, index) {
+                        classList[index] = elem2.trim();
                     });
 
                     if (attr.id !== undefined) classList.push(attr.id);
 
                     var $body = $('body');
 
-                    $scope.$on('$destroy', function(){
-                        if(timer) $timeout.cancel(timer);
+                    $scope.$on('$destroy', function() {
+                        if (timer) $timeout.cancel(timer);
                         $body.off('click', docClickHander);
-                        if(attr.clickOutsideHide){
+                        if (attr.clickOutsideHide) {
                             $body.off('mousedown', mousedownHander);
                         }
                     });
 
                     $body.on('click', docClickHander);
-                    if(attr.clickOutsideHide){
+                    if (attr.clickOutsideHide) {
                         $body.on('mousedown', mousedownHander);
                     }
 
                     function docClickHander(e) {
-
                         function timerHandler() {
-
                             if (!e.target) return;
 
                             var i = 0,
@@ -45,7 +42,7 @@
                             for (element = e.target; element; element = element.parentNode) {
                                 var id = element.id;
                                 var classNames = element.className;
-                                if (typeof classNames !== "string") {
+                                if (typeof classNames !== 'string') {
                                     continue;
                                 }
                                 if (id !== undefined) {
@@ -59,32 +56,29 @@
 
                             if (attr.clickOutside) {
                                 if (
-                                    attr.notClickInSelf === 'true'
-                                    && elem.find(e.target).length > 0
+                                    attr.notClickInSelf === 'true' &&
+                                    elem.find(e.target).length > 0
                                 ) {
                                     return;
                                 }
                                 $scope.$eval(attr.clickOutside);
                             }
-                            if(attr.clickOutsideHide){
+                            if (attr.clickOutsideHide) {
                                 elem.hide();
                             }
                         }
 
-                        if(timer) $timeout.cancel(timer);
+                        if (timer) $timeout.cancel(timer);
                         timer = $timeout(timerHandler);
-
                     }
-                    function mousedownHander(e){
-                        if(elem.find(e.target).length === 0) {
+
+                    function mousedownHander(e) {
+                        if (elem.find(e.target).length === 0) {
                             elem.hide();
                         }
                     }
-
-
                 }
             };
         }
     ]);
-
 })(NetBrain);

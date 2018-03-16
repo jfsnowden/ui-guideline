@@ -1,9 +1,10 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
     angular.module('nb.common').directive('nbIvhTreeviewWithLeafDirective', [
         function() {
             'use strict';
+
             return {
                 restrict: 'A',
                 require: '^ivhTreeview',
@@ -39,7 +40,7 @@
                     '</li>' +
                     '</ul>' +
                     '</div>' +
-                '</div>' +
+                    '</div>' +
                     '</div>',
                 replace: true,
                 link: function(scope, elm, attrs, ivhTreeview) {
@@ -47,7 +48,7 @@
                         var ele = angular.element(event.target);
                         if (ele.hasClass('ivh-tree-node') || ele.hasClass('ivh-treeview-node-label')) {
                             ivhTreeview.onNodeClick(node);
-                        };
+                        }
                     };
                     scope.nbIvhRootNode = attrs.nbIvhTreeviewWithLeafDirective;
                     scope.disableDeleteBtn = attrs.disableDeleteBtn === 'true';
@@ -55,6 +56,4 @@
             };
         }
     ]);
-
 })(NetBrain);
-

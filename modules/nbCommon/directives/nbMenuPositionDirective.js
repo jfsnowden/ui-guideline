@@ -1,7 +1,7 @@
-﻿(function(netBrain) {
+﻿(function() {
     'use strict';
 
-    angular.module('nb.common').directive("nbMenuPositionDirective", function() {
+    angular.module('nb.common').directive('nbMenuPositionDirective', function() {
         return {
             restrict: 'A',
 
@@ -11,10 +11,9 @@
                 if (treeContent && treeContent.length) {
                     var treeTop = treeContent[0].scrollTop;
                     var offsetTop = element[0].offsetTop;
-                    element[0].style.top = offsetTop - treeTop + "px";
+                    element[0].style.top = offsetTop - treeTop + 'px';
                 }
             }
-        }
+        };
     });
-
 })(NetBrain);

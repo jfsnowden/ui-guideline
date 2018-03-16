@@ -1,0 +1,41 @@
+<div class="anchor-dropdown-container">
+    <div class="btn-group" uib-dropdown is-open="dropdownIsOpen" auto-close="outsideClick" style="width: 166px;">
+        <button id="dropdown-button" style="width: 100%;" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="sortedList.alphabet.length == 0">
+            <span class="button-text" ng-if="selectedItems.length <= 0">{{::filterTitle}}</span>
+            <span class="button-text" ng-if="selectedItems.length > 0" popover-enable="selectedItems.length > 0" uib-popover popover-trigger="'mouseenter'" popover-placement="right-top"
+                  popover-append-to-body="true" uib-popover-template="'selectedFilterItems.html'">Device Types ({{selectedItems.length}})</span>
+            <span class="icon_nb_arrow_down_black" style="float: right; margin-top: 2px;"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="dropdown-button">
+            <div class="filterIndex">
+                <span ng-repeat="(anchor,list) in sortedList">
+                    &nbsp;<a class="filter-index-alphabet" href="javascript:void(0)" ng-click="selectAnchor(anchor)">{{anchor}}</a>&nbsp;
+                </span>
+            </div>
+            <span class="scroll-content">
+                <span ng-repeat="(alp, vlist) in sortedList">
+                    <div class="scroll-content-alphabet" id="{{alp}}">{{alp}}</div>
+                    <hr >
+                    <li ng-repeat="item in vlist track by $index">
+                        <input ng-if="isMultiSelect" class="dropdown-index" id="{{item.typeName}}" type="checkbox" ng-click="clickCheckbox($event, item)">
+                        <div ng-attr-title="{{item[nameField]}}" ng-click="selectItem($event, item)">{{item[nameField]}}</div>
+                    </li>
+                </span>
+            </span>
+        </ul>
+    </div>
+</div>
+
+<script type="text/ng-template" id="selectedFilterItems.html">
+    <div class="vmDeviceTypePopover">
+        <div class="vmSelectedDeviceCount">{{selectedItems.length}} Device Types</div>
+        <!--<ul>-->
+            <!--<li ng-repeat="item in selectedItems" >-->
+                <!--<span style="color: #F9CC71"> &bull;</span> &nbsp;-->
+                <!--<span>{{item.typeName}}</span>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <div>{{selectedItemNames}}</div>
+    </div>
+
+</script>

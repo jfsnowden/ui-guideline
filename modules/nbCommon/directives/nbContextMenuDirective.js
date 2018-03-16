@@ -1,4 +1,4 @@
-(function(netBrain) {
+(function() {
     'use strict';
 
     angular.module('nb.common').factory('nb.common.ContextMenuService', function() {
@@ -14,9 +14,9 @@
             return {
                 restrict: 'A',
                 scope: {
-                    'callback': '&nbContextMenuDirective',
-                    'disabled': '&contextMenuDisabled',
-                    'closeCallback': '&contextMenuClose'
+                    callback: '&nbContextMenuDirective',
+                    disabled: '&contextMenuDisabled',
+                    closeCallback: '&contextMenuClose'
                 },
                 link: function($scope, $element, $attrs) {
                     var opened = false;
@@ -40,21 +40,21 @@
                             top = Math.max(event.pageY - docTop, 0);
 
                         if (totalWidth > docWidth) {
-                            left = left - (totalWidth - docWidth);
+                            left -= (totalWidth - docWidth);
                         }
 
                         if (totalHeight > docHeight) {
-                            top = top - (totalHeight - docHeight);
+                            top -= (totalHeight - docHeight);
                         }
 
                         menuElement.css('top', top + 'px');
                         menuElement.css('left', left + 'px');
-                        menuElement.css({ "display": "block" });
+                        menuElement.css({ display: 'block' });
                         opened = true;
                     }
 
                     function close(menuElement) {
-                        menuElement.css({ "display": "none" });
+                        menuElement.css({ display: 'none' });
                         if (opened) {
                             $scope.closeCallback(menuElement);
                         }
@@ -65,7 +65,7 @@
                     $element.bind('contextmenu', function(event) {
                         event.preventDefault();
                         if (!$scope.disabled()) {
-                            if (typeof ($scope.$parent.preventContext) === 'function'&&$scope.$parent.preventContext()) {
+                            if (typeof $scope.$parent.preventContext === 'function' && $scope.$parent.preventContext()) {
                                 return;
                             }
                             if (ContextMenuService.menuElement !== null) {
@@ -95,11 +95,10 @@
                     }
 
                     function handleClickEvent(event) {
-                        if ( /*!$scope.disabled() &&*/
-                            opened &&
-                            (event.button !== 2 ||
+                        if (opened &&
+                            (event.button !== 2 || /* !$scope.disabled() && */
                                 event.target !== ContextMenuService.element)) {
-                            if ($(event.target).next().children()[0]&&$($(event.target).next().children()[0]).hasClass('ng-scope')) {
+                            if ($(event.target).next().children()[0] && $($(event.target).next().children()[0]).hasClass('ng-scope')) {
                                 return;
                             }
                             $scope.$apply(function() {
@@ -123,5 +122,4 @@
             };
         }
     ]);
-
 })(NetBrain);
